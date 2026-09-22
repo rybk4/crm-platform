@@ -1,0 +1,362 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: crm-platform\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-22 11:43+0000\n"
+"Language: kk\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: accounts/authentication.py:18
+msgid "Используйте заголовок Authorization: Bearer <token>."
+msgstr "Authorization: Bearer <token> тақырыбын пайдаланыңыз."
+
+#: accounts/authentication.py:31 accounts/views.py:103
+msgid "Пользователь не найден или отключён."
+msgstr "Пайдаланушы табылмады немесе өшірілген."
+
+#: accounts/jwt.py:46
+msgid "Токен недействителен или истёк."
+msgstr "Токен жарамсыз немесе мерзімі өтіп кеткен."
+
+#: accounts/jwt.py:49
+msgid "Тип токена недействителен."
+msgstr "Токен түрі жарамсыз."
+
+#: accounts/models.py:11 accounts/serializers.py:11 specialists/models.py:11
+msgid "Введите номер в международном формате, например +77001234567."
+msgstr "Телефон нөмірін халықаралық форматта енгізіңіз, мысалы +77001234567."
+
+#: accounts/models.py:18
+msgid "Логин обязателен."
+msgstr "Логин міндетті."
+
+#: accounts/models.py:35
+msgid "Для суперпользователя is_staff должен быть равен True."
+msgstr "Суперпайдаланушы үшін is_staff мәні True болуы керек."
+
+#: accounts/models.py:37
+msgid "Для суперпользователя is_superuser должен быть равен True."
+msgstr "Суперпайдаланушы үшін is_superuser мәні True болуы керек."
+
+#: accounts/models.py:75
+msgid "Активный филиал"
+msgstr "Белсенді филиал"
+
+#: accounts/otp.py:18
+msgid "Сервис отправки кодов подтверждения не настроен."
+msgstr "Растау кодтарын жіберу қызметі бапталмаған."
+
+#: accounts/serializers.py:10 accounts/serializers.py:12
+msgid "Введите номер телефона."
+msgstr "Телефон нөмірін енгізіңіз."
+
+#: accounts/serializers.py:23 accounts/serializers.py:24
+msgid "Введите код подтверждения."
+msgstr "Растау кодын енгізіңіз."
+
+#: accounts/serializers.py:33
+msgid "Refresh-токен не может быть пустым."
+msgstr "Жаңарту токені бос болмауы керек."
+
+#: accounts/serializers.py:34
+msgid "Refresh-токен обязателен."
+msgstr "Жаңарту токені міндетті."
+
+#: accounts/views.py:32
+msgid "Пользователь найден. Введите код для входа."
+msgstr "Пайдаланушы табылды. Кіру үшін кодты енгізіңіз."
+
+#: accounts/views.py:34
+msgid "Новый пользователь. Аккаунт будет создан после подтверждения кода."
+msgstr "Жаңа пайдаланушы. Аккаунт код расталғаннан кейін құрылады."
+
+#: accounts/views.py:42
+msgid "В режиме разработки принимается любой непустой код."
+msgstr "Әзірлеу режимінде кез келген бос емес код қабылданады."
+
+#: accounts/views.py:64
+msgid "Код подтверждения неверен или истёк."
+msgstr "Растау коды қате немесе мерзімі өтіп кеткен."
+
+#: accounts/views.py:71
+msgid "Аккаунт создан, вход выполнен."
+msgstr "Аккаунт құрылды, жүйеге кірдіңіз."
+
+#: accounts/views.py:73
+msgid "Код подтверждён, вход выполнен."
+msgstr "Код расталды, жүйеге кірдіңіз."
+
+#: organizations/models.py:7 organizations/models.py:68 services/models.py:15
+#: specialists/models.py:55
+msgid "Название"
+msgstr "Атауы"
+
+#: organizations/models.py:8
+msgid "Код"
+msgstr "Код"
+
+#: organizations/models.py:9 organizations/models.py:70
+#: specialists/models.py:27
+msgid "Телефон"
+msgstr "Телефон"
+
+#: organizations/models.py:10 organizations/models.py:71
+msgid "Часовой пояс"
+msgstr "Уақыт белдеуі"
+
+#: organizations/models.py:11 services/models.py:23
+msgid "Валюта"
+msgstr "Валюта"
+
+#: organizations/models.py:12 services/models.py:24
+msgid "Активна"
+msgstr "Белсенді"
+
+#: organizations/models.py:13 services/models.py:25
+msgid "Создана"
+msgstr "Құрылды"
+
+#: organizations/models.py:14 services/models.py:26
+msgid "Изменена"
+msgstr "Жаңартылды"
+
+#: organizations/models.py:17 organizations/models.py:35
+#: organizations/models.py:66
+msgid "Организация"
+msgstr "Ұйым"
+
+#: organizations/models.py:18
+msgid "Организации"
+msgstr "Ұйымдар"
+
+#: organizations/models.py:27
+msgid "Владелец"
+msgstr "Иесі"
+
+#: organizations/models.py:28
+msgid "Администратор"
+msgstr "Әкімші"
+
+#: organizations/models.py:29
+msgid "Менеджер"
+msgstr "Менеджер"
+
+#: organizations/models.py:41
+msgid "Пользователь"
+msgstr "Пайдаланушы"
+
+#: organizations/models.py:43
+msgid "Роль"
+msgstr "Рөл"
+
+#: organizations/models.py:44
+msgid "Активно"
+msgstr "Белсенді"
+
+#: organizations/models.py:45
+msgid "Создано"
+msgstr "Құрылды"
+
+#: organizations/models.py:48
+msgid "Участник организации"
+msgstr "Ұйым мүшесі"
+
+#: organizations/models.py:49
+msgid "Участники организаций"
+msgstr "Ұйым мүшелері"
+
+#: organizations/models.py:69
+msgid "Адрес"
+msgstr "Мекенжай"
+
+#: organizations/models.py:72 specialists/models.py:31
+msgid "Активен"
+msgstr "Белсенді"
+
+#: organizations/models.py:73 specialists/models.py:32
+msgid "Создан"
+msgstr "Құрылды"
+
+#: organizations/models.py:74 specialists/models.py:33
+msgid "Изменён"
+msgstr "Жаңартылды"
+
+#: organizations/models.py:77 specialists/models.py:20
+msgid "Филиал"
+msgstr "Филиал"
+
+#: organizations/models.py:78
+msgid "Филиалы"
+msgstr "Филиалдар"
+
+#: organizations/serializers.py:77
+msgid "Организация недоступна текущему пользователю."
+msgstr "Ұйым ағымдағы пайдаланушыға қолжетімсіз."
+
+#: services/models.py:13 specialists/models.py:36 specialists/models.py:53
+#: specialists/models.py:83
+msgid "Специалист"
+msgstr "Маман"
+
+#: services/models.py:16
+msgid "Описание"
+msgstr "Сипаттама"
+
+#: services/models.py:18
+msgid "Длительность, минуты"
+msgstr "Ұзақтығы, минут"
+
+#: services/models.py:21
+msgid "Цена"
+msgstr "Бағасы"
+
+#: services/models.py:29
+msgid "Услуга специалиста"
+msgstr "Маман қызметі"
+
+#: services/models.py:30
+msgid "Услуги специалистов"
+msgstr "Мамандар қызметтері"
+
+#: services/serializers.py:49
+msgid "Специалист недоступен текущему пользователю."
+msgstr "Маман ағымдағы пайдаланушыға қолжетімсіз."
+
+#: specialists/models.py:22
+msgid "Имя"
+msgstr "Аты"
+
+#: specialists/models.py:23
+msgid "Фамилия"
+msgstr "Тегі"
+
+#: specialists/models.py:24
+msgid "Отчество"
+msgstr "Әкесінің аты"
+
+#: specialists/models.py:25
+msgid "Должность"
+msgstr "Лауазымы"
+
+#: specialists/models.py:29
+msgid "Ссылка на фото"
+msgstr "Фото сілтемесі"
+
+#: specialists/models.py:30
+msgid "О специалисте"
+msgstr "Маман туралы"
+
+#: specialists/models.py:37
+msgid "Специалисты"
+msgstr "Мамандар"
+
+#: specialists/models.py:56
+msgid "Ссылка на изображение"
+msgstr "Сурет сілтемесі"
+
+#: specialists/models.py:57
+msgid "Дата выдачи"
+msgstr "Берілген күні"
+
+#: specialists/models.py:58
+msgid "Позиция"
+msgstr "Реті"
+
+#: specialists/models.py:61
+msgid "Сертификат"
+msgstr "Сертификат"
+
+#: specialists/models.py:62
+msgid "Сертификаты"
+msgstr "Сертификаттар"
+
+#: specialists/models.py:71
+msgid "Понедельник"
+msgstr "Дүйсенбі"
+
+#: specialists/models.py:72
+msgid "Вторник"
+msgstr "Сейсенбі"
+
+#: specialists/models.py:73
+msgid "Среда"
+msgstr "Сәрсенбі"
+
+#: specialists/models.py:74
+msgid "Четверг"
+msgstr "Бейсенбі"
+
+#: specialists/models.py:75
+msgid "Пятница"
+msgstr "Жұма"
+
+#: specialists/models.py:76
+msgid "Суббота"
+msgstr "Сенбі"
+
+#: specialists/models.py:77
+msgid "Воскресенье"
+msgstr "Жексенбі"
+
+#: specialists/models.py:85
+msgid "День недели"
+msgstr "Апта күні"
+
+#: specialists/models.py:86
+msgid "Выходной"
+msgstr "Демалыс"
+
+#: specialists/models.py:87
+msgid "Начало"
+msgstr "Басталуы"
+
+#: specialists/models.py:88
+msgid "Окончание"
+msgstr "Аяқталуы"
+
+#: specialists/models.py:89
+msgid "Начало перерыва"
+msgstr "Үзілістің басталуы"
+
+#: specialists/models.py:90
+msgid "Окончание перерыва"
+msgstr "Үзілістің аяқталуы"
+
+#: specialists/models.py:93
+msgid "Рабочий день"
+msgstr "Жұмыс күні"
+
+#: specialists/models.py:94
+msgid "График работы"
+msgstr "Жұмыс кестесі"
+
+#: specialists/models.py:107
+msgid "Для рабочего дня укажите начало и окончание."
+msgstr "Жұмыс күнінің басталуы мен аяқталуын көрсетіңіз."
+
+#: specialists/models.py:109
+msgid "Окончание рабочего дня должно быть позже начала."
+msgstr "Жұмыс күнінің аяқталуы басталуынан кейін болуы керек."
+
+#: specialists/models.py:111
+msgid "Укажите обе границы перерыва."
+msgstr "Үзілістің басталуы мен аяқталуын көрсетіңіз."
+
+#: specialists/models.py:115
+msgid "Перерыв должен находиться внутри рабочего дня."
+msgstr "Үзіліс жұмыс күнінің ішінде болуы керек."
+
+#: specialists/serializers.py:88 users/serializers.py:38
+msgid "Филиал недоступен текущему пользователю."
+msgstr "Филиал ағымдағы пайдаланушыға қолжетімсіз."
+
+#: specialists/serializers.py:94
+msgid "День недели можно указать только один раз."
+msgstr "Әр апта күнін тек бір рет көрсетуге болады."
+
+#~ msgid "Номер телефона обязателен."
+#~ msgstr "Телефон нөмірі міндетті."
+
+#~ msgid "Запрос кода подтверждения принят."
+#~ msgstr "Растау кодына сұрау қабылданды."

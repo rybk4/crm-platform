@@ -1,0 +1,50 @@
+.module-page {
+  display: grid;
+  gap: 24px;
+}
+
+.module-page__header {
+  display: grid;
+  gap: 6px;
+  max-width: 720px;
+}
+
+.module-empty-state {
+  min-height: 280px;
+  padding: 32px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  border: 1px solid var(--app-border);
+  box-shadow: none !important;
+  text-align: center;
+}
+
+.module-empty-state__icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--app-primary-border);
+  border-radius: 12px;
+  color: var(--app-primary);
+  background: var(--app-primary-soft);
+}
+
+.module-empty-state__copy {
+  max-width: 480px;
+  display: grid;
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+  .module-page {
+    gap: 20px;
+  }
+
+  .module-empty-state {
+    min-height: 240px;
+    padding: 24px 20px;
+  }
+}

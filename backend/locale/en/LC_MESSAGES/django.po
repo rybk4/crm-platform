@@ -1,0 +1,362 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: crm-platform\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-22 11:43+0000\n"
+"Language: en\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: accounts/authentication.py:18
+msgid "Используйте заголовок Authorization: Bearer <token>."
+msgstr "Use the Authorization: Bearer <token> header."
+
+#: accounts/authentication.py:31 accounts/views.py:103
+msgid "Пользователь не найден или отключён."
+msgstr "The user does not exist or is inactive."
+
+#: accounts/jwt.py:46
+msgid "Токен недействителен или истёк."
+msgstr "The token is invalid or has expired."
+
+#: accounts/jwt.py:49
+msgid "Тип токена недействителен."
+msgstr "The token type is invalid."
+
+#: accounts/models.py:11 accounts/serializers.py:11 specialists/models.py:11
+msgid "Введите номер в международном формате, например +77001234567."
+msgstr "Use an international phone number, for example +77001234567."
+
+#: accounts/models.py:18
+msgid "Логин обязателен."
+msgstr "The username is required."
+
+#: accounts/models.py:35
+msgid "Для суперпользователя is_staff должен быть равен True."
+msgstr "A superuser must have is_staff=True."
+
+#: accounts/models.py:37
+msgid "Для суперпользователя is_superuser должен быть равен True."
+msgstr "A superuser must have is_superuser=True."
+
+#: accounts/models.py:75
+msgid "Активный филиал"
+msgstr "Active branch"
+
+#: accounts/otp.py:18
+msgid "Сервис отправки кодов подтверждения не настроен."
+msgstr "The verification code provider is not configured."
+
+#: accounts/serializers.py:10 accounts/serializers.py:12
+msgid "Введите номер телефона."
+msgstr "Enter a phone number."
+
+#: accounts/serializers.py:23 accounts/serializers.py:24
+msgid "Введите код подтверждения."
+msgstr "Enter the verification code."
+
+#: accounts/serializers.py:33
+msgid "Refresh-токен не может быть пустым."
+msgstr "The refresh token cannot be blank."
+
+#: accounts/serializers.py:34
+msgid "Refresh-токен обязателен."
+msgstr "The refresh token is required."
+
+#: accounts/views.py:32
+msgid "Пользователь найден. Введите код для входа."
+msgstr "User found. Enter the code to sign in."
+
+#: accounts/views.py:34
+msgid "Новый пользователь. Аккаунт будет создан после подтверждения кода."
+msgstr "New user. The account will be created after code verification."
+
+#: accounts/views.py:42
+msgid "В режиме разработки принимается любой непустой код."
+msgstr "Any non-empty code is accepted in development mode."
+
+#: accounts/views.py:64
+msgid "Код подтверждения неверен или истёк."
+msgstr "The verification code is invalid or has expired."
+
+#: accounts/views.py:71
+msgid "Аккаунт создан, вход выполнен."
+msgstr "Account created and signed in."
+
+#: accounts/views.py:73
+msgid "Код подтверждён, вход выполнен."
+msgstr "Code verified and signed in."
+
+#: organizations/models.py:7 organizations/models.py:68 services/models.py:15
+#: specialists/models.py:55
+msgid "Название"
+msgstr "Name"
+
+#: organizations/models.py:8
+msgid "Код"
+msgstr "Code"
+
+#: organizations/models.py:9 organizations/models.py:70
+#: specialists/models.py:27
+msgid "Телефон"
+msgstr "Phone"
+
+#: organizations/models.py:10 organizations/models.py:71
+msgid "Часовой пояс"
+msgstr "Time zone"
+
+#: organizations/models.py:11 services/models.py:23
+msgid "Валюта"
+msgstr "Currency"
+
+#: organizations/models.py:12 services/models.py:24
+msgid "Активна"
+msgstr "Active"
+
+#: organizations/models.py:13 services/models.py:25
+msgid "Создана"
+msgstr "Created"
+
+#: organizations/models.py:14 services/models.py:26
+msgid "Изменена"
+msgstr "Updated"
+
+#: organizations/models.py:17 organizations/models.py:35
+#: organizations/models.py:66
+msgid "Организация"
+msgstr "Organization"
+
+#: organizations/models.py:18
+msgid "Организации"
+msgstr "Organizations"
+
+#: organizations/models.py:27
+msgid "Владелец"
+msgstr "Owner"
+
+#: organizations/models.py:28
+msgid "Администратор"
+msgstr "Administrator"
+
+#: organizations/models.py:29
+msgid "Менеджер"
+msgstr "Manager"
+
+#: organizations/models.py:41
+msgid "Пользователь"
+msgstr "User"
+
+#: organizations/models.py:43
+msgid "Роль"
+msgstr "Role"
+
+#: organizations/models.py:44
+msgid "Активно"
+msgstr "Active"
+
+#: organizations/models.py:45
+msgid "Создано"
+msgstr "Created"
+
+#: organizations/models.py:48
+msgid "Участник организации"
+msgstr "Organization member"
+
+#: organizations/models.py:49
+msgid "Участники организаций"
+msgstr "Organization members"
+
+#: organizations/models.py:69
+msgid "Адрес"
+msgstr "Address"
+
+#: organizations/models.py:72 specialists/models.py:31
+msgid "Активен"
+msgstr "Active"
+
+#: organizations/models.py:73 specialists/models.py:32
+msgid "Создан"
+msgstr "Created"
+
+#: organizations/models.py:74 specialists/models.py:33
+msgid "Изменён"
+msgstr "Updated"
+
+#: organizations/models.py:77 specialists/models.py:20
+msgid "Филиал"
+msgstr "Branch"
+
+#: organizations/models.py:78
+msgid "Филиалы"
+msgstr "Branches"
+
+#: organizations/serializers.py:77
+msgid "Организация недоступна текущему пользователю."
+msgstr "The organization is not available to the current user."
+
+#: services/models.py:13 specialists/models.py:36 specialists/models.py:53
+#: specialists/models.py:83
+msgid "Специалист"
+msgstr "Specialist"
+
+#: services/models.py:16
+msgid "Описание"
+msgstr "Description"
+
+#: services/models.py:18
+msgid "Длительность, минуты"
+msgstr "Duration, minutes"
+
+#: services/models.py:21
+msgid "Цена"
+msgstr "Price"
+
+#: services/models.py:29
+msgid "Услуга специалиста"
+msgstr "Specialist service"
+
+#: services/models.py:30
+msgid "Услуги специалистов"
+msgstr "Specialist services"
+
+#: services/serializers.py:49
+msgid "Специалист недоступен текущему пользователю."
+msgstr "The specialist is not available to the current user."
+
+#: specialists/models.py:22
+msgid "Имя"
+msgstr "First name"
+
+#: specialists/models.py:23
+msgid "Фамилия"
+msgstr "Last name"
+
+#: specialists/models.py:24
+msgid "Отчество"
+msgstr "Middle name"
+
+#: specialists/models.py:25
+msgid "Должность"
+msgstr "Position"
+
+#: specialists/models.py:29
+msgid "Ссылка на фото"
+msgstr "Photo URL"
+
+#: specialists/models.py:30
+msgid "О специалисте"
+msgstr "About specialist"
+
+#: specialists/models.py:37
+msgid "Специалисты"
+msgstr "Specialists"
+
+#: specialists/models.py:56
+msgid "Ссылка на изображение"
+msgstr "Image URL"
+
+#: specialists/models.py:57
+msgid "Дата выдачи"
+msgstr "Issue date"
+
+#: specialists/models.py:58
+msgid "Позиция"
+msgstr "Position"
+
+#: specialists/models.py:61
+msgid "Сертификат"
+msgstr "Certificate"
+
+#: specialists/models.py:62
+msgid "Сертификаты"
+msgstr "Certificates"
+
+#: specialists/models.py:71
+msgid "Понедельник"
+msgstr "Monday"
+
+#: specialists/models.py:72
+msgid "Вторник"
+msgstr "Tuesday"
+
+#: specialists/models.py:73
+msgid "Среда"
+msgstr "Wednesday"
+
+#: specialists/models.py:74
+msgid "Четверг"
+msgstr "Thursday"
+
+#: specialists/models.py:75
+msgid "Пятница"
+msgstr "Friday"
+
+#: specialists/models.py:76
+msgid "Суббота"
+msgstr "Saturday"
+
+#: specialists/models.py:77
+msgid "Воскресенье"
+msgstr "Sunday"
+
+#: specialists/models.py:85
+msgid "День недели"
+msgstr "Day of week"
+
+#: specialists/models.py:86
+msgid "Выходной"
+msgstr "Day off"
+
+#: specialists/models.py:87
+msgid "Начало"
+msgstr "Start"
+
+#: specialists/models.py:88
+msgid "Окончание"
+msgstr "End"
+
+#: specialists/models.py:89
+msgid "Начало перерыва"
+msgstr "Break start"
+
+#: specialists/models.py:90
+msgid "Окончание перерыва"
+msgstr "Break end"
+
+#: specialists/models.py:93
+msgid "Рабочий день"
+msgstr "Working day"
+
+#: specialists/models.py:94
+msgid "График работы"
+msgstr "Work schedule"
+
+#: specialists/models.py:107
+msgid "Для рабочего дня укажите начало и окончание."
+msgstr "Specify the start and end for a working day."
+
+#: specialists/models.py:109
+msgid "Окончание рабочего дня должно быть позже начала."
+msgstr "The working day must end after it starts."
+
+#: specialists/models.py:111
+msgid "Укажите обе границы перерыва."
+msgstr "Specify both the start and end of the break."
+
+#: specialists/models.py:115
+msgid "Перерыв должен находиться внутри рабочего дня."
+msgstr "The break must be within the working day."
+
+#: specialists/serializers.py:88 users/serializers.py:38
+msgid "Филиал недоступен текущему пользователю."
+msgstr "The branch is not available to the current user."
+
+#: specialists/serializers.py:94
+msgid "День недели можно указать только один раз."
+msgstr "Each weekday can only be specified once."
+
+#~ msgid "Номер телефона обязателен."
+#~ msgstr "The phone number is required."
+
+#~ msgid "Запрос кода подтверждения принят."
+#~ msgstr "The verification code request was accepted."
