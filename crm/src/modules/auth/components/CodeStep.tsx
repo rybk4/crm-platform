@@ -1,10 +1,10 @@
 import { useState, type FormEvent } from 'react'
 
-import { useLocale } from '../../../lib/i18n/LocaleContext'
-import { Alert } from '../../../ui/Alert'
-import { Button } from '../../../ui/Button'
-import { Heading, Text } from '../../../ui/Text'
-import { TextField } from '../../../ui/TextField'
+import { useLocale } from '@/lib/i18n/LocaleContext'
+import { Alert } from '@/ui/Alert'
+import { Button } from '@/ui/Button'
+import { Heading, Text } from '@/ui/Text'
+import { TextField } from '@/ui/TextField'
 
 interface CodeStepProps {
   phone: string
@@ -14,13 +14,7 @@ interface CodeStepProps {
   onBack: () => void
 }
 
-export function CodeStep({
-  phone,
-  debugHint,
-  loading,
-  onSubmit,
-  onBack,
-}: CodeStepProps) {
+export function CodeStep({ phone, debugHint, loading, onSubmit, onBack }: CodeStepProps) {
   const { t } = useLocale()
   const [code, setCode] = useState('')
   const [submitted, setSubmitted] = useState(false)

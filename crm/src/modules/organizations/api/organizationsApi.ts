@@ -1,7 +1,18 @@
-import { authenticatedRequest } from '../../../lib/api/http'
+import { ApiClient } from '@/lib/api/ApiClient'
 import type { Branch, Organization } from '../types'
 
-export const organizationsApi = {
-  list: () => authenticatedRequest<Organization[]>('/api/organizations/'),
-  listBranches: () => authenticatedRequest<Branch[]>('/api/branches/'),
+class OrganizationsApi extends ApiClient {
+  constructor() {
+    super('/api/')
+  }
+
+  list(options?: { signal?: AbortSignal }) {
+    return this.get<Organization[]>('organizations/', options)
+  }
+
+  listBranches(options?: { signal?: AbortSignal }) {
+    return this.get<Branch[]>('branches/', options)
+  }
 }
+
+export const organizationsApi = new OrganizationsApi()

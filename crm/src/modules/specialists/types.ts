@@ -36,4 +36,7 @@ export interface Specialist {
   schedule: WorkSchedule[]
 }
 
-export type SpecialistInput = Omit<Specialist, 'id' | 'branch_name' | 'organization_id' | 'organization_name' | 'full_name' | 'services_count'>
+export type SpecialistInput = Omit<
+  Specialist,
+  'id' | 'branch_name' | 'organization_id' | 'organization_name' | 'full_name' | 'services_count'
+>

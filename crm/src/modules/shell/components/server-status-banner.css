@@ -1,0 +1,44 @@
+.server-status-banner {
+  position: sticky;
+  z-index: 120;
+  top: 0;
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--app-border);
+  color: var(--app-text);
+  background: var(--app-surface);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--app-text) 10%, transparent);
+}
+
+.server-status-banner__icon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--app-danger);
+  background: color-mix(in srgb, var(--app-danger) 12%, transparent);
+}
+
+.server-status-banner__copy {
+  flex: 1 1 220px;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.server-status-banner__copy span {
+  color: var(--app-muted);
+  font-size: 13px;
+}
+
+@media (max-width: 560px) {
+  .server-status-banner {
+    align-items: flex-start;
+  }
+}

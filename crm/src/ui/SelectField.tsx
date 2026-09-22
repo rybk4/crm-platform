@@ -16,7 +16,15 @@ interface SelectFieldProps {
   required?: boolean
 }
 
-export function SelectField({ id, label, value, options, onChange, disabled, required }: SelectFieldProps) {
+export function SelectField({
+  id,
+  label,
+  value,
+  options,
+  onChange,
+  disabled,
+  required,
+}: SelectFieldProps) {
   return (
     <MuiTextField
       id={id}
@@ -29,7 +37,9 @@ export function SelectField({ id, label, value, options, onChange, disabled, req
       fullWidth
     >
       {options.map((option) => (
-        <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
       ))}
     </MuiTextField>
   )

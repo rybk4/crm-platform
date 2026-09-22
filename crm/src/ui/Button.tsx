@@ -31,7 +31,13 @@ export function Button({
     <MuiButton
       type={type}
       className={className}
-      variant={kind === 'primary' || kind === 'danger' ? 'contained' : kind === 'outline' ? 'outlined' : 'text'}
+      variant={
+        kind === 'primary' || kind === 'danger'
+          ? 'contained'
+          : kind === 'outline'
+            ? 'outlined'
+            : 'text'
+      }
       color={kind === 'danger' ? 'error' : 'primary'}
       fullWidth={fullWidth}
       disabled={disabled || loading}

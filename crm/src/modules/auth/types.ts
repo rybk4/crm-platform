@@ -1,4 +1,4 @@
-import type { Locale } from '../../lib/i18n/locale'
+import type { Locale } from '@/lib/i18n/locale'
 
 export interface ActiveBranchDetails {
   id: number
@@ -17,6 +17,12 @@ export interface AuthUser {
   active_branch_details: ActiveBranchDetails | null
   is_staff: boolean
   date_joined: string
+}
+
+export interface ProfileChanges {
+  locale?: Locale
+  name?: string
+  active_branch?: number | null
 }
 
 export interface OtpRequestResponse {

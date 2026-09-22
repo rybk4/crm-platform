@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
-import { AnalyticsPage } from '../../analytics/components/AnalyticsPage'
-import type { AuthUser } from '../../auth/types'
-import { ClientsPage } from '../../clients/components/ClientsPage'
-import { JournalPage } from '../../journal/components/JournalPage'
-import { ServicesPage } from '../../services/components/ServicesPage'
-import { SpecialistsPage } from '../../specialists/components/SpecialistsPage'
-import { useMediaQuery } from '../../../lib/browser/useMediaQuery'
-import { useLocale } from '../../../lib/i18n/LocaleContext'
-import type { Locale } from '../../../lib/i18n/locale'
-import { Icon } from '../../../ui/Icon'
-import { IconButton } from '../../../ui/IconButton'
+import { AnalyticsPage } from '@/modules/analytics/components/AnalyticsPage'
+import type { AuthUser } from '@/modules/auth/types'
+import { ClientsPage } from '@/modules/clients/components/ClientsPage'
+import { JournalPage } from '@/modules/journal/components/JournalPage'
+import { ServicesPage } from '@/modules/services/components/ServicesPage'
+import { SpecialistsPage } from '@/modules/specialists/components/SpecialistsPage'
+import { useMediaQuery } from '@/lib/browser/useMediaQuery'
+import { useLocale } from '@/lib/i18n/LocaleContext'
+import type { Locale } from '@/lib/i18n/locale'
+import { Icon } from '@/ui/Icon'
+import { IconButton } from '@/ui/IconButton'
 import { Sidebar } from './Sidebar'
 import { ThemeStudio } from './ThemeStudio'
 import './shell.css'
@@ -85,8 +85,24 @@ export function AppShell({ user, onActiveBranchChange, onLocaleChange, onLogout 
             <Route path="/" element={<Navigate to="/journal" replace />} />
             <Route path="/journal" element={<JournalPage />} />
             <Route path="/clients" element={<ClientsPage />} />
-            <Route path="/specialists" element={<SpecialistsPage key={user.active_branch ?? 'none'} activeBranch={user.active_branch_details} />} />
-            <Route path="/services" element={<ServicesPage key={user.active_branch ?? 'none'} activeBranch={user.active_branch_details} />} />
+            <Route
+              path="/specialists"
+              element={
+                <SpecialistsPage
+                  key={user.active_branch ?? 'none'}
+                  activeBranch={user.active_branch_details}
+                />
+              }
+            />
+            <Route
+              path="/services"
+              element={
+                <ServicesPage
+                  key={user.active_branch ?? 'none'}
+                  activeBranch={user.active_branch_details}
+                />
+              }
+            />
             <Route path="/analytics" element={<AnalyticsPage />} />
             <Route path="*" element={<Navigate to="/journal" replace />} />
           </Routes>

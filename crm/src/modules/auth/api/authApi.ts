@@ -1,39 +1,43 @@
-import { httpRequest } from '../../../lib/api/http'
-import type { StoredTokens } from '../../../lib/auth/tokenStorage'
-import type { AuthUser, LoginResponse, OtpRequestResponse } from '../types'
-import type { Locale } from '../../../lib/i18n/locale'
+import { ApiClient } from '@/lib/api/ApiClient'
+import type { Locale } from '@/lib/i18n/locale'
+import type { AuthUser, LoginResponse, OtpRequestResponse, ProfileChanges } from '../types'
 
-export function requestOtp(phoneNumber: string) {
-  return httpRequest<OtpRequestResponse>('/api/auth/otp/request/', {
-    method: 'POST',
-    body: JSON.stringify({ phone_number: phoneNumber }),
-  })
+class AuthApi extends ApiClient {
+  constructor() {
+    super('/api/')
+  }
+
+  requestOtp(phoneNumber: string) {
+    return this.post<OtpRequestResponse>(
+      'auth/otp/request/',
+      { phone_number: phoneNumber },
+      { anonymous: true },
+    )
+  }
+
+  verifyOtp(phoneNumber: string, code: string) {
+    return this.post<LoginResponse>(
+      'auth/otp/verify/',
+      { phone_number: phoneNumber, code },
+      { anonymous: true },
+    )
+  }
+
+  getCurrentUser(options?: { signal?: AbortSignal }) {
+    return this.get<AuthUser>('users/me/', options)
+  }
+
+  updateCurrentUser(changes: ProfileChanges) {
+    return this.patch<AuthUser>('users/me/', changes)
+  }
+
+  updateLocale(locale: Locale) {
+    return this.updateCurrentUser({ locale })
+  }
+
+  updateActiveBranch(activeBranch: number | null) {
+    return this.updateCurrentUser({ active_branch: activeBranch })
+  }
 }
 
-export function verifyOtp(phoneNumber: string, code: string) {
-  return httpRequest<LoginResponse>('/api/auth/otp/verify/', {
-    method: 'POST',
-    body: JSON.stringify({ phone_number: phoneNumber, code }),
-  })
-}
-
-export function getCurrentUser(accessToken: string) {
-  return httpRequest<AuthUser>('/api/users/me/', {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  })
-}
-
-export function updateCurrentUser(accessToken: string, changes: { locale?: Locale; name?: string; active_branch?: number | null }) {
-  return httpRequest<AuthUser>('/api/users/me/', {
-    method: 'PATCH',
-    headers: { Authorization: `Bearer ${accessToken}` },
-    body: JSON.stringify(changes),
-  })
-}
-
-export function refreshAccessToken(refreshToken: string) {
-  return httpRequest<Pick<StoredTokens, 'access'>>('/api/auth/token/refresh/', {
-    method: 'POST',
-    body: JSON.stringify({ refresh: refreshToken }),
-  })
-}
+export const authApi = new AuthApi()

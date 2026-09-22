@@ -1,0 +1,91 @@
+# Поднимает весь стенд одной командой: docker compose up
+#
+#   frontend  http://localhost:5173  (vite, горячая перезагрузка)
+#   backend   http://localhost:8000  (django runserver)
+#
+# Фронтенд ходит в бэкенд через прокси vite по пути /api, поэтому отдельный
+# CORS не нужен, а браузер видит один источник.
+
+services:
+  db:
+    image: postgres:18.6-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:8.10.1-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health/', timeout=3).status == 200 else 1)\"",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./crm
+    restart: unless-stopped
+    environment:
+      # Куда vite проксирует /api внутри сети compose. Без префикса VITE_,
+      # чтобы внутреннее имя хоста не попало в клиентский бандл.
+      API_PROXY_TARGET: http://backend:8000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./crm:/app
+      # Анонимный том закрывает node_modules хоста: в образе лежат свои,
+      # собранные под платформу контейнера.
+      - /app/node_modules
+    depends_on:
+      # Только запуск, не готовность: пока бэкенд поднимается, фронтенд уже
+      # открывается и сам показывает плашку «сервер недоступен».
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:

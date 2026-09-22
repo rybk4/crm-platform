@@ -1,4 +1,9 @@
-from django.test import override_settings
+from io import StringIO
+
+from django.contrib.auth import get_user_model
+from django.core.management import call_command
+from django.core.management.base import CommandError
+from django.test import TestCase, override_settings
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -102,3 +107,81 @@ class OTPAuthenticationTests(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
+
+
+class CreateDevAdminCommandTests(TestCase):
+    def run_command(self, *args, **options):
+        output = StringIO()
+        call_command("createdevadmin", *args, stdout=output, **options)
+        return output.getvalue()
+
+    @override_settings(DEBUG=True)
+    def test_creates_superuser_with_default_credentials(self):
+        self.run_command()
+
+        user = get_user_model().objects.get(username="admin")
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_active)
+        self.assertTrue(user.check_password("admin"))
+
+    @override_settings(DEBUG=True)
+    def test_is_idempotent_and_keeps_existing_password(self):
+        self.run_command()
+        user = get_user_model().objects.get(username="admin")
+        user.set_password("свой-пароль")
+        user.save(update_fields=["password"])
+
+        self.run_command()
+
+        self.assertEqual(get_user_model().objects.filter(username="admin").count(), 1)
+        user.refresh_from_db()
+        self.assertTrue(user.check_password("свой-пароль"))
+
+    @override_settings(DEBUG=True)
+    def test_reset_password_flag_overwrites_password(self):
+        self.run_command()
+        user = get_user_model().objects.get(username="admin")
+        user.set_password("свой-пароль")
+        user.save(update_fields=["password"])
+
+        self.run_command("--reset-password")
+
+        user.refresh_from_db()
+        self.assertTrue(user.check_password("admin"))
+
+    @override_settings(DEBUG=True)
+    def test_restores_admin_rights_of_existing_user(self):
+        get_user_model().objects.create_user("admin", "admin")
+
+        self.run_command()
+
+        user = get_user_model().objects.get(username="admin")
+        self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_superuser)
+
+    @override_settings(DEBUG=False)
+    def test_does_nothing_without_debug(self):
+        output = self.run_command()
+
+        self.assertFalse(get_user_model().objects.filter(username="admin").exists())
+        self.assertIn("DEBUG=False", output)
+
+    @override_settings(DEBUG=False)
+    def test_force_creates_superuser_without_debug(self):
+        self.run_command("--force", "--password", "сильный-пароль")
+
+        user = get_user_model().objects.get(username="admin")
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.check_password("сильный-пароль"))
+
+    @override_settings(DEBUG=True)
+    def test_custom_username_from_argument(self):
+        self.run_command("--username", "root")
+
+        self.assertTrue(get_user_model().objects.filter(username="root").exists())
+
+    @override_settings(DEBUG=True)
+    def test_rejects_empty_password(self):
+        with self.assertRaises(CommandError):
+            self.run_command("--password", "")

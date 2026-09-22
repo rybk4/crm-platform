@@ -1,7 +1,7 @@
-import { useLocale } from '../../../lib/i18n/LocaleContext'
-import { Button } from '../../../ui/Button'
-import { Icon } from '../../../ui/Icon'
-import { useAppTheme } from '../../../ui/theme/AppThemeContext'
+import { useLocale } from '@/lib/i18n/LocaleContext'
+import { Button } from '@/ui/Button'
+import { Icon } from '@/ui/Icon'
+import { useAppTheme } from '@/ui/theme/AppThemeContext'
 
 export function ThemeStudio() {
   const { activeTheme, selectTheme, themes } = useAppTheme()

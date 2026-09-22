@@ -1,3 +1,5 @@
+import { readStoredValue, removeStoredValue, writeStoredValue } from '../browser/storage'
+
 export interface StoredTokens {
   access: string
   refresh: string
@@ -5,34 +7,33 @@ export interface StoredTokens {
 
 const storageKey = 'crm.auth.tokens.v1'
 
-export function readTokens(): StoredTokens | null {
-  try {
-    const value = localStorage.getItem(storageKey)
-    if (!value) return null
+function isStoredTokens(value: unknown): value is StoredTokens {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'access' in value &&
+    'refresh' in value &&
+    typeof value.access === 'string' &&
+    typeof value.refresh === 'string'
+  )
+}
 
-    const parsed: unknown = JSON.parse(value)
-    if (
-      typeof parsed === 'object' &&
-      parsed !== null &&
-      'access' in parsed &&
-      'refresh' in parsed &&
-      typeof parsed.access === 'string' &&
-      typeof parsed.refresh === 'string'
-    ) {
-      return { access: parsed.access, refresh: parsed.refresh }
-    }
+export function readTokens(): StoredTokens | null {
+  const raw = readStoredValue(storageKey)
+  if (!raw) return null
+
+  try {
+    const parsed: unknown = JSON.parse(raw)
+    return isStoredTokens(parsed) ? { access: parsed.access, refresh: parsed.refresh } : null
   } catch {
     return null
   }
-
-  return null
 }
 
 export function writeTokens(tokens: StoredTokens) {
-  localStorage.setItem(storageKey, JSON.stringify(tokens))
+  writeStoredValue(storageKey, JSON.stringify(tokens))
 }
 
 export function clearTokens() {
-  localStorage.removeItem(storageKey)
+  removeStoredValue(storageKey)
 }
-

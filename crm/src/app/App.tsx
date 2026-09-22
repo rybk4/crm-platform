@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
-import { useLocale } from '../lib/i18n/LocaleContext'
-import type { Locale } from '../lib/i18n/locale'
-import { AuthScreen } from '../modules/auth/components/AuthScreen'
-import { useAuthFlow } from '../modules/auth/hooks/useAuthFlow'
-import { AppShell } from '../modules/shell/components/AppShell'
+import { useLocale } from '@/lib/i18n/LocaleContext'
+import type { Locale } from '@/lib/i18n/locale'
+import { AuthScreen } from '@/modules/auth/components/AuthScreen'
+import { useAuthFlow } from '@/modules/auth/hooks/useAuthFlow'
+import { AppShell } from '@/modules/shell/components/AppShell'
 
 export function App() {
   const auth = useAuthFlow()

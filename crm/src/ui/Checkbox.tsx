@@ -11,7 +11,9 @@ interface CheckboxProps {
 export function Checkbox({ label, checked, onChange, disabled }: CheckboxProps) {
   return (
     <FormControlLabel
-      control={<MuiCheckbox checked={checked} onChange={(event) => onChange(event.target.checked)} />}
+      control={
+        <MuiCheckbox checked={checked} onChange={(event) => onChange(event.target.checked)} />
+      }
       label={label}
       disabled={disabled}
     />

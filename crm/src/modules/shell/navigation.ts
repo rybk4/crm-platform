@@ -1,5 +1,5 @@
-import type { TranslationKey } from '../../lib/i18n/messages'
-import type { IconName } from '../../ui/Icon'
+import type { TranslationKey } from '@/lib/i18n/messages'
+import type { IconName } from '@/ui/Icon'
 import type { AppSection } from './types'
 
 export interface NavigationItem {

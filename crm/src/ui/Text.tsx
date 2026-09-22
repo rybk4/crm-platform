@@ -28,4 +28,3 @@ export function Text({ children, tone = 'default', className }: TextProps) {
     </Typography>
   )
 }
-

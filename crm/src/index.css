@@ -46,7 +46,9 @@ body {
   color: var(--app-text);
   background: var(--app-background);
   font-family: var(--app-font-family);
-  transition: color 180ms ease, background-color 180ms ease;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
 }
 
 .brand-mark {

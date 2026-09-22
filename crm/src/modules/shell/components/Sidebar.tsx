@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom'
 
-import { useLocale } from '../../../lib/i18n/LocaleContext'
-import type { Locale } from '../../../lib/i18n/locale'
-import { Icon } from '../../../ui/Icon'
-import { IconButton } from '../../../ui/IconButton'
-import type { AuthUser } from '../../auth/types'
+import { useLocale } from '@/lib/i18n/LocaleContext'
+import type { Locale } from '@/lib/i18n/locale'
+import { Icon } from '@/ui/Icon'
+import { IconButton } from '@/ui/IconButton'
+import type { AuthUser } from '@/modules/auth/types'
 import { navigationItems } from '../navigation'
 import { ProfileMenu } from './ProfileMenu'
 
@@ -58,18 +58,18 @@ export function Sidebar({
 
       <nav className="sidebar-nav" aria-label={t('crmSections')}>
         {navigationItems.map((item) => (
-            <NavLink
-              key={item.section}
-              className="sidebar-nav__item"
-              to={item.path}
-              title={collapsed ? t(item.labelKey) : undefined}
-              onClick={mobile ? onClose : undefined}
-            >
-              <span className="sidebar-nav__icon">
-                <Icon name={item.icon} />
-              </span>
-              <span className="sidebar-nav__label">{t(item.labelKey)}</span>
-            </NavLink>
+          <NavLink
+            key={item.section}
+            className="sidebar-nav__item"
+            to={item.path}
+            title={collapsed ? t(item.labelKey) : undefined}
+            onClick={mobile ? onClose : undefined}
+          >
+            <span className="sidebar-nav__icon">
+              <Icon name={item.icon} />
+            </span>
+            <span className="sidebar-nav__label">{t(item.labelKey)}</span>
+          </NavLink>
         ))}
       </nav>
 

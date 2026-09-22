@@ -1,5 +1,5 @@
-import { useLocale } from '../../../lib/i18n/LocaleContext'
-import { ModulePage } from '../../../ui/ModulePage'
+import { useLocale } from '@/lib/i18n/LocaleContext'
+import { ModulePage } from '@/ui/ModulePage'
 
 export function AnalyticsPage() {
   const { t } = useLocale()

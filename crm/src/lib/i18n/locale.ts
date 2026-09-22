@@ -1,3 +1,5 @@
+import { readStoredValue, writeStoredValue } from '../browser/storage'
+
 export const supportedLocales = ['ru', 'en', 'kk'] as const
 
 export type Locale = (typeof supportedLocales)[number]
@@ -10,10 +12,10 @@ export function isLocale(value: unknown): value is Locale {
 }
 
 export function readLocale(): Locale {
-  const storedLocale = window.localStorage.getItem(LOCALE_STORAGE_KEY)
+  const storedLocale = readStoredValue(LOCALE_STORAGE_KEY)
   return isLocale(storedLocale) ? storedLocale : DEFAULT_LOCALE
 }
 
 export function writeLocale(locale: Locale) {
-  window.localStorage.setItem(LOCALE_STORAGE_KEY, locale)
+  writeStoredValue(LOCALE_STORAGE_KEY, locale)
 }

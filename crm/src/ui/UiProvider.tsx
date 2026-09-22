@@ -1,13 +1,8 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import {
-  useEffect,
-  useMemo,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-} from 'react'
+import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react'
 
+import { readStoredValue, writeStoredValue } from '@/lib/browser/storage'
 import { AppThemeContext } from './theme/AppThemeContext'
 import {
   appThemes,
@@ -18,12 +13,12 @@ import {
   type AppThemeId,
 } from './theme/themes'
 
-const THEME_STORAGE_KEY = 'crm-design-theme'
+const THEME_STORAGE_KEY = 'crm.theme.v1'
 
 type ThemeVariables = CSSProperties & Record<`--${string}`, string>
 
 function readStoredTheme(): AppThemeId {
-  const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY)
+  const storedTheme = readStoredValue(THEME_STORAGE_KEY)
   return isAppThemeId(storedTheme) ? storedTheme : DEFAULT_THEME_ID
 }
 
@@ -140,7 +135,7 @@ export function UiProvider({ children }: UiProviderProps) {
   )
 
   useEffect(() => {
-    window.localStorage.setItem(THEME_STORAGE_KEY, themeId)
+    writeStoredValue(THEME_STORAGE_KEY, themeId)
     document.documentElement.dataset.theme = themeId
   }, [themeId])
 

@@ -1,10 +1,10 @@
 import { useState, type FormEvent } from 'react'
 
-import { useLocale } from '../../../lib/i18n/LocaleContext'
-import { formatPhoneInput, isValidPhone, normalizePhone } from '../../../lib/validation/phone'
-import { Button } from '../../../ui/Button'
-import { Heading, Text } from '../../../ui/Text'
-import { TextField } from '../../../ui/TextField'
+import { useLocale } from '@/lib/i18n/LocaleContext'
+import { formatPhoneInput, isValidPhone, normalizePhone } from '@/lib/validation/phone'
+import { Button } from '@/ui/Button'
+import { Heading, Text } from '@/ui/Text'
+import { TextField } from '@/ui/TextField'
 
 interface PhoneStepProps {
   initialPhone: string

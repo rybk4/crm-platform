@@ -38,7 +38,9 @@
   overflow: visible;
   border-right: 1px solid var(--app-sidebar-border);
   background: var(--app-sidebar);
-  transition: background-color 180ms ease, border-color 180ms ease;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
 }
 
 .sidebar-brand {
@@ -88,7 +90,9 @@
   cursor: pointer;
   text-decoration: none;
   text-align: left;
-  transition: color 160ms ease, background-color 160ms ease;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
 }
 
 .sidebar-nav__item:hover {
@@ -315,7 +319,9 @@
   border-radius: 8px;
   background: var(--app-surface-muted);
   cursor: pointer;
-  transition: border-color 150ms ease, background-color 150ms ease;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
 }
 
 .branch-option:hover {
@@ -498,7 +504,10 @@
   border-radius: 12px;
   background: var(--app-surface);
   box-shadow: 0 8px 24px color-mix(in srgb, var(--app-text) 8%, transparent);
-  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .theme-studio__intro {
@@ -600,7 +609,11 @@
   cursor: pointer;
   font: inherit;
   text-align: left;
-  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, transform 160ms ease;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
 }
 
 .theme-option:hover {

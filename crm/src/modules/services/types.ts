@@ -13,4 +13,7 @@ export interface Service {
   is_active: boolean
 }
 
-export type ServiceInput = Pick<Service, 'specialist' | 'name' | 'description' | 'duration_minutes' | 'price' | 'currency' | 'is_active'>
+export type ServiceInput = Pick<
+  Service,
+  'specialist' | 'name' | 'description' | 'duration_minutes' | 'price' | 'currency' | 'is_active'
+>

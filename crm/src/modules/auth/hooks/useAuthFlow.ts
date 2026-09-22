@@ -1,26 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import { ApiError } from '../../../lib/api/http'
-import { clearTokens, readTokens, writeTokens } from '../../../lib/auth/tokenStorage'
-import { useLocale } from '../../../lib/i18n/LocaleContext'
-import type { Locale } from '../../../lib/i18n/locale'
-import { notifications } from '../../../lib/toast/notifications'
-import { isValidPhone, normalizePhone } from '../../../lib/validation/phone'
-import {
-  getCurrentUser,
-  refreshAccessToken,
-  requestOtp,
-  updateCurrentUser,
-  verifyOtp,
-} from '../api/authApi'
+import { apiErrorMessage } from '@/lib/api/apiErrorMessage'
+import { subscribeSessionExpired } from '@/lib/auth/session'
+import { clearTokens, readTokens, writeTokens } from '@/lib/auth/tokenStorage'
+import { useLocale } from '@/lib/i18n/LocaleContext'
+import type { Locale } from '@/lib/i18n/locale'
+import { notifications } from '@/lib/toast/notifications'
+import { isValidPhone, normalizePhone } from '@/lib/validation/phone'
+import { authApi } from '../api/authApi'
 import type { AuthUser } from '../types'
 
 type AuthStage = 'initializing' | 'phone' | 'code' | 'authenticated'
-
-function errorMessage(error: unknown, fallback: string) {
-  if (error instanceof ApiError) return error.message
-  return fallback
-}
 
 export function useAuthFlow() {
   const { t } = useLocale()
@@ -30,40 +20,34 @@ export function useAuthFlow() {
   const [debugHint, setDebugHint] = useState('')
   const [loading, setLoading] = useState(false)
 
+  const logout = useCallback(() => {
+    clearTokens()
+    setUser(null)
+    setDebugHint('')
+    setStage('phone')
+  }, [])
+
+  // Клиент сам обновляет access-токен; сюда приходит только окончательный отказ.
+  useEffect(() => subscribeSessionExpired(logout), [logout])
+
   useEffect(() => {
     let cancelled = false
 
     async function restoreSession() {
-      const tokens = readTokens()
-      if (!tokens) {
+      if (!readTokens()) {
         if (!cancelled) setStage('phone')
         return
       }
 
       try {
-        const currentUser = await getCurrentUser(tokens.access)
-        if (!cancelled) {
-          setUser(currentUser)
-          setStage('authenticated')
-        }
-        return
+        const currentUser = await authApi.getCurrentUser()
+        if (cancelled) return
+        setUser(currentUser)
+        setStage('authenticated')
       } catch {
-        try {
-          const refreshed = await refreshAccessToken(tokens.refresh)
-          const nextTokens = { ...tokens, access: refreshed.access }
-          writeTokens(nextTokens)
-          const currentUser = await getCurrentUser(nextTokens.access)
-          if (!cancelled) {
-            setUser(currentUser)
-            setStage('authenticated')
-          }
-          return
-        } catch {
-          clearTokens()
-        }
+        clearTokens()
+        if (!cancelled) setStage('phone')
       }
-
-      if (!cancelled) setStage('phone')
     }
 
     void restoreSession()
@@ -81,13 +65,13 @@ export function useAuthFlow() {
 
     setLoading(true)
     try {
-      const response = await requestOtp(normalized)
+      const response = await authApi.requestOtp(normalized)
       setPhone(normalized)
       setDebugHint(response.debug ?? '')
       setStage('code')
       notifications.info(response.detail)
-    } catch (requestError) {
-      notifications.error(errorMessage(requestError, t('errorUnexpected')))
+    } catch (error) {
+      notifications.error(apiErrorMessage(error, t('errorUnexpected')))
     } finally {
       setLoading(false)
     }
@@ -101,13 +85,13 @@ export function useAuthFlow() {
 
     setLoading(true)
     try {
-      const response = await verifyOtp(phone, code.trim())
+      const response = await authApi.verifyOtp(phone, code.trim())
       writeTokens({ access: response.access, refresh: response.refresh })
       setUser(response.user)
       setStage('authenticated')
       notifications.success(response.detail)
-    } catch (verifyError) {
-      notifications.error(errorMessage(verifyError, t('errorUnexpected')))
+    } catch (error) {
+      notifications.error(apiErrorMessage(error, t('errorUnexpected')))
     } finally {
       setLoading(false)
     }
@@ -118,27 +102,12 @@ export function useAuthFlow() {
     setStage('phone')
   }
 
-  function logout() {
-    clearTokens()
-    setUser(null)
-    setDebugHint('')
-    setStage('phone')
-  }
-
   async function updateLocale(locale: Locale) {
-    const tokens = readTokens()
-    if (!tokens) throw new ApiError(t('errorUnexpected'), 401)
-
-    const updatedUser = await updateCurrentUser(tokens.access, { locale })
-    setUser(updatedUser)
+    setUser(await authApi.updateLocale(locale))
   }
 
   async function updateActiveBranch(activeBranch: number) {
-    const tokens = readTokens()
-    if (!tokens) throw new ApiError(t('errorUnexpected'), 401)
-
-    const updatedUser = await updateCurrentUser(tokens.access, { active_branch: activeBranch })
-    setUser(updatedUser)
+    setUser(await authApi.updateActiveBranch(activeBranch))
   }
 
   return {
