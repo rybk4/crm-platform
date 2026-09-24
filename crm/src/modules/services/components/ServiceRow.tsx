@@ -1,6 +1,8 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
+import { RowActions } from '@/ui/RowActions'
+import { StatusPill } from '@/ui/StatusPill'
 import { Surface } from '@/ui/Surface'
 import { formatPrice } from '../model'
 import type { Service } from '../types'
@@ -36,18 +38,21 @@ export function ServiceRow({ service, onEdit, onDelete }: ServiceRowProps) {
         <strong>{formatPrice(service.price, service.currency)}</strong>
       </div>
 
-      <span className="status-pill" data-active={service.is_active}>
-        {service.is_active ? t('active') : t('inactive')}
-      </span>
+      <StatusPill
+        label={service.is_active ? t('active') : t('inactive')}
+        tone={service.is_active ? 'success' : 'neutral'}
+        icon={service.is_active ? 'check-circle' : 'ban'}
+        size="sm"
+      />
 
-      <div className="management-actions">
+      <RowActions>
         <IconButton ariaLabel={t('edit')} title={t('edit')} onClick={() => onEdit(service)}>
           <Icon name="edit" />
         </IconButton>
         <IconButton ariaLabel={t('delete')} title={t('delete')} onClick={() => onDelete(service)}>
           <Icon name="trash" />
         </IconButton>
-      </div>
+      </RowActions>
     </Surface>
   )
 }

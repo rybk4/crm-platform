@@ -1,0 +1,41 @@
+.ui-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.ui-status-pill[data-size='sm'] {
+  padding: 3px 7px;
+  font-size: 11px;
+}
+.ui-status-pill[data-tone='neutral'] {
+  border-color: var(--app-border);
+  color: var(--app-muted);
+  background: var(--app-surface-muted);
+}
+.ui-status-pill[data-tone='info'] {
+  border-color: var(--app-info-border);
+  color: var(--app-info);
+  background: var(--app-info-soft);
+}
+.ui-status-pill[data-tone='success'] {
+  border-color: var(--app-success-border);
+  color: var(--app-success);
+  background: var(--app-success-soft);
+}
+.ui-status-pill[data-tone='warning'] {
+  border-color: var(--app-warning-border);
+  color: var(--app-warning);
+  background: var(--app-warning-soft);
+}
+.ui-status-pill[data-tone='danger'] {
+  border-color: var(--app-danger-border);
+  color: var(--app-danger);
+  background: var(--app-danger-soft);
+}

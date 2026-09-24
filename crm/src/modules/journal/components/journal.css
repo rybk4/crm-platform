@@ -1,0 +1,493 @@
+/* Высота шапки колонки; совпадает с HEAD_PX в boardLayout.ts. */
+.journal-page {
+  --journal-head: 55px;
+  display: grid;
+  gap: 15px;
+}
+.journal-page .page-header__copy h1 {
+  font-size: 24px;
+  letter-spacing: -0.02em;
+}
+.journal-page .page-header__copy p {
+  display: none;
+}
+.journal-toolbar {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  min-height: 52px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.journal-toolbar__date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.journal-toolbar__date > div:first-child {
+  min-width: 300px;
+}
+.journal-toolbar__day {
+  position: relative;
+  min-width: 210px;
+  min-height: 52px;
+  display: grid;
+  align-content: center;
+  padding: 5px 12px;
+  border: 2px solid var(--app-surface-muted);
+  border-radius: 16px;
+  background: var(--app-surface);
+}
+.journal-toolbar__day strong {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.journal-toolbar__input {
+  width: 100%;
+  border: 0;
+  color: var(--app-muted);
+  background: transparent;
+  font-size: 12px;
+}
+.journal-toolbar__input:focus-visible {
+  outline: 2px solid var(--app-primary);
+  outline-offset: 2px;
+}
+.journal-toolbar__filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.journal-toolbar__filters > div:first-child {
+  min-width: 190px;
+}
+.journal-toolbar .MuiButton-root,
+.journal-toolbar .MuiIconButton-root,
+.journal-toolbar .MuiOutlinedInput-root {
+  border-radius: 16px;
+}
+.journal-toolbar .MuiButton-root {
+  min-height: 52px;
+}
+.journal-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.journal-board {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 4px;
+  max-height: 74dvh;
+  overflow: auto;
+  padding-bottom: 4px;
+  border-radius: 6px;
+}
+.journal-board__ruler {
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 6px;
+  background: var(--app-surface-muted);
+}
+.journal-board__ruler-head {
+  position: sticky;
+  z-index: 5;
+  top: 4px;
+  height: var(--journal-head);
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: var(--app-surface);
+  font-size: 13px;
+  font-weight: 650;
+}
+.journal-board__ruler-track {
+  position: relative;
+  flex: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--app-surface) 0 50px,
+    var(--app-surface-muted) 50px 54px
+  );
+}
+.journal-board__mark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  color: var(--app-text);
+  font-size: 12px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.journal-board__columns {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(180px, 1fr);
+  gap: 4px;
+}
+.journal-board__now {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 2px;
+  background: var(--app-danger);
+  pointer-events: none;
+}
+.journal-board__now::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--app-danger);
+}
+.journal-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 6px;
+  background: var(--app-surface-muted);
+}
+.journal-column__head {
+  position: sticky;
+  z-index: 4;
+  top: 4px;
+  height: var(--journal-head);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  border-radius: 4px;
+  background: var(--app-surface);
+}
+.journal-column__avatar {
+  width: 34px !important;
+  height: 34px !important;
+  color: var(--app-on-primary) !important;
+  background: var(--app-primary) !important;
+  font-size: 12px !important;
+  font-weight: 750 !important;
+}
+.journal-column__identity {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+.journal-column__identity strong {
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.journal-column__identity span {
+  color: var(--app-muted);
+  font-size: 11px;
+}
+.journal-column__track {
+  position: relative;
+  flex: none;
+}
+.journal-column__slots {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.journal-slot {
+  width: 100%;
+  height: 50px;
+  flex: 0 0 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 6px;
+  color: var(--app-muted);
+  background: var(--app-surface);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+.journal-slot[data-available='true'] {
+  cursor: pointer;
+}
+.journal-slot[data-available='false'] {
+  background: var(--app-surface-muted);
+}
+.journal-slot__add {
+  display: none;
+  color: var(--app-on-primary);
+  font-weight: 650;
+}
+.journal-slot[data-available='true']:hover {
+  color: var(--app-on-primary);
+  background: var(--app-primary);
+}
+.journal-slot[data-available='true']:hover .journal-slot__idle {
+  display: none;
+}
+.journal-slot[data-available='true']:hover .journal-slot__add {
+  display: inline;
+}
+.journal-slot:focus-visible {
+  position: relative;
+  z-index: 3;
+  outline: 2px solid var(--app-primary);
+  outline-offset: -2px;
+}
+.journal-column__track[data-day-off='true'] {
+  opacity: 0.62;
+}
+.appointment-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-left: 4px solid var(--app-muted);
+  border-radius: 4px;
+  color: var(--app-text);
+  background: var(--app-surface);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+.appointment-card[data-positioned='true'] {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  z-index: 2;
+  overflow: hidden;
+  width: auto;
+}
+.appointment-card:hover {
+  background: var(--app-surface-muted);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--app-text) 10%, transparent);
+}
+.appointment-card:focus-visible {
+  outline: 2px solid var(--app-primary);
+  outline-offset: 1px;
+}
+.appointment-card__body {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+.appointment-card__body strong {
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.appointment-card__body span {
+  overflow: hidden;
+  color: var(--app-muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.appointment-card[data-compact='true'] .appointment-card__body span {
+  display: none;
+}
+.appointment-card[data-tone='success'] {
+  border-left-color: var(--app-success);
+}
+.appointment-card[data-tone='success'] .appointment-card__status {
+  color: var(--app-success);
+}
+.appointment-card[data-tone='info'] {
+  border-left-color: var(--app-info);
+}
+.appointment-card[data-tone='info'] .appointment-card__status {
+  color: var(--app-info);
+}
+.appointment-card[data-tone='warning'] {
+  border-left-color: var(--app-warning);
+}
+.appointment-card[data-tone='warning'] .appointment-card__status {
+  color: var(--app-warning);
+}
+.appointment-card[data-tone='danger'] {
+  border-left-color: var(--app-danger);
+}
+.appointment-card[data-tone='danger'] .appointment-card__status {
+  color: var(--app-danger);
+}
+.appointment-card[data-tone='neutral'] {
+  background: var(--app-surface-muted);
+}
+.appointment-card[data-status='confirmed'] {
+  border-left-color: var(--app-primary);
+}
+.appointment-card[data-status='pending'] {
+  border-left-color: var(--app-warning);
+}
+.appointment-card[data-status='completed'] {
+  border-left-color: var(--app-success);
+}
+.appointment-card[data-status='cancelled'] {
+  border-left-color: var(--app-danger);
+}
+.appointment-card[data-status='no_show'] {
+  border-left-color: var(--app-info);
+}
+.journal-list {
+  display: grid;
+  gap: 8px;
+}
+.journal-list__row {
+  min-width: 0;
+  display: grid;
+  grid-template-columns:
+    78px minmax(150px, 1.2fr) minmax(150px, 1.4fr) minmax(120px, 0.8fr)
+    auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--app-border);
+  box-shadow: none;
+}
+.journal-list__row:hover {
+  border-color: var(--app-primary-border);
+}
+.journal-list__time {
+  display: grid;
+  font-variant-numeric: tabular-nums;
+}
+.journal-list__time strong {
+  font-size: 15px;
+}
+.journal-list__time small,
+.journal-list__client span,
+.journal-list__service span,
+.journal-list__price small {
+  color: var(--app-muted);
+  font-size: 11px;
+}
+.journal-list__client,
+.journal-list__service,
+.journal-list__price {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+.journal-list__client strong,
+.journal-list__service strong {
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.journal-list__open {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--app-muted);
+  background: transparent;
+  cursor: pointer;
+}
+.journal-list__open:hover {
+  color: var(--app-primary);
+  background: var(--app-primary-soft);
+}
+.appointment-form {
+  display: grid;
+  gap: 14px;
+  padding-top: 4px;
+}
+.appointment-form__delete {
+  margin-right: auto;
+  color: var(--app-danger) !important;
+}
+.appointment-form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 1100px) {
+  .journal-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 900px) {
+  .journal-toolbar__filters {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .journal-list__row {
+    grid-template-columns: 70px 1fr auto;
+  }
+  .journal-list__service,
+  .journal-list__price {
+    grid-column: 2;
+  }
+  .journal-list__row .ui-status-pill {
+    grid-column: 3;
+    justify-self: end;
+  }
+  .journal-list__open {
+    grid-row: 1;
+    grid-column: 3;
+  }
+}
+@media (max-width: 680px) {
+  .journal-toolbar__date {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 8px;
+  }
+  .journal-toolbar__date > div:first-child {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+  .journal-toolbar__day {
+    min-width: 0;
+  }
+  .journal-toolbar__date > .MuiButton-root {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+  .journal-toolbar__filters > div:first-child {
+    min-width: 0;
+    flex: 1;
+  }
+  .appointment-form__delete {
+    margin-right: auto;
+    color: var(--app-danger) !important;
+  }
+  .appointment-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .appointment-card {
+    transition: none;
+  }
+}

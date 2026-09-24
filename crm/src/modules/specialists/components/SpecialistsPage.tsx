@@ -1,9 +1,15 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { ActiveBranchDetails } from '@/modules/auth/types'
 import { useBranches } from '@/modules/organizations/hooks/useBranches'
+import { useState } from 'react'
+
 import { Button } from '@/ui/Button'
+import { ConfirmDialog } from '@/ui/ConfirmDialog'
+import { EmptyState } from '@/ui/EmptyState'
 import { Icon } from '@/ui/Icon'
-import { Surface } from '@/ui/Surface'
+import { Loader } from '@/ui/Loader'
+import { PageHeader } from '@/ui/PageHeader'
+import { Toolbar, ToolbarField } from '@/ui/Toolbar'
 import { useSpecialistDialog } from '../hooks/useSpecialistDialog'
 import { useSpecialists } from '../hooks/useSpecialists'
 import type { Specialist } from '../types'
@@ -17,6 +23,7 @@ interface SpecialistsPageProps {
 
 export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
   const { t } = useLocale()
+  const [pendingDelete, setPendingDelete] = useState<Specialist | null>(null)
   const branchesQuery = useBranches()
   const specialists = useSpecialists()
   const dialog = useSpecialistDialog({
@@ -24,50 +31,52 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
     specialists,
   })
 
-  function handleDelete(specialist: Specialist) {
-    if (!window.confirm(t('specialistDeleteConfirm'))) return
-    specialists.remove.mutate(specialist.id)
+  function handleDelete() {
+    if (pendingDelete) specialists.remove.mutate(pendingDelete.id)
+    setPendingDelete(null)
   }
 
-  const items = specialists.specialists
+  const items = specialists.specialists.filter(
+    (item) => !activeBranch || item.branch === activeBranch.id,
+  )
 
   return (
-    <section className="management-page">
-      <header className="management-page__header">
-        <div>
-          <h1>{t('specialistsTitle')}</h1>
-          <p>{t('specialistsDescription')}</p>
-        </div>
-        <Button
-          startIcon={<Icon name="plus" />}
-          onClick={dialog.openCreate}
-          disabled={!activeBranch}
-        >
-          {t('addSpecialist')}
-        </Button>
-      </header>
+    <section className="specialists-page">
+      <PageHeader
+        title={t('specialistsTitle')}
+        description={t('specialistsDescription')}
+        actions={
+          <Button
+            startIcon={<Icon name="plus" />}
+            onClick={dialog.openCreate}
+            disabled={!activeBranch}
+          >
+            {t('addSpecialist')}
+          </Button>
+        }
+      />
 
-      <Surface className="management-toolbar">
-        <div className="active-branch-context">
-          <small>{t('activeBranch')}</small>
-          <strong>{activeBranch?.name ?? t('selectBranch')}</strong>
-          {activeBranch ? <span>{activeBranch.address}</span> : null}
-        </div>
-        <span>
+      <Toolbar className="specialists-toolbar">
+        <ToolbarField
+          label={t('activeBranch')}
+          value={activeBranch?.name ?? t('selectBranch')}
+          hint={activeBranch?.address}
+        />
+        <span className="ui-toolbar__count">
           {items.length === 1
             ? t('specialistsCountOne')
             : t('specialistsCount', { count: items.length })}
         </span>
-      </Surface>
+      </Toolbar>
 
-      {specialists.isLoading ? <p className="management-loading">{t('loading')}</p> : null}
+      {specialists.isLoading ? <Loader label={t('loading')} /> : null}
 
       {!specialists.isLoading && items.length === 0 ? (
-        <Surface className="management-empty">
-          <Icon name="specialists" size={30} />
-          <strong>{t('specialistsEmptyTitle')}</strong>
-          <p>{t('specialistsEmptyDescription')}</p>
-        </Surface>
+        <EmptyState
+          icon="specialists"
+          title={t('specialistsEmptyTitle')}
+          description={t('specialistsEmptyDescription')}
+        />
       ) : null}
 
       <div className="specialist-list">
@@ -76,7 +85,7 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
             key={specialist.id}
             specialist={specialist}
             onEdit={dialog.openEdit}
-            onDelete={handleDelete}
+            onDelete={setPendingDelete}
           />
         ))}
       </div>
@@ -85,6 +94,17 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
         dialog={dialog}
         branches={branchesQuery.data ?? []}
         saving={specialists.saving}
+      />
+
+      <ConfirmDialog
+        open={pendingDelete !== null}
+        title={t('specialistDeleteTitle')}
+        description={t('specialistDeleteConfirm')}
+        confirmLabel={t('delete')}
+        cancelLabel={t('cancel')}
+        loading={specialists.remove.isPending}
+        onConfirm={handleDelete}
+        onCancel={() => setPendingDelete(null)}
       />
     </section>
   )

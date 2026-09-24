@@ -2,17 +2,18 @@ import { useState, type FormEvent } from 'react'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { formatPhoneInput, isValidPhone, normalizePhone } from '@/lib/validation/phone'
+import { Alert } from '@/ui/Alert'
 import { Button } from '@/ui/Button'
-import { Heading, Text } from '@/ui/Text'
 import { TextField } from '@/ui/TextField'
 
 interface PhoneStepProps {
   initialPhone: string
   loading: boolean
+  errorMessage: string
   onSubmit: (phone: string) => Promise<void>
 }
 
-export function PhoneStep({ initialPhone, loading, onSubmit }: PhoneStepProps) {
+export function PhoneStep({ initialPhone, loading, errorMessage, onSubmit }: PhoneStepProps) {
   const { t } = useLocale()
   const [phone, setPhone] = useState(() => formatPhoneInput(initialPhone))
   const [submitted, setSubmitted] = useState(false)
@@ -28,12 +29,6 @@ export function PhoneStep({ initialPhone, loading, onSubmit }: PhoneStepProps) {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit} noValidate>
-      <div className="auth-heading">
-        <Text tone="muted">{t('authWorkspace')}</Text>
-        <Heading>{t('authEnterPhone')}</Heading>
-        <Text tone="muted">{t('authPhoneDescription')}</Text>
-      </div>
-
       <TextField
         id="phone-number"
         name="phone_number"
@@ -43,14 +38,17 @@ export function PhoneStep({ initialPhone, loading, onSubmit }: PhoneStepProps) {
         inputMode="tel"
         autoComplete="tel"
         autoFocus
+        placeholder={t('authPhonePlaceholder')}
         disabled={loading}
         error={invalidPhone || (submitted && !isValidPhone(normalizedPhone))}
         helperText={
           invalidPhone || (submitted && !isValidPhone(normalizedPhone))
             ? t('errorPhoneFormat')
-            : t('authPhoneHelper')
+            : undefined
         }
       />
+
+      {errorMessage ? <Alert>{errorMessage}</Alert> : null}
 
       <Button type="submit" fullWidth loading={loading}>
         {t('authGetCode')}

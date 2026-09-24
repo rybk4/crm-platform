@@ -18,7 +18,21 @@
   --app-primary-border: #bfdbfe;
   --app-sidebar: #ffffff;
   --app-sidebar-active: #eef4ff;
-  --app-danger: #b42318;
+
+  /* Статусные цвета одинаковы во всех темах: состояние записи не должно
+     перекрашиваться вместе с оформлением. Живут здесь, а не в ui/theme. */
+  --app-danger: #ea4335;
+  --app-danger-soft: #fff1f0;
+  --app-danger-border: #f5a19a;
+  --app-success: #72ac3c;
+  --app-success-soft: #f1f8eb;
+  --app-success-border: #b9d69e;
+  --app-warning: #fbbc05;
+  --app-warning-soft: #fff8df;
+  --app-warning-border: #fdde82;
+  --app-info: #af79ff;
+  --app-info-soft: #f6efff;
+  --app-info-border: #d6bbff;
 }
 
 * {

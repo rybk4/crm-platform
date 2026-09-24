@@ -1,7 +1,8 @@
 import axios, {
+  AxiosError,
   type AxiosAdapter,
-  type AxiosError,
   type AxiosInstance,
+  type AxiosResponse,
   type InternalAxiosRequestConfig,
 } from 'axios'
 
@@ -17,6 +18,7 @@ import {
   reportServerAvailable,
   reportServerUnavailable,
 } from './serverStatus'
+import { transportOverride, type TransportResponse } from './transport'
 
 export const REFRESH_PATH = '/api/auth/token/refresh/'
 
@@ -34,6 +36,54 @@ type RetriableConfig = InternalAxiosRequestConfig
 interface HttpClientOptions {
   /** Подменяется в тестах, чтобы не ходить в сеть. */
   adapter?: AxiosAdapter
+}
+
+function toAxiosResponse(
+  result: TransportResponse,
+  config: InternalAxiosRequestConfig,
+): AxiosResponse {
+  const response: AxiosResponse = {
+    data: result.data,
+    status: result.status,
+    statusText: '',
+    headers: {},
+    config,
+  }
+
+  if (result.status >= 200 && result.status < 300) return response
+
+  throw new AxiosError(
+    `Request failed with status code ${result.status}`,
+    AxiosError.ERR_BAD_RESPONSE,
+    config,
+    undefined,
+    response,
+  )
+}
+
+/**
+ * Адаптер, который сначала спрашивает перехватчик (слой демо-данных), а уже
+ * потом идёт в сеть. Без установленного перехватчика ведёт себя как обычный axios.
+ */
+function createAdapter(fallback?: AxiosAdapter): AxiosAdapter {
+  return async (config) => {
+    const override = transportOverride()
+
+    if (override) {
+      const result = await override({
+        method: (config.method ?? 'get').toLowerCase(),
+        url: config.url ?? '',
+        params: (config.params as Record<string, unknown> | undefined) ?? {},
+        body: config.data,
+        headers: config.headers.toJSON() as Record<string, string>,
+      })
+
+      if (result) return toAxiosResponse(result, config)
+    }
+
+    const adapter = fallback ?? axios.getAdapter(axios.defaults.adapter)
+    return adapter(config)
+  }
 }
 
 function toApiError(error: AxiosError): ApiError {
@@ -59,7 +109,7 @@ function toApiError(error: AxiosError): ApiError {
  * через наследников `ApiClient`.
  */
 export function createApiHttp({ adapter }: HttpClientOptions = {}): AxiosInstance {
-  const instance = axios.create({ baseURL: apiBaseUrl, adapter })
+  const instance = axios.create({ baseURL: apiBaseUrl, adapter: createAdapter(adapter) })
 
   // Общий на весь клиент промис обновления: если 401 прилетел сразу по
   // нескольким запросам, рефреш уходит один, остальные ждут его результат.

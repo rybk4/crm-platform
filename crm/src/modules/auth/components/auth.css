@@ -1,60 +1,152 @@
 .auth-shell {
   min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  padding: 24px;
-}
-
-.auth-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 48px;
-  font-weight: 500;
-  color: var(--app-text);
+  padding: 32px;
+  background: var(--app-background);
 }
 
 .auth-main {
+  min-height: calc(100vh - 64px);
   display: grid;
   place-items: center;
-  padding: 48px 0;
 }
 
-.auth-surface {
-  width: min(100%, 440px);
-  padding: 40px;
-  border: 1px solid var(--app-border);
-  box-shadow: none !important;
+.auth-surface.MuiPaper-root {
+  width: min(100%, 450px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 62px;
+  border: 0;
+  border-radius: 32px;
+  background: var(--app-surface);
+  box-shadow:
+    0 5px 15px color-mix(in srgb, var(--app-text) 5%, transparent),
+    0 15px 35px -5px color-mix(in srgb, var(--app-text) 5%, transparent);
+}
+
+.auth-logo {
+  width: 52px;
+  height: 52px;
+  display: block;
+}
+
+.auth-title.MuiTypography-root {
+  margin: 0;
+  font-family: var(--app-font-family);
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: center;
 }
 
 .auth-form {
+  width: 100%;
   display: grid;
-  gap: 24px;
-}
-
-.auth-heading {
-  display: grid;
-  gap: 8px;
-}
-
-.auth-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   gap: 16px;
 }
 
-.auth-loading {
-  min-height: 240px;
-  display: grid;
-  place-items: center;
+.auth-form .MuiInputBase-root {
+  min-height: 52px;
+  border-radius: 16px;
+  background: var(--app-surface-muted);
 }
 
-.auth-footer {
-  text-align: center;
+.auth-form .MuiOutlinedInput-notchedOutline {
+  border: 0;
+}
+
+.auth-form .MuiInputBase-input {
+  padding: 20px 16px 8px;
+  font-size: 16px;
+}
+
+.auth-form .MuiInputLabel-root {
   color: var(--app-muted);
+  font-size: 16px;
+}
+
+.auth-form .MuiInputLabel-shrink {
+  transform: translate(14px, 6px) scale(0.75);
+}
+
+.auth-form .MuiInputLabel-root.Mui-focused {
+  color: var(--app-muted);
+}
+
+.auth-form .MuiFormHelperText-root {
+  margin: 6px 4px 0;
+}
+
+.auth-form .MuiButton-root {
+  min-height: 52px;
+  border-radius: 16px;
+  font-size: 15px;
+}
+
+.auth-form .MuiAlert-root {
+  padding: 8px 12px;
+  border: 1px solid var(--app-danger-border);
+  border-radius: 12px;
+  color: var(--app-danger);
+  background: var(--app-danger-soft);
   font-size: 13px;
-  line-height: 1.5;
+}
+
+.auth-code-copy {
+  display: grid;
+  gap: 5px;
+  text-align: center;
+}
+
+.auth-code-copy .MuiTypography-root {
+  font-size: 13px;
+}
+
+.auth-code-label.MuiTypography-root {
+  color: var(--app-text);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.auth-debug {
+  margin: -4px 0 0;
+  color: var(--app-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+.auth-back {
+  justify-self: center;
+  padding: 4px;
+  border: 0;
+  color: var(--app-text);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.auth-back:hover {
+  color: var(--app-primary);
+}
+
+.auth-back:focus-visible {
+  outline: 2px solid var(--app-primary);
+  outline-offset: 2px;
+}
+
+.auth-back:disabled {
+  color: var(--app-muted);
+  cursor: not-allowed;
+}
+
+.auth-loading {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
 }
 
 @media (max-width: 600px) {
@@ -63,19 +155,20 @@
   }
 
   .auth-main {
-    padding: 32px 0;
+    min-height: calc(100vh - 32px);
   }
 
   .auth-surface {
-    padding: 28px 20px;
+    padding: 28px 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .auth-surface {
+    padding-inline: 18px;
   }
 
-  .auth-actions {
-    align-items: stretch;
-    flex-direction: column-reverse;
-  }
-
-  .auth-actions > * {
-    width: 100%;
+  .ui-otp {
+    gap: 7px;
   }
 }

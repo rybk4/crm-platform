@@ -9,6 +9,7 @@ import { Button } from '@/ui/Button'
 import { Icon } from '@/ui/Icon'
 import { useProfileMenu } from '../hooks/useProfileMenu'
 import { BranchSwitcher } from './BranchSwitcher'
+import { ThemePicker } from './ThemePicker'
 
 const localeLabelKeys = {
   ru: 'languageRussian',
@@ -115,6 +116,8 @@ export function ProfileMenu({
               ))}
             </div>
           </fieldset>
+
+          <ThemePicker />
         </div>
       ) : null}
     </div>

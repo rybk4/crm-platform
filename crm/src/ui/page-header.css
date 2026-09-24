@@ -1,0 +1,35 @@
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+.page-header__copy {
+  min-width: 0;
+}
+.page-header__copy h1 {
+  margin: 0;
+  color: var(--app-text);
+  font-family: var(--app-display-font-family);
+  font-size: clamp(26px, 3vw, 36px);
+  letter-spacing: -0.035em;
+}
+.page-header__copy p {
+  max-width: 680px;
+  margin: 6px 0 0;
+  color: var(--app-muted);
+  line-height: 1.5;
+}
+.page-header__actions {
+  display: flex;
+  gap: 8px;
+}
+@media (max-width: 680px) {
+  .page-header {
+    flex-direction: column;
+  }
+  .page-header__actions,
+  .page-header__actions > button {
+    width: 100%;
+  }
+}

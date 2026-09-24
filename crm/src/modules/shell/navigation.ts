@@ -10,6 +10,7 @@ export interface NavigationItem {
 }
 
 export const navigationItems: NavigationItem[] = [
+  { section: 'dashboard', labelKey: 'navOverview', icon: 'home', path: '/' },
   { section: 'journal', labelKey: 'navJournal', icon: 'journal', path: '/journal' },
   { section: 'clients', labelKey: 'navClients', icon: 'clients', path: '/clients' },
   { section: 'specialists', labelKey: 'navSpecialists', icon: 'specialists', path: '/specialists' },

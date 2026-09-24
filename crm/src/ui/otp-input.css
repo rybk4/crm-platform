@@ -1,0 +1,43 @@
+.ui-otp {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ui-otp__digit {
+  min-width: 0;
+  height: 58px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  color: var(--app-text);
+  background: var(--app-surface-muted);
+  font-family: var(--app-font-family);
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1;
+  text-align: center;
+  caret-color: var(--app-primary);
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.ui-otp__digit:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--app-surface-muted) 70%, var(--app-primary-soft));
+}
+
+.ui-otp__digit:focus {
+  border-color: var(--app-primary);
+  outline: none;
+  background: var(--app-surface);
+}
+
+.ui-otp[data-error='true'] .ui-otp__digit {
+  border-color: var(--app-danger);
+}
+
+.ui-otp__digit:disabled {
+  color: var(--app-muted);
+  cursor: not-allowed;
+}

@@ -1,0 +1,46 @@
+.ui-toolbar {
+  min-height: 72px;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--app-border);
+  box-shadow: none;
+}
+
+.ui-toolbar__field {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.ui-toolbar__field small {
+  color: var(--app-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ui-toolbar__field strong,
+.ui-toolbar__field span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ui-toolbar__field strong {
+  font-size: 14px;
+}
+
+.ui-toolbar__field span {
+  color: var(--app-muted);
+  font-size: 11px;
+}
+
+.ui-toolbar__count {
+  color: var(--app-muted);
+  font-size: 13px;
+  font-weight: 650;
+  white-space: nowrap;
+}

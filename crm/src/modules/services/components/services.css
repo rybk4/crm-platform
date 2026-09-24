@@ -1,18 +1,13 @@
+.services-page {
+  display: grid;
+  gap: 20px;
+}
 .services-toolbar {
-  min-height: 72px;
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr) auto;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border: 1px solid var(--app-border);
-  box-shadow: none !important;
 }
-.services-toolbar > span {
+.services-toolbar > .ui-toolbar__count {
   min-width: 34px;
-  color: var(--app-muted);
-  font-size: 13px;
-  font-weight: 700;
   text-align: center;
 }
 .service-list {
@@ -81,11 +76,11 @@
   .service-row__price {
     grid-column: 2;
   }
-  .service-row .status-pill {
+  .service-row > .ui-status-pill {
     grid-column: 3;
     grid-row: 2;
   }
-  .service-row .management-actions {
+  .service-row > .ui-row-actions {
     grid-column: 3;
     grid-row: 1;
   }
@@ -94,7 +89,7 @@
   .services-toolbar {
     grid-template-columns: 1fr;
   }
-  .services-toolbar > span {
+  .services-toolbar > .ui-toolbar__count {
     text-align: left;
   }
   .service-row {
@@ -107,11 +102,11 @@
   .service-row__metric {
     display: inline-grid;
   }
-  .management-actions {
+  .service-row > .ui-row-actions {
     grid-column: 2;
     grid-row: 1;
   }
-  .service-row .status-pill {
+  .service-row > .ui-status-pill {
     display: inline-flex;
     grid-column: 2;
     grid-row: 2;

@@ -15,7 +15,6 @@ export interface AppThemeDefinition {
   id: AppThemeId
   nameKey: TranslationKey
   shortNameKey: TranslationKey
-  descriptionKey: TranslationKey
   fontFamily: string
   displayFontFamily: string
   swatches: readonly [string, string, string]

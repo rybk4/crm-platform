@@ -1,1 +1,2 @@
-export type AppSection = 'journal' | 'clients' | 'specialists' | 'services' | 'analytics'
+export type AppSection =
+  'dashboard' | 'journal' | 'clients' | 'specialists' | 'services' | 'analytics'

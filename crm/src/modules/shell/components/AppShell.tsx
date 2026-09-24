@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { AnalyticsPage } from '@/modules/analytics/components/AnalyticsPage'
+import { DashboardPage } from '@/modules/dashboard/components/DashboardPage'
 import type { AuthUser } from '@/modules/auth/types'
 import { ClientsPage } from '@/modules/clients/components/ClientsPage'
 import { JournalPage } from '@/modules/journal/components/JournalPage'
@@ -13,7 +14,6 @@ import type { Locale } from '@/lib/i18n/locale'
 import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
 import { Sidebar } from './Sidebar'
-import { ThemeStudio } from './ThemeStudio'
 import './shell.css'
 
 interface AppShellProps {
@@ -78,12 +78,21 @@ export function AppShell({ user, onActiveBranchChange, onLocaleChange, onLogout 
           </IconButton>
         ) : null}
 
-        <ThemeStudio />
-
         <main ref={contentRef} id="main-content" className="app-content" tabIndex={-1}>
           <Routes>
-            <Route path="/" element={<Navigate to="/journal" replace />} />
-            <Route path="/journal" element={<JournalPage />} />
+            <Route
+              path="/"
+              element={<DashboardPage key={user.active_branch ?? 'none'} user={user} />}
+            />
+            <Route
+              path="/journal"
+              element={
+                <JournalPage
+                  key={user.active_branch ?? 'none'}
+                  activeBranch={user.active_branch_details}
+                />
+              }
+            />
             <Route path="/clients" element={<ClientsPage />} />
             <Route
               path="/specialists"
@@ -104,7 +113,7 @@ export function AppShell({ user, onActiveBranchChange, onLocaleChange, onLogout 
               }
             />
             <Route path="/analytics" element={<AnalyticsPage />} />
-            <Route path="*" element={<Navigate to="/journal" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
       </div>

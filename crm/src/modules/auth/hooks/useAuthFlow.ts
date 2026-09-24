@@ -18,12 +18,14 @@ export function useAuthFlow() {
   const [phone, setPhone] = useState('+7')
   const [user, setUser] = useState<AuthUser | null>(null)
   const [debugHint, setDebugHint] = useState('')
+  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const logout = useCallback(() => {
     clearTokens()
     setUser(null)
     setDebugHint('')
+    setError('')
     setStage('phone')
   }, [])
 
@@ -63,15 +65,19 @@ export function useAuthFlow() {
       return
     }
 
+    setError('')
     setLoading(true)
     try {
       const response = await authApi.requestOtp(normalized)
       setPhone(normalized)
       setDebugHint(response.debug ?? '')
+      setLoading(false)
       setStage('code')
       notifications.info(response.detail)
     } catch (error) {
-      notifications.error(apiErrorMessage(error, t('errorUnexpected')))
+      const message = apiErrorMessage(error, t('errorUnexpected'))
+      setError(message)
+      notifications.error(message)
     } finally {
       setLoading(false)
     }
@@ -83,6 +89,7 @@ export function useAuthFlow() {
       return
     }
 
+    setError('')
     setLoading(true)
     try {
       const response = await authApi.verifyOtp(phone, code.trim())
@@ -91,7 +98,9 @@ export function useAuthFlow() {
       setStage('authenticated')
       notifications.success(response.detail)
     } catch (error) {
-      notifications.error(apiErrorMessage(error, t('errorUnexpected')))
+      const message = apiErrorMessage(error, t('errorUnexpected'))
+      setError(message)
+      notifications.error(message)
     } finally {
       setLoading(false)
     }
@@ -99,6 +108,7 @@ export function useAuthFlow() {
 
   function backToPhone() {
     setDebugHint('')
+    setError('')
     setStage('phone')
   }
 
@@ -115,6 +125,7 @@ export function useAuthFlow() {
     phone,
     user,
     debugHint,
+    error,
     loading,
     submitPhone,
     submitCode,

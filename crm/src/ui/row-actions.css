@@ -1,0 +1,11 @@
+.ui-row-actions {
+  display: flex;
+}
+
+.ui-row-actions .MuiIconButton-root {
+  color: var(--app-muted);
+}
+
+.ui-row-actions .MuiIconButton-root:hover {
+  color: var(--app-primary);
+}

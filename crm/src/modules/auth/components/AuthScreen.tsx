@@ -1,6 +1,7 @@
+import partnersMark from '@/assets/partners-mark.svg'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Surface } from '@/ui/Surface'
-import { Text } from '@/ui/Text'
+import { Heading, Text } from '@/ui/Text'
 import type { AuthFlow } from '../hooks/useAuthFlow'
 import { CodeStep } from './CodeStep'
 import { PhoneStep } from './PhoneStep'
@@ -15,15 +16,11 @@ export function AuthScreen({ auth }: AuthScreenProps) {
 
   return (
     <div className="auth-shell">
-      <header className="auth-brand">
-        <div className="brand-mark" aria-hidden="true">
-          C
-        </div>
-        <span>{t('appName')}</span>
-      </header>
-
       <main className="auth-main">
         <Surface className="auth-surface">
+          <img className="auth-logo" src={partnersMark} alt="" />
+          <Heading className="auth-title">{t('authTitle')}</Heading>
+
           {auth.stage === 'initializing' ? (
             <div className="auth-loading" role="status" aria-live="polite">
               <Text tone="muted">{t('authChecking')}</Text>
@@ -34,6 +31,7 @@ export function AuthScreen({ auth }: AuthScreenProps) {
             <PhoneStep
               initialPhone={auth.phone}
               loading={auth.loading}
+              errorMessage={auth.error}
               onSubmit={auth.submitPhone}
             />
           ) : null}
@@ -43,14 +41,13 @@ export function AuthScreen({ auth }: AuthScreenProps) {
               phone={auth.phone}
               debugHint={auth.debugHint}
               loading={auth.loading}
+              errorMessage={auth.error}
               onSubmit={auth.submitCode}
               onBack={auth.backToPhone}
             />
           ) : null}
         </Surface>
       </main>
-
-      <footer className="auth-footer">{t('authFooter')}</footer>
     </div>
   )
 }

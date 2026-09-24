@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
+import { isDemoMode } from '@/lib/api/demoMode'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { Locale } from '@/lib/i18n/locale'
 import { Icon } from '@/ui/Icon'
@@ -62,6 +63,7 @@ export function Sidebar({
             key={item.section}
             className="sidebar-nav__item"
             to={item.path}
+            end={item.path === '/'}
             title={collapsed ? t(item.labelKey) : undefined}
             onClick={mobile ? onClose : undefined}
           >
@@ -72,6 +74,13 @@ export function Sidebar({
           </NavLink>
         ))}
       </nav>
+
+      {isDemoMode() ? (
+        <p className="sidebar-demo" title={t('demoDataHint')}>
+          <span aria-hidden="true" />
+          <span className="sidebar-demo__label">{t('demoDataBadge')}</span>
+        </p>
+      ) : null}
 
       <ProfileMenu
         collapsed={collapsed}

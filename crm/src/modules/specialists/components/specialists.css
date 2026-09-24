@@ -1,90 +1,13 @@
-.management-page {
+.specialists-page {
   display: grid;
   gap: 20px;
 }
-.management-page__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-}
-.management-page__header h1 {
-  margin: 0;
-  color: var(--app-text);
-  font-family: var(--app-display-font-family);
-  font-size: clamp(26px, 3vw, 36px);
-  letter-spacing: -0.035em;
-}
-.management-page__header p {
-  max-width: 680px;
-  margin: 6px 0 0;
-  color: var(--app-muted);
-  line-height: 1.5;
-}
-.management-toolbar {
-  min-height: 72px;
+.specialists-toolbar {
   display: grid;
   grid-template-columns: minmax(240px, 380px) 1fr;
-  align-items: center;
-  gap: 20px;
-  padding: 12px 16px;
-  border: 1px solid var(--app-border);
-  box-shadow: none !important;
 }
-.management-toolbar > span {
+.specialists-toolbar > .ui-toolbar__count {
   justify-self: end;
-  color: var(--app-muted);
-  font-size: 13px;
-  font-weight: 650;
-}
-.active-branch-context {
-  min-width: 0;
-  display: grid;
-  gap: 2px;
-}
-.active-branch-context small {
-  color: var(--app-muted);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.active-branch-context strong,
-.active-branch-context span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.active-branch-context strong {
-  font-size: 14px;
-}
-.active-branch-context span {
-  color: var(--app-muted);
-  font-size: 11px;
-}
-.management-loading {
-  margin: 28px 0;
-  color: var(--app-muted);
-  text-align: center;
-}
-.management-empty {
-  min-height: 220px;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 8px;
-  padding: 28px;
-  border: 1px dashed var(--app-border);
-  box-shadow: none !important;
-  text-align: center;
-}
-.management-empty svg {
-  color: var(--app-primary);
-}
-.management-empty p {
-  max-width: 520px;
-  margin: 0;
-  color: var(--app-muted);
 }
 .specialist-list {
   display: grid;
@@ -159,28 +82,6 @@
   color: var(--app-primary);
   background: var(--app-primary-soft);
 }
-.status-pill {
-  padding: 5px 8px;
-  border-radius: 999px;
-  color: var(--app-muted);
-  background: var(--app-surface-muted);
-  font-size: 11px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.status-pill[data-active='true'] {
-  color: var(--app-primary);
-  background: var(--app-primary-soft);
-}
-.management-actions {
-  display: flex;
-}
-.management-actions .MuiIconButton-root {
-  color: var(--app-muted);
-}
-.management-actions .MuiIconButton-root:hover {
-  color: var(--app-primary);
-}
 .specialist-form {
   display: grid;
   gap: 24px;
@@ -240,16 +141,10 @@
   }
 }
 @media (max-width: 680px) {
-  .management-page__header {
-    flex-direction: column;
-  }
-  .management-page__header > button {
-    width: 100%;
-  }
-  .management-toolbar {
+  .specialists-toolbar {
     grid-template-columns: 1fr;
   }
-  .management-toolbar > span {
+  .specialists-toolbar > .ui-toolbar__count {
     justify-self: start;
   }
   .specialist-row {
@@ -259,11 +154,11 @@
   .schedule-strip {
     grid-column: 2 / 4;
   }
-  .status-pill {
+  .specialist-row > .ui-status-pill {
     grid-column: 2;
     justify-self: start;
   }
-  .management-actions {
+  .specialist-row > .ui-row-actions {
     grid-column: 3;
     grid-row: 1;
   }

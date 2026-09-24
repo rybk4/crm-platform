@@ -12,7 +12,8 @@ interface TextFieldProps {
   autoFocus?: boolean
   inputMode?: 'text' | 'tel' | 'numeric'
   disabled?: boolean
-  type?: 'text' | 'tel' | 'url' | 'number' | 'time'
+  type?: 'text' | 'tel' | 'url' | 'number' | 'time' | 'date' | 'email'
+  placeholder?: string
   multiline?: boolean
   rows?: number
   required?: boolean
@@ -34,6 +35,7 @@ export function TextField({
   multiline = false,
   rows,
   required = false,
+  placeholder,
 }: TextFieldProps) {
   return (
     <MuiTextField
@@ -51,8 +53,12 @@ export function TextField({
       multiline={multiline}
       rows={rows}
       required={required}
+      placeholder={placeholder}
       fullWidth
-      slotProps={{ htmlInput: { inputMode } }}
+      slotProps={{
+        htmlInput: { inputMode },
+        inputLabel: type === 'date' ? { shrink: true } : undefined,
+      }}
     />
   )
 }

@@ -2,6 +2,8 @@ import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Avatar } from '@/ui/Avatar'
 import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
+import { RowActions } from '@/ui/RowActions'
+import { StatusPill } from '@/ui/StatusPill'
 import { Surface } from '@/ui/Surface'
 import { scheduleDayLabel, specialistInitials, weekdayKeys } from '../model'
 import type { Specialist } from '../types'
@@ -50,11 +52,14 @@ export function SpecialistRow({ specialist, onEdit, onDelete }: SpecialistRowPro
         })}
       </div>
 
-      <span className="status-pill" data-active={specialist.is_active}>
-        {specialist.is_active ? t('active') : t('inactive')}
-      </span>
+      <StatusPill
+        label={specialist.is_active ? t('active') : t('inactive')}
+        tone={specialist.is_active ? 'success' : 'neutral'}
+        icon={specialist.is_active ? 'check-circle' : 'ban'}
+        size="sm"
+      />
 
-      <div className="management-actions">
+      <RowActions>
         <IconButton ariaLabel={t('edit')} title={t('edit')} onClick={() => onEdit(specialist)}>
           <Icon name="edit" />
         </IconButton>
@@ -65,7 +70,7 @@ export function SpecialistRow({ specialist, onEdit, onDelete }: SpecialistRowPro
         >
           <Icon name="trash" />
         </IconButton>
-      </div>
+      </RowActions>
     </Surface>
   )
 }

@@ -1,3 +1,4 @@
+import { formatMoney } from '@/lib/format/money'
 import type { Service, ServiceInput } from './types'
 
 export const supportedCurrencies = ['KZT', 'RUB', 'USD'] as const
@@ -32,13 +33,8 @@ export function isServiceFormValid(form: ServiceInput) {
   return Boolean(form.specialist && form.name.trim() && form.duration_minutes && form.price)
 }
 
-/** Цена приходит строкой: нечисловое значение показываем как есть, а не как NaN. */
 export function formatPrice(value: string, currency: string) {
-  const amount = Number(value)
-  if (!value.trim() || !Number.isFinite(amount)) return `${value} ${currency}`
-
-  const formatted = new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(amount)
-  return `${formatted} ${currency}`
+  return formatMoney(value, currency)
 }
 
 export function filterBySpecialist(services: Service[], specialistFilter: string) {
