@@ -3,11 +3,14 @@ import { describe, expect, it } from 'vitest'
 import {
   defaultSchedule,
   emptySpecialistForm,
+  filterSpecialists,
   isSpecialistFormValid,
   scheduleDayLabel,
+  scheduleSummary,
   specialistInitials,
   specialistToForm,
   toSpecialistPayload,
+  upcomingScheduleDays,
 } from './model'
 import type { Specialist } from './types'
 
@@ -168,5 +171,60 @@ describe('scheduleDayLabel', () => {
     })
 
     expect(label).toBeNull()
+  })
+})
+
+describe('filterSpecialists', () => {
+  it('ищет по должности и фильтрует по активности', () => {
+    const inactive = makeSpecialist({
+      id: 2,
+      full_name: 'Ким Мария',
+      job_title: 'Косметолог',
+      is_active: false,
+    })
+
+    expect(
+      filterSpecialists([makeSpecialist(), inactive], {
+        search: 'космет',
+        status: 'inactive',
+        sort: 'name',
+        position: '',
+      }),
+    ).toEqual([inactive])
+  })
+})
+
+describe('scheduleSummary', () => {
+  it('считает рабочие дни и часы без перерыва', () => {
+    expect(
+      scheduleSummary([
+        {
+          weekday: 0,
+          is_day_off: false,
+          start_time: '09:00',
+          end_time: '18:00',
+          break_start: '13:00',
+          break_end: '14:00',
+        },
+        {
+          weekday: 1,
+          is_day_off: true,
+          start_time: null,
+          end_time: null,
+          break_start: null,
+          break_end: null,
+        },
+      ]),
+    ).toEqual({ workingDays: 1, weeklyHours: 8 })
+  })
+})
+
+describe('upcomingScheduleDays', () => {
+  it('строит семь дат и сопоставляет их с недельным графиком', () => {
+    const days = upcomingScheduleDays(defaultSchedule(), new Date(2026, 8, 21))
+
+    expect(days).toHaveLength(7)
+    expect(days[0]).toMatchObject({ label: '21.09', working: true })
+    expect(days[6]).toMatchObject({ label: '27.09', working: false })
   })
 })

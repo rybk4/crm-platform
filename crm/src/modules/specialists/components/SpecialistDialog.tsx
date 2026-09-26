@@ -8,6 +8,7 @@ import { TextField } from '@/ui/TextField'
 import type { useSpecialistDialog } from '../hooks/useSpecialistDialog'
 import { CertificateList } from './CertificateList'
 import { ScheduleEditor } from './ScheduleEditor'
+import './specialist-form.css'
 
 interface SpecialistDialogProps {
   dialog: ReturnType<typeof useSpecialistDialog>

@@ -1,183 +1,244 @@
 .specialists-page {
   display: grid;
-  gap: 20px;
+  gap: 16px;
 }
-.specialists-toolbar {
+.specialists-page__header h1 {
+  margin: 0;
+  font-family: var(--app-font-family);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+.specialists-page__header span {
+  display: block;
+  margin-top: 6px;
+  color: var(--app-muted);
+  font-size: 12px;
+}
+.specialists-tools {
   display: grid;
-  grid-template-columns: minmax(240px, 380px) 1fr;
+  grid-template-columns: repeat(4, minmax(155px, 230px)) minmax(210px, 1fr);
+  align-items: start;
+  gap: 8px;
+  padding: 0 0 8px;
 }
-.specialists-toolbar > .ui-toolbar__count {
+.specialists-tools .MuiInputBase-root {
+  height: 52px;
+  border-radius: 16px;
+  background: var(--app-surface-muted);
+  font-size: 14px;
+}
+.specialists-tools .MuiOutlinedInput-notchedOutline {
+  border: 0;
+}
+.specialists-tools .MuiInputBase-root.Mui-focused {
+  box-shadow: 0 0 0 2px var(--app-primary-border);
+}
+.specialists-tools .MuiInputLabel-root {
+  color: var(--app-muted);
+}
+.specialists-tools__add.MuiButton-root {
+  min-width: 210px;
+  height: 52px;
   justify-self: end;
+  border-radius: 16px;
+  color: var(--app-primary);
+  background: var(--app-surface-muted);
+  font-size: 14px;
+  white-space: nowrap;
 }
-.specialist-list {
+.specialists-tools__add.MuiButton-root:hover {
+  background: var(--app-border);
+}
+.specialist-grid {
   display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.specialist-card {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--app-border);
+  border-radius: 24px !important;
+  box-shadow: none !important;
+}
+.specialist-card[data-inactive='true'] {
+  background: var(--app-surface-muted);
+}
+.specialist-card__header,
+.specialist-card__person,
+.specialist-card__actions {
+  display: flex;
+  align-items: center;
+}
+.specialist-card__header {
+  justify-content: space-between;
   gap: 8px;
 }
-.specialist-row {
+.specialist-card__person {
   min-width: 0;
-  display: grid;
-  grid-template-columns:
-    auto minmax(170px, 1.35fr) minmax(130px, 0.8fr) minmax(220px, 1.25fr)
-    auto auto;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 16px;
-  border: 1px solid var(--app-border);
-  box-shadow: none !important;
-  transition:
-    border-color 160ms ease,
-    transform 160ms ease;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
 }
-.specialist-row:hover {
-  border-color: var(--app-primary-border);
-  transform: translateY(-1px);
-}
-.specialist-row__avatar {
-  width: 44px !important;
-  height: 44px !important;
+.specialist-card__avatar {
+  width: 32px !important;
+  height: 32px !important;
+  flex: none;
+  border-radius: 10px !important;
   color: var(--app-on-primary) !important;
   background: var(--app-primary) !important;
-  font-size: 13px !important;
-  font-weight: 750 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
 }
-.specialist-row__identity,
-.specialist-row__contact {
+.specialist-card__identity {
   min-width: 0;
   display: grid;
   gap: 2px;
 }
-.specialist-row__identity strong,
-.specialist-row__identity span,
-.specialist-row__contact span {
+.specialist-card__identity strong,
+.specialist-card__identity small {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.specialist-row__identity span,
-.specialist-row__contact span {
-  font-size: 13px;
+.specialist-card__identity strong {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
 }
-.specialist-row small {
+.specialist-card__identity small {
   color: var(--app-muted);
-  font-size: 11px;
+  font-size: 14px;
+  line-height: 16px;
 }
-.schedule-strip {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(26px, 1fr));
-  gap: 4px;
-}
-.schedule-strip span {
-  height: 26px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--app-border);
-  border-radius: 5px;
-  color: var(--app-muted);
-  background: var(--app-surface-muted);
-  font-size: 10px;
-  font-weight: 700;
-}
-.schedule-strip span[data-working='true'] {
-  border-color: var(--app-primary-border);
-  color: var(--app-primary);
-  background: var(--app-primary-soft);
-}
-.specialist-form {
-  display: grid;
-  gap: 24px;
-}
-.form-section {
-  display: grid;
-  gap: 14px;
-}
-.form-section + .form-section {
-  padding-top: 22px;
-  border-top: 1px solid var(--app-border);
-}
-.form-section h3 {
-  margin: 0;
-  font-size: 15px;
-}
-.form-section__heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-.form-grid--three {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.schedule-editor {
-  display: grid;
+.specialist-card__actions {
+  position: relative;
   gap: 6px;
 }
-.schedule-editor__row {
-  display: grid;
-  grid-template-columns: 34px minmax(145px, 1fr) 125px 125px;
-  align-items: center;
-  gap: 10px;
-}
-.schedule-editor__row > strong {
-  color: var(--app-muted);
+.specialist-card__badge {
+  padding: 4px 6px;
+  border-radius: 8px;
+  color: var(--app-on-primary);
+  background: var(--app-danger);
   font-size: 12px;
 }
-.certificate-row {
+.specialist-card__menu-trigger.MuiIconButton-root {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  color: var(--app-primary);
+  background: var(--app-surface-muted);
+}
+.specialist-card__menu-trigger.MuiIconButton-root:hover {
+  background: var(--app-border);
+}
+.specialist-card__menu {
+  position: absolute;
+  z-index: 3;
+  top: 40px;
+  right: 0;
+  min-width: 170px;
   display: grid;
-  grid-template-columns: 1fr 1.5fr auto;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  background: var(--app-surface);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--app-text) 14%, transparent);
+}
+.specialist-card__menu button {
+  display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  color: var(--app-text);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.specialist-card__menu button:hover {
+  background: var(--app-surface-muted);
+}
+.specialist-card__menu button[data-danger] {
+  color: var(--app-danger);
+}
+.specialist-card__professions {
+  display: flex;
+  gap: 8px;
+  overflow: hidden;
+}
+.specialist-card__professions span {
+  flex: none;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--app-surface-muted);
+  font-size: 14px;
+  line-height: 16px;
+}
+.specialist-card__schedule {
+  display: grid;
+  gap: 8px;
+}
+.specialist-card__schedule > span {
+  color: var(--app-muted);
+  font-size: 14px;
+  line-height: 16px;
+}
+.specialist-card__days {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.specialist-card__days::-webkit-scrollbar {
+  display: none;
+}
+.specialist-card__days button {
+  min-width: 40px;
+  padding: 6px;
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
+  color: var(--app-muted);
+  background: var(--app-surface-muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.specialist-card__days button[data-working='true'] {
+  border-color: var(--app-success);
+  color: var(--app-success);
+  background: var(--app-surface);
 }
 @media (max-width: 1100px) {
-  .specialist-row {
-    grid-template-columns: auto 1.2fr 0.8fr auto auto;
+  .specialists-tools {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .schedule-strip {
-    grid-column: 2 / 4;
+  .specialists-tools__add.MuiButton-root {
+    width: 100%;
+    justify-self: stretch;
+  }
+  .specialist-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 680px) {
-  .specialists-toolbar {
+  .specialists-tools {
     grid-template-columns: 1fr;
   }
-  .specialists-toolbar > .ui-toolbar__count {
-    justify-self: start;
-  }
-  .specialist-row {
-    grid-template-columns: auto 1fr auto;
-  }
-  .specialist-row__contact,
-  .schedule-strip {
-    grid-column: 2 / 4;
-  }
-  .specialist-row > .ui-status-pill {
-    grid-column: 2;
-    justify-self: start;
-  }
-  .specialist-row > .ui-row-actions {
-    grid-column: 3;
-    grid-row: 1;
-  }
-  .form-grid,
-  .form-grid--three {
+  .specialist-grid {
     grid-template-columns: 1fr;
-  }
-  .schedule-editor__row {
-    grid-template-columns: 32px 1fr;
-  }
-  .certificate-row {
-    grid-template-columns: 1fr auto;
-  }
-  .certificate-row > :nth-child(2) {
-    grid-column: 1;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .specialist-row {
-    transition: none;
   }
 }

@@ -7,6 +7,7 @@ import type { AuthUser } from '@/modules/auth/types'
 import { ClientsPage } from '@/modules/clients/components/ClientsPage'
 import { JournalPage } from '@/modules/journal/components/JournalPage'
 import { ServicesPage } from '@/modules/services/components/ServicesPage'
+import { SpecialistDetailPage } from '@/modules/specialists/components/SpecialistDetailPage'
 import { SpecialistsPage } from '@/modules/specialists/components/SpecialistsPage'
 import { useMediaQuery } from '@/lib/browser/useMediaQuery'
 import { useLocale } from '@/lib/i18n/LocaleContext'
@@ -103,6 +104,7 @@ export function AppShell({ user, onActiveBranchChange, onLocaleChange, onLogout 
                 />
               }
             />
+            <Route path="/specialists/:specialistId" element={<SpecialistDetailPage />} />
             <Route
               path="/services"
               element={

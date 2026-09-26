@@ -20,6 +20,7 @@ export const iconNames = [
   'logout',
   'mail',
   'menu',
+  'more',
   'note',
   'offline',
   'phone',

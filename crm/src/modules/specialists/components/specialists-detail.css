@@ -1,0 +1,291 @@
+.specialist-profile-page {
+  display: grid;
+  gap: 0;
+}
+.specialist-profile-header {
+  display: grid;
+  gap: 8px;
+  padding: 0 8px;
+}
+.specialist-profile-header > button {
+  justify-self: start;
+  min-height: 32px;
+  padding-inline: 0;
+}
+.specialist-profile-header__main {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+.specialist-profile-header__avatar {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+  color: var(--app-on-primary) !important;
+  background: var(--app-primary) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+.specialist-profile-header__copy {
+  min-width: 0;
+}
+.specialist-profile-header__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.specialist-profile-header h1 {
+  margin: 0;
+  font-family: var(--app-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0;
+}
+.specialist-profile-header p {
+  margin: 2px 0 0;
+  color: var(--app-muted);
+  font-size: 12px;
+  line-height: 14px;
+}
+.specialist-profile-header__main > button {
+  min-height: 36px;
+  border-radius: 12px;
+}
+.specialist-tabs {
+  display: flex;
+  gap: 0;
+  margin-top: 14px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--app-border);
+}
+.specialist-tabs button {
+  flex: none;
+  height: 48px;
+  padding: 0 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--app-muted);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.specialist-tabs button[data-selected='true'] {
+  border-bottom-color: var(--app-primary);
+  color: var(--app-primary);
+  font-weight: 500;
+}
+.specialist-tab-panel {
+  min-width: 0;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 0;
+}
+.specialist-about,
+.specialist-about__section {
+  display: grid;
+  gap: 16px;
+}
+.specialist-about__section h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.specialist-about__section p {
+  margin: -8px 0 0;
+  color: var(--app-muted);
+  font-size: 14px;
+}
+.specialist-about__profile {
+  display: grid;
+  grid-template-columns: 180px repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 16px;
+}
+.specialist-about__photo {
+  width: 180px;
+  height: 180px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--app-surface-muted);
+}
+.specialist-about__photo .MuiAvatar-root {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  color: var(--app-primary);
+  background: var(--app-primary-soft);
+  font-size: 32px;
+}
+.specialist-about__fields,
+.specialist-summary-strip {
+  display: grid;
+  gap: 12px;
+}
+.specialist-profile-field {
+  min-height: 52px;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  padding: 8px 16px;
+  border-radius: 16px;
+  background: var(--app-surface-muted);
+}
+.specialist-profile-field span {
+  color: var(--app-muted);
+  font-size: 11px;
+}
+.specialist-profile-field strong {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.specialist-about__chips,
+.specialist-about__certificates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.specialist-about__chips span,
+.specialist-about__certificates > div,
+.specialist-about__certificates > span {
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--app-surface-muted);
+  font-size: 14px;
+}
+.specialist-about__certificates > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.specialist-about__bio {
+  min-height: 112px;
+  padding: 16px;
+  border-radius: 16px;
+  color: var(--app-muted);
+  background: var(--app-surface-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.specialist-summary-strip {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.specialist-summary-strip > div {
+  display: grid;
+  gap: 5px;
+  padding: 14px;
+  border-radius: 12px;
+  color: var(--app-primary);
+  background: var(--app-primary-soft);
+}
+.specialist-summary-strip strong {
+  color: var(--app-text);
+  font-size: 22px;
+}
+.specialist-summary-strip span {
+  color: var(--app-muted);
+  font-size: 11px;
+}
+.specialist-muted-copy {
+  margin: 0;
+  color: var(--app-muted);
+  line-height: 1.65;
+}
+.specialist-panel-stack {
+  display: grid;
+  gap: 16px;
+}
+.specialist-panel-stack > .ui-card {
+  border-radius: 16px;
+}
+.specialist-week-preview {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(70px, 1fr));
+  gap: 8px;
+  overflow-x: auto;
+}
+.specialist-week-preview > div {
+  display: grid;
+  gap: 6px;
+  padding: 12px 8px;
+  border: 1px solid var(--app-border);
+  border-radius: 10px;
+  color: var(--app-muted);
+  text-align: center;
+  font-size: 11px;
+}
+.specialist-week-preview > div[data-working='true'] {
+  border-color: var(--app-primary-border);
+  color: var(--app-primary);
+  background: var(--app-primary-soft);
+}
+.specialist-service-list {
+  display: grid;
+  gap: 8px;
+}
+.specialist-service-list > div {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(180px, 1.4fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
+}
+.specialist-service-list > div[data-selected='true'] {
+  border-color: var(--app-primary-border);
+  background: var(--app-primary-soft);
+}
+.specialist-service-list span,
+.specialist-service-list small {
+  color: var(--app-muted);
+}
+.specialist-panel-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+.specialist-panel-actions span {
+  color: var(--app-muted);
+  font-size: 12px;
+}
+.specialist-planning-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+@media (max-width: 760px) {
+  .specialist-profile-header__main {
+    grid-template-columns: auto 1fr;
+  }
+  .specialist-profile-header__main > button {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+  }
+  .specialist-planning-form {
+    grid-template-columns: 1fr;
+  }
+  .specialist-about__profile {
+    grid-template-columns: 1fr;
+  }
+  .specialist-about__photo {
+    justify-self: center;
+  }
+  .specialist-service-list > div {
+    grid-template-columns: 1fr auto;
+  }
+  .specialist-service-list > div > span {
+    grid-column: 1 / -1;
+  }
+}

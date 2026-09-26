@@ -1,20 +1,22 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { ActiveBranchDetails } from '@/modules/auth/types'
 import { useBranches } from '@/modules/organizations/hooks/useBranches'
-import { useState } from 'react'
-
 import { Button } from '@/ui/Button'
 import { ConfirmDialog } from '@/ui/ConfirmDialog'
 import { EmptyState } from '@/ui/EmptyState'
 import { Icon } from '@/ui/Icon'
 import { Loader } from '@/ui/Loader'
-import { PageHeader } from '@/ui/PageHeader'
-import { Toolbar, ToolbarField } from '@/ui/Toolbar'
+import { SearchField } from '@/ui/SearchField'
+import { SelectField } from '@/ui/SelectField'
 import { useSpecialistDialog } from '../hooks/useSpecialistDialog'
+import { useSpecialistFilters } from '../hooks/useSpecialistFilters'
 import { useSpecialists } from '../hooks/useSpecialists'
 import type { Specialist } from '../types'
+import { SpecialistCard } from './SpecialistCard'
 import { SpecialistDialog } from './SpecialistDialog'
-import { SpecialistRow } from './SpecialistRow'
 import './specialists.css'
 
 interface SpecialistsPageProps {
@@ -23,6 +25,7 @@ interface SpecialistsPageProps {
 
 export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
   const { t } = useLocale()
+  const navigate = useNavigate()
   const [pendingDelete, setPendingDelete] = useState<Specialist | null>(null)
   const branchesQuery = useBranches()
   const specialists = useSpecialists()
@@ -36,42 +39,83 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
     setPendingDelete(null)
   }
 
-  const items = specialists.specialists.filter(
+  const branchItems = specialists.specialists.filter(
     (item) => !activeBranch || item.branch === activeBranch.id,
   )
+  const filters = useSpecialistFilters(branchItems)
+  const positions = [...new Set(branchItems.map((item) => item.job_title).filter(Boolean))].sort()
 
   return (
     <section className="specialists-page">
-      <PageHeader
-        title={t('specialistsTitle')}
-        description={t('specialistsDescription')}
-        actions={
-          <Button
-            startIcon={<Icon name="plus" />}
-            onClick={dialog.openCreate}
-            disabled={!activeBranch}
-          >
-            {t('addSpecialist')}
-          </Button>
-        }
-      />
+      <header className="specialists-page__header">
+        <div>
+          <h1>{t('specialistsTitle')}</h1>
+          <span>
+            {activeBranch?.name ?? t('selectBranch')} ·{' '}
+            {filters.items.length === 1
+              ? t('specialistsCountOne')
+              : t('specialistsCount', { count: filters.items.length })}
+          </span>
+        </div>
+      </header>
 
-      <Toolbar className="specialists-toolbar">
-        <ToolbarField
-          label={t('activeBranch')}
-          value={activeBranch?.name ?? t('selectBranch')}
-          hint={activeBranch?.address}
+      <div className="specialists-tools">
+        <SearchField
+          id="specialists-search"
+          label={t('searchSpecialists')}
+          value={filters.search}
+          clearLabel={t('clearSearch')}
+          onChange={filters.setSearch}
         />
-        <span className="ui-toolbar__count">
-          {items.length === 1
-            ? t('specialistsCountOne')
-            : t('specialistsCount', { count: items.length })}
-        </span>
-      </Toolbar>
+        <SelectField
+          id="specialists-position"
+          label={t('allPositions')}
+          value={filters.position}
+          options={[
+            { value: '', label: t('allPositions') },
+            ...positions.map((position) => ({ value: position, label: position })),
+          ]}
+          onChange={filters.setPosition}
+        />
+        <SelectField
+          id="specialists-status"
+          label={t('activityFilter')}
+          value={filters.status}
+          options={[
+            { value: 'all', label: t('allStatuses') },
+            { value: 'active', label: t('active') },
+            { value: 'inactive', label: t('inactive') },
+          ]}
+          onChange={(value) =>
+            filters.setStatus(value === 'active' || value === 'inactive' ? value : 'all')
+          }
+        />
+        <SelectField
+          id="specialists-sort"
+          label={t('sorting')}
+          value={filters.sort}
+          options={[
+            { value: 'recent', label: t('sortRecent') },
+            { value: 'name', label: t('sortByName') },
+            { value: 'position', label: t('sortByPosition') },
+          ]}
+          onChange={(value) =>
+            filters.setSort(value === 'name' || value === 'position' ? value : 'recent')
+          }
+        />
+        <Button
+          className="specialists-tools__add"
+          startIcon={<Icon name="plus" />}
+          onClick={dialog.openCreate}
+          disabled={!activeBranch}
+        >
+          {t('addSpecialist')}
+        </Button>
+      </div>
 
       {specialists.isLoading ? <Loader label={t('loading')} /> : null}
 
-      {!specialists.isLoading && items.length === 0 ? (
+      {!specialists.isLoading && filters.items.length === 0 ? (
         <EmptyState
           icon="specialists"
           title={t('specialistsEmptyTitle')}
@@ -79,12 +123,13 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
         />
       ) : null}
 
-      <div className="specialist-list">
-        {items.map((specialist) => (
-          <SpecialistRow
+      <div className="specialist-grid">
+        {filters.items.map((specialist) => (
+          <SpecialistCard
             key={specialist.id}
             specialist={specialist}
-            onEdit={dialog.openEdit}
+            onOpen={(item) => navigate(`/specialists/${item.id}`)}
+            onEdit={(item) => navigate(`/specialists/${item.id}`)}
             onDelete={setPendingDelete}
           />
         ))}
