@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { apiErrorMessage } from '@/lib/api/apiErrorMessage'
 import { useLocale } from '@/lib/i18n/LocaleContext'
@@ -6,16 +6,17 @@ import type { TranslationKey } from '@/lib/i18n/messages'
 import { notifications } from '@/lib/toast/notifications'
 import { clientKeys } from '../api/clientKeys'
 import { clientsApi } from '../api/clientsApi'
-import type { ClientInput } from '../types'
+import type { ClientInput, ClientListFilters } from '../types'
 
-/** Клиентская база: список и изменяющие операции. */
-export function useClients() {
+/** Клиентская база: список (с серверными фильтрами) и изменяющие операции. */
+export function useClients(filters: ClientListFilters = {}) {
   const { t } = useLocale()
   const queryClient = useQueryClient()
 
   const query = useQuery({
-    queryKey: clientKeys.list(),
-    queryFn: ({ signal }) => clientsApi.list({ signal }),
+    queryKey: clientKeys.list(filters),
+    queryFn: ({ signal }) => clientsApi.list(filters, { signal }),
+    placeholderData: keepPreviousData,
   })
 
   function mutationHandlers(successKey: TranslationKey) {

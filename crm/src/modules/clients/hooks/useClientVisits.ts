@@ -3,11 +3,10 @@ import { useQuery } from '@tanstack/react-query'
 import { clientKeys } from '../api/clientKeys'
 import { clientsApi } from '../api/clientsApi'
 
-/** История визитов подгружается только когда открыта карточка клиента. */
-export function useClientVisits(clientId: number | null) {
+/** Все визиты клиента; период и сортировку считает вкладка истории. */
+export function useClientVisits(clientId: number) {
   return useQuery({
-    queryKey: clientKeys.visits(clientId ?? 0),
-    queryFn: ({ signal }) => clientsApi.visits(clientId ?? 0, { signal }),
-    enabled: clientId !== null,
+    queryKey: clientKeys.visits(clientId),
+    queryFn: ({ signal }) => clientsApi.visits(clientId, { signal }),
   })
 }

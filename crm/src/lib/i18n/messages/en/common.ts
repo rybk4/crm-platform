@@ -26,6 +26,7 @@ export const common = {
   navSpecialists: 'Specialists',
   navServices: 'Services',
   navAnalytics: 'Analytics',
+  navSettings: 'Settings',
   themeOptions: 'Theme options',
   addAppointment: 'Add appointment',
   themeOptionLabel: 'Theme {number}: {name}',

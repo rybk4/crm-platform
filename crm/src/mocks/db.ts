@@ -12,6 +12,8 @@ import { specialists } from './fixtures/specialists'
 export const VIP_TOTAL = 300000
 export const REGULAR_VISITS = 4
 export const SLEEPING_DAYS = 45
+/** Карточка клиента показывает семь последних уже прошедших записей. */
+const RECENT_VISITS = 7
 
 interface MockDatabase {
   branches: Branch[]
@@ -79,6 +81,13 @@ export function refreshDerived(now = new Date()) {
     client.first_visit_at = firstVisit ? firstVisit.toISOString() : null
     client.last_visit_at = lastVisit ? lastVisit.toISOString() : null
     client.segment = segmentOf(visits.length, totalSpent, lastVisit, now)
+    client.recent_visits = db.appointments
+      .filter(
+        (appointment) => appointment.client === client.id && new Date(appointment.starts_at) <= now,
+      )
+      .sort((left, right) => right.starts_at.localeCompare(left.starts_at))
+      .slice(0, RECENT_VISITS)
+      .map(({ id, starts_at, service_name, status }) => ({ id, starts_at, service_name, status }))
   }
 }
 

@@ -1,13 +1,17 @@
 import { ApiClient } from '@/lib/api/ApiClient'
-import type { Client, ClientInput, ClientVisit } from '../types'
+import type { Client, ClientInput, ClientListFilters, ClientVisit } from '../types'
 
 class ClientsApi extends ApiClient {
   constructor() {
     super('/api/clients/')
   }
 
-  list(options?: { signal?: AbortSignal }) {
-    return this.get<Client[]>('', options)
+  list(filters: ClientListFilters = {}, options?: { signal?: AbortSignal }) {
+    return this.get<Client[]>('', { ...options, params: { ...filters } })
+  }
+
+  detail(clientId: number, options?: { signal?: AbortSignal }) {
+    return this.get<Client>(`${clientId}/`, options)
   }
 
   visits(clientId: number, options?: { signal?: AbortSignal }) {

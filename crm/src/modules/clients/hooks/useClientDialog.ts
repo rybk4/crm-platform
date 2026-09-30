@@ -1,55 +1,44 @@
 import { useCallback, useState } from 'react'
 
-import { useLocale } from '@/lib/i18n/LocaleContext'
-import { notifications } from '@/lib/toast/notifications'
-import { clientToForm, emptyClientForm, isClientFormValid } from '../model'
-import type { Client, ClientInput } from '../types'
+import { emptyClientForm, formToClientInput } from '../model'
+import { useClientFormState } from './useClientFormState'
 import type { useClients } from './useClients'
 
 interface UseClientDialogOptions {
-  clients: Pick<ReturnType<typeof useClients>, 'create' | 'update'>
+  clients: Pick<ReturnType<typeof useClients>, 'create'>
 }
 
-/** Состояние формы клиента: открытие, правки полей и отправка. */
+/** Окно «Добавить клиента»: открытие, поля и отправка. */
 export function useClientDialog({ clients }: UseClientDialogOptions) {
-  const { t } = useLocale()
   const [open, setOpen] = useState(false)
-  const [editing, setEditing] = useState<Client | null>(null)
-  const [form, setForm] = useState<ClientInput>(() => emptyClientForm())
+  const state = useClientFormState(emptyClientForm())
+  const { replace } = state
 
   const openCreate = useCallback(() => {
-    setEditing(null)
-    setForm(emptyClientForm())
+    replace(emptyClientForm())
     setOpen(true)
-  }, [])
-
-  const openEdit = useCallback((client: Client) => {
-    setEditing(client)
-    setForm(clientToForm(client))
-    setOpen(true)
-  }, [])
+  }, [replace])
 
   const close = useCallback(() => setOpen(false), [])
 
-  const patch = useCallback((changes: Partial<ClientInput>) => {
-    setForm((current) => ({ ...current, ...changes }))
-  }, [])
-
   async function submit() {
-    if (!isClientFormValid(form)) {
-      notifications.error(t('requiredFields'))
-      return
-    }
+    if (!state.validate()) return
 
     try {
-      await (editing
-        ? clients.update.mutateAsync({ id: editing.id, input: form })
-        : clients.create.mutateAsync(form))
+      await clients.create.mutateAsync(formToClientInput(state.form))
       setOpen(false)
     } catch {
       // Сообщение уже показала мутация — форму оставляем открытой с данными.
     }
   }
 
-  return { open, editing, form, openCreate, openEdit, close, patch, submit }
+  return {
+    open,
+    form: state.form,
+    errors: state.errors,
+    patch: state.patch,
+    openCreate,
+    close,
+    submit,
+  }
 }

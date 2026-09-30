@@ -4,9 +4,11 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { AnalyticsPage } from '@/modules/analytics/components/AnalyticsPage'
 import { DashboardPage } from '@/modules/dashboard/components/DashboardPage'
 import type { AuthUser } from '@/modules/auth/types'
+import { ClientDetailPage } from '@/modules/clients/components/ClientDetailPage'
 import { ClientsPage } from '@/modules/clients/components/ClientsPage'
 import { JournalPage } from '@/modules/journal/components/JournalPage'
 import { ServicesPage } from '@/modules/services/components/ServicesPage'
+import { SettingsPage } from '@/modules/settings/components/SettingsPage'
 import { SpecialistDetailPage } from '@/modules/specialists/components/SpecialistDetailPage'
 import { SpecialistsPage } from '@/modules/specialists/components/SpecialistsPage'
 import { useMediaQuery } from '@/lib/browser/useMediaQuery'
@@ -95,6 +97,7 @@ export function AppShell({ user, onActiveBranchChange, onLocaleChange, onLogout 
               }
             />
             <Route path="/clients" element={<ClientsPage />} />
+            <Route path="/clients/:clientId" element={<ClientDetailPage />} />
             <Route
               path="/specialists"
               element={
@@ -115,6 +118,7 @@ export function AppShell({ user, onActiveBranchChange, onLocaleChange, onLogout 
               }
             />
             <Route path="/analytics" element={<AnalyticsPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

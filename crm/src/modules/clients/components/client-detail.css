@@ -1,0 +1,191 @@
+.client-detail {
+  display: grid;
+}
+.client-detail__header {
+  display: grid;
+  gap: 8px;
+  padding: 0 8px;
+}
+.client-detail__header > button {
+  justify-self: start;
+  min-height: 32px;
+  padding-inline: 0;
+}
+.client-detail__person {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.client-detail__person h1 {
+  margin: 0;
+  font-family: var(--app-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+}
+.client-detail__person p {
+  margin: 2px 0 0;
+  color: var(--app-muted);
+  font-size: 12px;
+  line-height: 14px;
+}
+.client-tabs {
+  display: flex;
+  margin-top: 14px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--app-border);
+}
+.client-tabs button {
+  flex: none;
+  height: 48px;
+  padding: 0 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--app-muted);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.client-tabs button[data-selected='true'] {
+  border-bottom-color: var(--app-primary);
+  color: var(--app-primary);
+  font-weight: 500;
+}
+.client-detail__panel {
+  width: 100%;
+  min-width: 0;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 0;
+}
+
+.client-form,
+.client-form__section,
+.client-profile-form {
+  display: grid;
+  gap: 16px;
+}
+.client-form__section h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.client-form__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.client-form__column {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+.client-form__pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.client-form__gender {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.client-profile-form__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.visit-history {
+  display: grid;
+  gap: 24px;
+}
+.visit-history__period {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 200px));
+  gap: 8px;
+}
+.visit-table {
+  max-height: 65dvh;
+  overflow: auto;
+  border-radius: 8px;
+  background: var(--app-surface-muted);
+}
+.visit-table table {
+  width: 100%;
+  min-width: 720px;
+  border-spacing: 4px;
+}
+.visit-table th,
+.visit-table td {
+  height: 52px;
+  padding: 0 16px;
+  border-radius: 4px;
+  background: var(--app-surface);
+  font-size: 14px;
+  text-align: left;
+}
+.visit-table thead th {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  padding: 0;
+  border-bottom: 2px solid var(--app-muted);
+  /* Закрывает зазор border-spacing, чтобы строки не просвечивали над шапкой. */
+  box-shadow: 0 -4px 0 var(--app-surface-muted);
+}
+.visit-table thead button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 12px;
+  border: 0;
+  color: var(--app-text);
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.visit-table thead button svg {
+  opacity: 0.25;
+}
+.visit-table thead button[data-active='true'] svg {
+  opacity: 1;
+}
+.visit-table thead button:hover {
+  background: var(--app-primary-soft);
+}
+.visit-table .visit-table__time {
+  border-left: 4px solid var(--client-tone);
+  text-align: center;
+}
+.visit-table .visit-table__price {
+  text-align: center;
+}
+.visit-table .visit-table__empty {
+  color: var(--app-muted);
+  text-align: center;
+}
+.visit-table tfoot th,
+.visit-table tfoot td {
+  position: sticky;
+  bottom: 0;
+  border-top: 2px solid var(--app-muted);
+  box-shadow: 0 4px 0 var(--app-surface-muted);
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .client-form__columns,
+  .client-profile-form__actions,
+  .visit-history__period {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

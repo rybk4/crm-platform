@@ -1,41 +1,35 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { formatCompactMoney } from '@/lib/format/money'
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import { useServices } from '@/modules/services/hooks/useServices'
 import { Button } from '@/ui/Button'
 import { ConfirmDialog } from '@/ui/ConfirmDialog'
 import { EmptyState } from '@/ui/EmptyState'
 import { Icon } from '@/ui/Icon'
 import { Loader } from '@/ui/Loader'
-import { PageHeader } from '@/ui/PageHeader'
-import { StatTile } from '@/ui/StatTile'
+import { Pagination } from '@/ui/Pagination'
 import { useClientDialog } from '../hooks/useClientDialog'
+import { useClientFilters } from '../hooks/useClientFilters'
 import { useClients } from '../hooks/useClients'
-import { clientTotals, filterClients } from '../model'
-import type { Client, ClientSegment } from '../types'
+import type { Client } from '../types'
 import { ClientCard } from './ClientCard'
 import { ClientDialog } from './ClientDialog'
-import { ClientsToolbar } from './ClientsToolbar'
-import { ClientProfile } from './ClientProfile'
+import { ClientFilterPanel } from './ClientFilterPanel'
+import { ClientsTools } from './ClientsTools'
 import './clients.css'
 
 export function ClientsPage() {
   const { t } = useLocale()
-  const [search, setSearch] = useState('')
-  const [segment, setSegment] = useState<ClientSegment | null>(null)
-  const [selected, setSelected] = useState<Client | null>(null)
+  const navigate = useNavigate()
   const [pendingDelete, setPendingDelete] = useState<Client | null>(null)
-  const clients = useClients()
+  const filters = useClientFilters()
+  const clients = useClients(filters.query)
+  const services = useServices().services
   const dialog = useClientDialog({ clients })
-
-  const visible = filterClients(clients.clients, search, segment)
-  const totals = clientTotals(clients.clients)
-  const currency = clients.clients[0]?.currency ?? ''
-
-  function handleEdit(client: Client) {
-    setSelected(null)
-    dialog.openEdit(client)
-  }
+  const view = filters.view(clients.clients)
+  const openProfile = (client: Client) => navigate(`/clients/${client.id}`)
+  const filtered = Boolean(filters.search || filters.activeCount)
 
   function handleDelete() {
     if (pendingDelete) clients.remove.mutate(pendingDelete.id)
@@ -44,37 +38,18 @@ export function ClientsPage() {
 
   return (
     <section className="clients-page">
-      <PageHeader
-        title={t('clientsTitle')}
-        description={t('clientsDescription')}
-        actions={
-          <Button startIcon={<Icon name="plus" />} onClick={dialog.openCreate}>
-            {t('addClient')}
-          </Button>
-        }
-      />
+      <header className="clients-page__header">
+        <h1>{t('clientsTitle')}</h1>
+        <span>
+          {view.total === 1 ? t('clientsCountOne') : t('clientsCount', { count: view.total })}
+        </span>
+      </header>
 
-      <div className="clients-summary">
-        <StatTile label={t('clientsTitle')} value={String(totals.clients)} icon="clients" />
-        <StatTile label={t('clientVisits')} value={String(totals.visits)} icon="check-circle" />
-        <StatTile
-          label={t('clientSpent')}
-          value={formatCompactMoney(totals.revenue, currency)}
-          icon="wallet"
-        />
-      </div>
-
-      <ClientsToolbar
-        search={search}
-        segment={segment}
-        count={visible.length}
-        onSearchChange={setSearch}
-        onSegmentChange={setSegment}
-      />
+      <ClientsTools filters={filters} onAdd={dialog.openCreate} />
 
       {clients.isLoading ? <Loader label={t('loading')} /> : null}
 
-      {!clients.isLoading && !clients.clients.length ? (
+      {!clients.isLoading && !view.total && !filtered ? (
         <EmptyState
           icon="clients"
           title={t('clientsEmptyTitle')}
@@ -87,7 +62,7 @@ export function ClientsPage() {
         />
       ) : null}
 
-      {!clients.isLoading && clients.clients.length && !visible.length ? (
+      {!clients.isLoading && !view.total && filtered ? (
         <EmptyState
           icon="search"
           title={t('nothingFound')}
@@ -96,21 +71,24 @@ export function ClientsPage() {
       ) : null}
 
       <div className="client-grid">
-        {visible.map((client) => (
-          <ClientCard key={client.id} client={client} onOpen={setSelected} />
+        {view.items.map((client) => (
+          <ClientCard
+            key={client.id}
+            client={client}
+            onOpen={openProfile}
+            onDelete={setPendingDelete}
+          />
         ))}
       </div>
 
-      <ClientProfile
-        client={selected}
-        onClose={() => setSelected(null)}
-        onEdit={handleEdit}
-        onDelete={(client) => {
-          setSelected(null)
-          setPendingDelete(client)
-        }}
+      <Pagination
+        ariaLabel={t('clientsPages')}
+        page={view.page}
+        pages={view.pages}
+        onChange={filters.setPage}
       />
 
+      <ClientFilterPanel filters={filters} services={services} />
       <ClientDialog dialog={dialog} saving={clients.saving} />
 
       <ConfirmDialog

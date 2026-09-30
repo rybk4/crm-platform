@@ -43,3 +43,9 @@ export function formatFullDate(value: string | Date, locale: Locale) {
     year: 'numeric',
   }).format(date)
 }
+
+/** «07.09» — компактная дата на чипе записи. */
+export function formatDayMonth(value: string | Date, locale: Locale) {
+  const date = typeof value === 'string' ? new Date(value) : value
+  return new Intl.DateTimeFormat(tag(locale), { day: '2-digit', month: '2-digit' }).format(date)
+}

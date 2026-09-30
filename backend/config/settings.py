@@ -1,4 +1,3 @@
-from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -8,8 +7,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
     DEBUG=(bool, False),
-    JWT_ACCESS_MINUTES=(int, 15),
-    JWT_REFRESH_DAYS=(int, 30),
 )
 environ.Env.read_env(BASE_DIR / ".env")
 
@@ -26,11 +23,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "accounts",
+    "core",
     "users",
     "organizations",
-    "specialists",
+    "professions",
+    "staff",
     "services",
+    "work_schedule",
 ]
 
 MIDDLEWARE = [
@@ -71,7 +70,7 @@ DATABASES = {
     )
 }
 
-AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "users.User"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -88,19 +87,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Вход через API будет отдельным шагом; пока API закрыт для анонимов.
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "accounts.authentication.JWTAuthentication",
-    ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
-
-JWT_SECRET_KEY = env("JWT_SECRET_KEY", default=SECRET_KEY)
-JWT_ALGORITHM = "HS256"
-JWT_ACCESS_LIFETIME = timedelta(minutes=env.int("JWT_ACCESS_MINUTES"))
-JWT_REFRESH_LIFETIME = timedelta(days=env.int("JWT_REFRESH_DAYS"))
 
 REDIS_URL = env("REDIS_URL", default="redis://localhost:6379/0")
 
@@ -110,10 +102,11 @@ LANGUAGES = [
     ("en", "English"),
     ("kk", "Қазақша"),
 ]
-LOCALE_PATHS = [BASE_DIR / "locale"]
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

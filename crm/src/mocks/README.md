@@ -41,9 +41,14 @@ VITE_DEMO_DATA=off
 ## Эндпоинты, которых ещё нет на бэкенде
 
 - `GET/POST /api/appointments/`, `GET/PUT/PATCH/DELETE /api/appointments/{id}/`
-- `GET/POST /api/clients/`, `PUT/DELETE /api/clients/{id}/`, `GET /api/clients/{id}/visits/`
+- `GET/POST /api/clients/` (фильтры `status`, `service`, `visit_date=YYYY-MM-DD`),
+  `GET/PUT/DELETE /api/clients/{id}/`, `GET /api/clients/{id}/visits/`
 - `GET /api/analytics/summary/?period=7|30|90`
+- `GET/PUT /api/organization/profile/` — профиль организации для «Настроек»; логотип
+  (`avatar_url`) и фото (`photo_urls`) приходят адресами: уже загруженные — как есть,
+  новые — data URL
+- `GET /api/cities/` — справочник городов
 
-Остальные адреса (`/api/users/me/`, `/api/branches/`, `/api/specialists/`,
-`/api/services/`) на бэкенде уже реализованы — здесь они продублированы, чтобы
-интерфейс поднимался без сервера.
+Остальные адреса (вход по коду, `/api/users/me/`, `/api/branches/`,
+`/api/specialists/`, `/api/services/`) тоже пока отвечают отсюда: бэкенд
+пересобирается с нуля, и в нём сейчас только модели без API.

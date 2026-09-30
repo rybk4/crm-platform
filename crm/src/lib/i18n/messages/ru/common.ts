@@ -28,6 +28,7 @@ export const common = {
   navSpecialists: 'Специалисты',
   navServices: 'Услуги',
   navAnalytics: 'Аналитика',
+  navSettings: 'Настройки',
   themeOptions: 'Варианты оформления',
   addAppointment: 'Добавить запись',
   themeOptionLabel: 'Тема {number}: {name}',

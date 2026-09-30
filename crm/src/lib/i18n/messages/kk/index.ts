@@ -5,6 +5,7 @@ import { clients } from './clients'
 import { common } from './common'
 import { dashboard } from './dashboard'
 import { journal } from './journal'
+import { settings } from './settings'
 
 export const kk: TranslationMessages = {
   ...common,
@@ -13,4 +14,5 @@ export const kk: TranslationMessages = {
   ...journal,
   ...clients,
   ...analytics,
+  ...settings,
 }

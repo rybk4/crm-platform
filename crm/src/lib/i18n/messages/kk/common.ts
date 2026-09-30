@@ -26,6 +26,7 @@ export const common = {
   navSpecialists: 'Мамандар',
   navServices: 'Қызметтер',
   navAnalytics: 'Аналитика',
+  navSettings: 'Баптаулар',
   themeOptions: 'Безендіру нұсқалары',
   addAppointment: 'Жазба қосу',
   themeOptionLabel: '{number}-тақырып: {name}',

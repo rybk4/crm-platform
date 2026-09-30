@@ -1,58 +1,94 @@
-import { formatShortDate } from '@/lib/format/datetime'
-import { formatMoney } from '@/lib/format/money'
+import { formatDayMonth } from '@/lib/format/datetime'
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import { statusMeta } from '@/modules/journal/model'
+import { ActionMenu } from '@/ui/ActionMenu'
 import { Avatar } from '@/ui/Avatar'
-import { StatusPill } from '@/ui/StatusPill'
 import { Surface } from '@/ui/Surface'
-import { clientInitials, segmentMeta } from '../model'
+import { clientBadge, clientInitials, clientServiceChips, recentVisitsByDate } from '../model'
 import type { Client } from '../types'
 
 interface ClientCardProps {
   client: Client
   onOpen: (client: Client) => void
+  onDelete: (client: Client) => void
 }
 
-export function ClientCard({ client, onOpen }: ClientCardProps) {
+export function ClientCard({ client, onOpen, onDelete }: ClientCardProps) {
   const { locale, t } = useLocale()
-  const segment = segmentMeta[client.segment]
+  const badge = clientBadge(client)
+  const services = clientServiceChips(client)
+  const visits = recentVisitsByDate(client)
 
   return (
     <Surface className="client-card">
-      <button className="client-card__button" type="button" onClick={() => onOpen(client)}>
-        <Avatar
-          className="client-card__avatar"
-          label={client.name}
-          value={clientInitials(client)}
-        />
-
-        <span className="client-card__identity">
-          <strong>{client.name}</strong>
-          <span>{client.phone_number}</span>
-        </span>
-
-        <StatusPill label={t(segment.labelKey)} tone={segment.tone} size="sm" />
-
-        <span className="client-card__stats">
-          <span>
-            <small>{t('clientVisits')}</small>
-            <strong>{client.visits_count}</strong>
+      <div className="client-card__header">
+        <button className="client-card__person" type="button" onClick={() => onOpen(client)}>
+          <Avatar
+            className="client-card__avatar"
+            label={client.name}
+            value={clientInitials(client)}
+          />
+          <span className="client-card__identity">
+            <strong title={client.name}>{client.name || t('clientNoName')}</strong>
+            <small>{client.phone_number}</small>
           </span>
-          <span>
-            <small>{t('clientSpent')}</small>
-            <strong>{formatMoney(client.total_spent, client.currency)}</strong>
-          </span>
-          <span>
-            <small>{t('clientLastVisit')}</small>
-            <strong>
-              {client.last_visit_at
-                ? formatShortDate(client.last_visit_at, locale)
-                : t('clientNeverVisited')}
-            </strong>
-          </span>
-        </span>
+        </button>
 
-        {client.note ? <span className="client-card__note">{client.note}</span> : null}
-      </button>
+        <div className="client-card__actions">
+          {badge ? (
+            <span className="client-card__badge" data-tone={badge.tone}>
+              {t(badge.labelKey)}
+            </span>
+          ) : null}
+          <ActionMenu
+            label={t('actionsMenu')}
+            items={[
+              { key: 'edit', label: t('edit'), icon: 'edit', onSelect: () => onOpen(client) },
+              {
+                key: 'delete',
+                label: t('delete'),
+                icon: 'trash',
+                danger: true,
+                onSelect: () => onDelete(client),
+              },
+            ]}
+          />
+        </div>
+      </div>
+
+      {services.visible.length ? (
+        <div className="client-card__services">
+          {services.visible.map((name) => (
+            <span key={name} title={name}>
+              {name}
+            </span>
+          ))}
+          {services.hidden.length ? (
+            <span data-more title={services.hidden.join(', ')}>
+              +{services.hidden.length}
+            </span>
+          ) : null}
+        </div>
+      ) : null}
+
+      <div className="client-card__visits">
+        <span>{t('clientRecentVisits')}</span>
+        <div className="client-card__visit-list">
+          {visits.length ? (
+            visits.map((visit) => (
+              <span
+                key={visit.id}
+                data-tone={statusMeta[visit.status].tone}
+                title={`${visit.service_name} (${t(statusMeta[visit.status].labelKey)})`}
+              >
+                {formatDayMonth(visit.starts_at, locale)}
+              </span>
+            ))
+          ) : (
+            <span className="client-card__no-visits">{t('clientNoVisits')}</span>
+          )}
+        </div>
+      </div>
     </Surface>
   )
 }

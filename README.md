@@ -3,7 +3,7 @@
 Django-бэкенд и React-фронтенд для внутренней CRM.
 
 ```
-backend/   Django + DRF, авторизация по одноразовому коду
+backend/   Django + DRF: модели на общем BaseMixin (UUID, мягкое удаление)
 crm/       React 19 + TypeScript + Vite
 ```
 
@@ -44,6 +44,10 @@ docker compose exec frontend npm test
 docker compose down                     # остановить
 docker compose down -v                  # остановить и стереть данные БД
 ```
+
+Бэкенд пересобран с нуля: сейчас в нём только модели (`User`, `Organization`,
+`Branch`, `City`, `Staff`) и админка, API и входа по коду пока нет. Фронтенд
+работает на демо-данных из `crm/src/mocks`.
 
 Фронтенд стартует, не дожидаясь готовности бэкенда: пока тот поднимается,
 в интерфейсе висит плашка «сервер недоступен», которая сама снимется, как

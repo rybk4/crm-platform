@@ -16,4 +16,5 @@ export const navigationItems: NavigationItem[] = [
   { section: 'specialists', labelKey: 'navSpecialists', icon: 'specialists', path: '/specialists' },
   { section: 'services', labelKey: 'navServices', icon: 'services', path: '/services' },
   { section: 'analytics', labelKey: 'navAnalytics', icon: 'analytics', path: '/analytics' },
+  { section: 'settings', labelKey: 'navSettings', icon: 'settings', path: '/settings' },
 ]

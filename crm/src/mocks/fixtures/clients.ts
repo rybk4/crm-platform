@@ -155,24 +155,56 @@ const seeds: ClientSeed[] = [
 
 const allSeeds = [...seeds, ...generatedSeeds(150, seeds.length)]
 
-/** Агрегаты (визиты, суммы, сегмент) считает `db`: они зависят от записей. */
-export const clients: Client[] = allSeeds.map((seed, index) => ({
-  id: index + 1,
-  organization_id: organization.id,
-  name: seed.name,
-  phone_number: seed.phone,
-  email: seed.email,
-  birthday: seed.birthday,
-  note: seed.note,
-  segment: 'new',
-  visits_count: 0,
-  total_spent: '0',
-  average_check: '0',
-  currency: organization.currency,
-  first_visit_at: null,
-  last_visit_at: null,
-  created_at: '2026-03-01T08:00:00.000Z',
-}))
+/** В демо-данных имя записано как «Имя Фамилия» — раскладываем по полям API. */
+function splitName(name: string) {
+  const [first_name = '', ...rest] = name.split(' ')
+  return { first_name, last_name: rest.join(' ') }
+}
+
+function genderOf(firstName: string, lastName: string) {
+  return /[аяь]$/.test(firstName) || /[ая]$/.test(lastName) ? 'female' : 'male'
+}
+
+/** Ручной статус: немного VIP и пара заблокированных, чтобы бейджи было видно. */
+function statusOf(id: number) {
+  if (id % 17 === 0) return 'vip'
+  if (id % 41 === 0) return 'blocked'
+  return 'basic'
+}
+
+/** Агрегаты (визиты, суммы, сегмент, последние записи) считает `db`: они зависят от записей. */
+export const clients: Client[] = allSeeds.map((seed, index) => {
+  const id = index + 1
+  const { first_name, last_name } = splitName(seed.name)
+  const status = statusOf(id)
+
+  return {
+    id,
+    organization_id: organization.id,
+    name: `${last_name} ${first_name}`.trim(),
+    last_name,
+    first_name,
+    middle_name: '',
+    phone_number: seed.phone,
+    email: seed.email,
+    birthday: seed.birthday,
+    gender: genderOf(first_name, last_name),
+    status,
+    discount_percent: status === 'vip' ? 10 : null,
+    height_cm: null,
+    weight_kg: null,
+    note: seed.note,
+    segment: 'new',
+    visits_count: 0,
+    total_spent: '0',
+    average_check: '0',
+    currency: organization.currency,
+    first_visit_at: null,
+    last_visit_at: null,
+    recent_visits: [],
+    created_at: new Date(Date.UTC(2026, 2, 1 + (index % 150))).toISOString(),
+  }
+})
 
 const NEWCOMER_COUNT = 45
 const NEWCOMER_WINDOW_DAYS = 75
