@@ -6,6 +6,7 @@ import { common } from './common'
 import { dashboard } from './dashboard'
 import { journal } from './journal'
 import { settings } from './settings'
+import { business } from './business'
 
 export const en: TranslationMessages = {
   ...common,
@@ -15,4 +16,5 @@ export const en: TranslationMessages = {
   ...clients,
   ...analytics,
   ...settings,
+  ...business,
 }

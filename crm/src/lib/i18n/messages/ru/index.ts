@@ -5,6 +5,7 @@ import { common } from './common'
 import { dashboard } from './dashboard'
 import { journal } from './journal'
 import { settings } from './settings'
+import { business } from './business'
 
 // Русский — источник истины: по нему выводится TranslationKey,
 // поэтому остальные локали не соберутся без нового ключа.
@@ -16,4 +17,5 @@ export const ru = {
   ...clients,
   ...analytics,
   ...settings,
+  ...business,
 } as const

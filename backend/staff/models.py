@@ -32,6 +32,7 @@ class Staff(UUIDModel, BaseMixin):
     )
     bio = models.TextField("О специалисте", blank=True)
     photo = models.ImageField("Фото", upload_to="staff_photos/", blank=True)
+    photo_url = models.URLField("Ссылка на фото", blank=True)
     organization = models.ForeignKey(
         Organization,
         on_delete=models.CASCADE,
@@ -64,6 +65,15 @@ class Staff(UUIDModel, BaseMixin):
         default=True,
         help_text="Снимите, если сотрудник уволен или не работает. Удаление — это row_status.",
     )
+    vacation_start = models.DateField("Начало отпуска", blank=True, null=True)
+    vacation_end = models.DateField("Окончание отпуска", blank=True, null=True)
+    payout_model = models.CharField(
+        "Схема выплаты",
+        max_length=16,
+        choices=(("percent", "Процент"), ("fixed", "За услугу"), ("salary", "Оклад")),
+        default="percent",
+    )
+    payout_value = models.DecimalField("Значение выплаты", max_digits=12, decimal_places=2, default=40)
 
     class Meta:
         verbose_name = "Сотрудник"
@@ -86,6 +96,21 @@ class Staff(UUIDModel, BaseMixin):
         super().clean()
         if self.branch_id and self.organization_id and self.branch.organization_id != self.organization_id:
             raise ValidationError({"branch": "Филиал должен принадлежать организации сотрудника."})
+
+
+class StaffCertificate(UUIDModel, BaseMixin):
+    staff = models.ForeignKey(
+        Staff, on_delete=models.CASCADE, related_name="certificates", verbose_name="Сотрудник"
+    )
+    title = models.CharField("Название", max_length=255)
+    image_url = models.URLField("Ссылка на изображение")
+    issued_at = models.DateField("Дата выдачи", blank=True, null=True)
+    position = models.PositiveIntegerField("Порядок", default=0)
+
+    class Meta:
+        ordering = ("position", "create_date")
+        verbose_name = "Сертификат сотрудника"
+        verbose_name_plural = "Сертификаты сотрудников"
 
 
 class StaffProfession(UUIDModel, BaseMixin):

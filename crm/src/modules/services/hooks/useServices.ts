@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { apiErrorMessage } from '@/lib/api/apiErrorMessage'
+import type { EntityId } from '@/lib/api/entityId'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { TranslationKey } from '@/lib/i18n/messages'
 import { notifications } from '@/lib/toast/notifications'
@@ -36,13 +37,13 @@ export function useServices() {
   })
 
   const update = useMutation({
-    mutationFn: ({ id, input }: { id: number; input: ServiceInput }) =>
+    mutationFn: ({ id, input }: { id: EntityId; input: ServiceInput }) =>
       servicesApi.update(id, input),
     ...mutationHandlers('serviceUpdated'),
   })
 
   const remove = useMutation({
-    mutationFn: (id: number) => servicesApi.remove(id),
+    mutationFn: (id: EntityId) => servicesApi.remove(id),
     ...mutationHandlers('serviceDeleted'),
   })
 

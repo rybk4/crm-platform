@@ -1,14 +1,21 @@
+import type { EntityId } from '@/lib/api/entityId'
+
 export interface Service {
-  id: number
-  specialist: number
+  id: EntityId
+  specialist: EntityId
   specialist_name: string
-  branch_id: number
+  specialists?: EntityId[]
+  specialist_names?: string[]
+  branch_id: EntityId
   branch_name: string
-  organization_id: number
+  organization_id: EntityId
   name: string
   description: string
   duration_minutes: number
   price: string
+  price_max?: string | null
+  category?: EntityId
+  category_name?: string
   currency: string
   is_active: boolean
 }

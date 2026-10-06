@@ -26,6 +26,15 @@ class User(UUIDModel, AbstractUser):
     )
     birth_date = models.DateField("Дата рождения", blank=True, null=True)
     gender = models.CharField("Пол", max_length=10, choices=Gender.choices, blank=True)
+    locale = models.CharField("Язык интерфейса", max_length=2, default="ru")
+    active_branch = models.ForeignKey(
+        "organizations.Branch",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="active_users",
+        verbose_name="Активный филиал",
+    )
 
     class Meta:
         verbose_name = "Пользователь"

@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import type { EntityId } from '@/lib/api/entityId'
+import { sameEntityId } from '@/lib/api/entityId'
 import { notifications } from '@/lib/toast/notifications'
 import type { Service } from '@/modules/services/types'
 import {
@@ -18,8 +20,9 @@ interface UseAppointmentDialogOptions {
   appointments: readonly Appointment[]
   services: readonly Service[]
   defaultDay: string
-  defaultSpecialistId: number
-  journal: Pick<ReturnType<typeof useAppointments>, 'create' | 'update'>
+  defaultSpecialistId: EntityId
+  journal: Pick<ReturnType<typeof useAppointments>, 'create' | 'update'> &
+    Partial<Pick<ReturnType<typeof useAppointments>, 'closeDeal'>>
 }
 
 const DEFAULT_TIME = '10:00'
@@ -38,6 +41,8 @@ export function useAppointmentDialog({
   const [form, setForm] = useState<AppointmentInput>(() => emptyAppointmentForm())
   const [day, setDay] = useState(defaultDay)
   const [time, setTime] = useState(DEFAULT_TIME)
+  const [paymentMethod, setPaymentMethod] = useState<EntityId | null>(null)
+  const [discount, setDiscount] = useState('0')
 
   const openCreate = useCallback(
     (specialistId = defaultSpecialistId, startTime = DEFAULT_TIME) => {
@@ -45,6 +50,8 @@ export function useAppointmentDialog({
       setForm(emptyAppointmentForm(specialistId))
       setDay(defaultDay)
       setTime(startTime)
+      setPaymentMethod(null)
+      setDiscount('0')
       setOpen(true)
     },
     [defaultDay, defaultSpecialistId],
@@ -57,6 +64,8 @@ export function useAppointmentDialog({
     setForm(appointmentToForm(appointment))
     setDay(parts.day)
     setTime(parts.time)
+    setPaymentMethod(appointment.deal_payment_method ?? null)
+    setDiscount(appointment.deal_discount ?? '0')
     setOpen(true)
   }, [])
 
@@ -67,14 +76,14 @@ export function useAppointmentDialog({
   }, [])
 
   /** Смена специалиста сбрасывает услугу: услуги привязаны к мастеру. */
-  const patchSpecialist = useCallback((specialist: number) => {
+  const patchSpecialist = useCallback((specialist: EntityId) => {
     setForm((current) => ({ ...current, specialist, service: 0 }))
   }, [])
 
   async function submit() {
     const startsAt = combineDateTime(day, time)
     const payload: AppointmentInput = { ...form, starts_at: startsAt }
-    const service = services.find((item) => item.id === form.service)
+    const service = services.find((item) => sameEntityId(item.id, form.service))
 
     if (!isAppointmentFormValid(payload) || !service) {
       notifications.error(t('requiredFields'))
@@ -103,6 +112,22 @@ export function useAppointmentDialog({
     }
   }
 
+  async function pay() {
+    if (!editing?.deal || !paymentMethod || !journal.closeDeal) {
+      notifications.error(t('paymentMethodRequired'))
+      return
+    }
+    try {
+      await journal.closeDeal.mutateAsync({
+        id: editing.deal,
+        input: { payment_method: paymentMethod, discount, comment: form.comment },
+      })
+      setOpen(false)
+    } catch {
+      // Сообщение уже показала мутация.
+    }
+  }
+
   return {
     open,
     editing,
@@ -116,6 +141,12 @@ export function useAppointmentDialog({
     patchSpecialist,
     setDay,
     setTime,
+    paymentMethod,
+    setPaymentMethod,
+    discount,
+    setDiscount,
+    pay,
+    paying: journal.closeDeal?.isPending ?? false,
     submit,
   }
 }

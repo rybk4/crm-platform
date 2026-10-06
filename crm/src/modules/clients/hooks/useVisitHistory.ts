@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import type { EntityId } from '@/lib/api/entityId'
 
 import {
   currentMonthPeriod,
@@ -11,7 +12,7 @@ import type { VisitPeriod, VisitSort, VisitSortKey } from '../visitHistory'
 import { useClientVisits } from './useClientVisits'
 
 /** Вкладка «История посещений»: период (по умолчанию текущий месяц), сортировка и итоги. */
-export function useVisitHistory(clientId: number) {
+export function useVisitHistory(clientId: EntityId) {
   const visits = useClientVisits(clientId)
   const [period, setPeriod] = useState<VisitPeriod>(() => currentMonthPeriod())
   const [sort, setSort] = useState<VisitSort>({ key: 'date', direction: 'asc' })

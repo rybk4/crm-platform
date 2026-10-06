@@ -1,4 +1,5 @@
 import type { AppointmentStatus } from '@/modules/journal/types'
+import type { EntityId } from '@/lib/api/entityId'
 
 export const analyticsPeriods = [7, 30, 90] as const
 
@@ -16,7 +17,7 @@ export interface AnalyticsPoint {
 }
 
 export interface SpecialistLoadItem {
-  specialist_id: number
+  specialist_id: EntityId
   specialist_name: string
   booked_minutes: number
   available_minutes: number
@@ -25,7 +26,7 @@ export interface SpecialistLoadItem {
 }
 
 export interface TopServiceItem {
-  service_id: number
+  service_id: EntityId
   service_name: string
   appointments_count: number
   revenue: string

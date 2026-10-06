@@ -1,4 +1,5 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import { parseEntityId } from '@/lib/api/entityId'
 import type { Specialist } from '@/modules/specialists/types'
 import { Button } from '@/ui/Button'
 import { Checkbox } from '@/ui/Checkbox'
@@ -43,7 +44,7 @@ export function ServiceDialog({ dialog, specialists, saving }: ServiceDialogProp
             value: String(item.id),
             label: `${item.full_name} · ${item.branch_name}`,
           }))}
-          onChange={(value) => patch({ specialist: Number(value) })}
+          onChange={(value) => patch({ specialist: parseEntityId(value) })}
           required
         />
 

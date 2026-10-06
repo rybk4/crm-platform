@@ -1,4 +1,5 @@
 import { formatDayTitle } from '@/lib/format/datetime'
+import { parseEntityId, type EntityId } from '@/lib/api/entityId'
 import { fromDayKey } from '@/lib/datetime/day'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { Specialist } from '@/modules/specialists/types'
@@ -17,13 +18,13 @@ interface JournalToolbarProps {
   date: string
   isToday: boolean
   specialists: readonly Specialist[]
-  specialist: number | null
+  specialist: EntityId | null
   status: AppointmentStatus | null
   view: JournalView
   onDateChange: (date: string) => void
   onShift: (days: number) => void
   onToday: () => void
-  onSpecialistChange: (specialist: number | null) => void
+  onSpecialistChange: (specialist: EntityId | null) => void
   onStatusChange: (status: AppointmentStatus | null) => void
   onViewChange: (view: JournalView) => void
 }
@@ -55,7 +56,7 @@ export function JournalToolbar({
             { value: '', label: t('allSpecialists') },
             ...specialists.map((item) => ({ value: String(item.id), label: item.full_name })),
           ]}
-          onChange={(value) => onSpecialistChange(value ? Number(value) : null)}
+          onChange={(value) => onSpecialistChange(value ? parseEntityId(value) : null)}
         />
 
         <IconButton ariaLabel={t('journalPreviousDay')} onClick={() => onShift(-1)}>
@@ -103,6 +104,7 @@ export function JournalToolbar({
           iconOnly
           options={[
             { value: 'board', label: t('journalBoardView'), icon: 'calendar' },
+            { value: 'week', label: t('journalWeekView'), icon: 'analytics' },
             { value: 'list', label: t('journalListView'), icon: 'list' },
           ]}
           onChange={(value) => onViewChange(value as JournalView)}

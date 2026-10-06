@@ -1,4 +1,5 @@
 import { daysBetween, minutesOfDay } from '@/lib/datetime/day'
+import { sameEntityId, type EntityId } from '@/lib/api/entityId'
 import type { TranslationKey } from '@/lib/i18n/messages'
 import type { Client } from '@/modules/clients/types'
 import { availableMinutes, dayWindow } from '@/modules/journal/model'
@@ -16,7 +17,7 @@ export function greetingKey(hour: number): TranslationKey {
 }
 
 export interface SpecialistDayLoad {
-  id: number
+  id: EntityId
   name: string
   bookedMinutes: number
   availableMinutes: number
@@ -33,7 +34,9 @@ export function specialistDayLoad(
     .filter((specialist) => specialist.is_active && dayWindow(specialist, day))
     .map((specialist) => {
       const booked = appointments
-        .filter((item) => item.specialist === specialist.id && item.status !== 'cancelled')
+        .filter(
+          (item) => sameEntityId(item.specialist, specialist.id) && item.status !== 'cancelled',
+        )
         .reduce((sum, item) => sum + item.duration_minutes, 0)
       const available = availableMinutes([specialist], day)
 

@@ -1,4 +1,5 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import { parseEntityId } from '@/lib/api/entityId'
 import type { Branch } from '@/modules/organizations/types'
 import { Button } from '@/ui/Button'
 import { Checkbox } from '@/ui/Checkbox'
@@ -43,7 +44,7 @@ export function SpecialistDialog({ dialog, branches, saving }: SpecialistDialogP
             label={t('branch')}
             value={String(form.branch || '')}
             options={branches.map((branch) => ({ value: String(branch.id), label: branch.name }))}
-            onChange={(value) => patch({ branch: Number(value) })}
+            onChange={(value) => patch({ branch: parseEntityId(value) })}
             required
           />
 

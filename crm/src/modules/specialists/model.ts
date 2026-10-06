@@ -1,3 +1,4 @@
+import type { EntityId } from '@/lib/api/entityId'
 import type { Specialist, SpecialistInput, WorkSchedule } from './types'
 
 export const weekdayKeys = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const
@@ -24,7 +25,7 @@ export function defaultSchedule(): WorkSchedule[] {
   }))
 }
 
-export function emptySpecialistForm(branchId = 0): SpecialistInput {
+export function emptySpecialistForm(branchId: EntityId = 0): SpecialistInput {
   return {
     branch: branchId,
     first_name: '',
@@ -112,7 +113,7 @@ export function filterSpecialists(
   return [...filtered].sort((left, right) => {
     if (sort === 'name') return left.full_name.localeCompare(right.full_name)
     if (sort === 'position') return left.job_title.localeCompare(right.job_title)
-    return right.id - left.id
+    return String(right.id).localeCompare(String(left.id))
   })
 }
 

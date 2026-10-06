@@ -1,5 +1,7 @@
+import type { EntityId } from '@/lib/api/entityId'
+
 export interface SpecialistCertificate {
-  id?: number
+  id?: EntityId
   title: string
   image_url: string
   issued_at: string | null
@@ -7,7 +9,7 @@ export interface SpecialistCertificate {
 }
 
 export interface WorkSchedule {
-  id?: number
+  id?: EntityId
   weekday: number
   is_day_off: boolean
   start_time: string | null
@@ -17,10 +19,10 @@ export interface WorkSchedule {
 }
 
 export interface Specialist {
-  id: number
-  branch: number
+  id: EntityId
+  branch: EntityId
   branch_name: string
-  organization_id: number
+  organization_id: EntityId
   organization_name: string
   first_name: string
   last_name: string
@@ -34,6 +36,10 @@ export interface Specialist {
   services_count: number
   certificates: SpecialistCertificate[]
   schedule: WorkSchedule[]
+  vacation_start?: string | null
+  vacation_end?: string | null
+  payout_model?: 'percent' | 'fixed' | 'salary'
+  payout_value?: string
 }
 
 export type SpecialistInput = Omit<

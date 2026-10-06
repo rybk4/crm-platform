@@ -1,4 +1,5 @@
 import { ApiClient } from '@/lib/api/ApiClient'
+import type { EntityId } from '@/lib/api/entityId'
 import type { Service, ServiceInput } from '../types'
 
 class ServicesApi extends ApiClient {
@@ -14,11 +15,11 @@ class ServicesApi extends ApiClient {
     return this.post<Service>('', input)
   }
 
-  update(id: number, input: ServiceInput) {
+  update(id: EntityId, input: ServiceInput) {
     return this.put<Service>(`${id}/`, input)
   }
 
-  remove(id: number) {
+  remove(id: EntityId) {
     return this.delete(`${id}/`)
   }
 }

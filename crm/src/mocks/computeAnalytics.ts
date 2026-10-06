@@ -6,6 +6,7 @@ import type {
 } from '@/modules/analytics/types'
 import { appointmentStatuses, type Appointment } from '@/modules/journal/types'
 import type { Specialist } from '@/modules/specialists/types'
+import type { EntityId } from '@/lib/api/entityId'
 import { addDays, dayKey, minutesFromTime, startOfDay, weekdayIndex } from '@/lib/datetime/day'
 import { db } from './db'
 
@@ -82,7 +83,7 @@ function specialistLoad(appointments: Appointment[], window: Window): Specialist
 }
 
 function topServices(appointments: Appointment[]): TopServiceItem[] {
-  const totals = new Map<number, TopServiceItem>()
+  const totals = new Map<EntityId, TopServiceItem>()
 
   for (const appointment of appointments) {
     if (appointment.status !== 'completed') continue
@@ -124,7 +125,7 @@ function revenueByDay(appointments: Appointment[], window: Window) {
 }
 
 function newClients(appointments: Appointment[], window: Window) {
-  const firstVisit = new Map<number, Date>()
+  const firstVisit = new Map<EntityId, Date>()
 
   for (const appointment of db.appointments) {
     const date = new Date(appointment.starts_at)

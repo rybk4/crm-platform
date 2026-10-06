@@ -1,6 +1,7 @@
 import { minutesOfDay, timeFromMinutes } from '@/lib/datetime/day'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { Specialist } from '@/modules/specialists/types'
+import type { EntityId } from '@/lib/api/entityId'
 import { dayWindow, type DayWindow } from '../model'
 import type { Appointment } from '../types'
 import { JournalColumn } from './JournalColumn'
@@ -14,7 +15,7 @@ interface JournalBoardProps {
   /** Метку «сейчас» рисуем только на сегодняшнем дне. */
   now: Date | null
   onOpen: (appointment: Appointment) => void
-  onCreate: (specialistId?: number, startTime?: string) => void
+  onCreate: (specialistId?: EntityId, startTime?: string) => void
 }
 
 export function JournalBoard({

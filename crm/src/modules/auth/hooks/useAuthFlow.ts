@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { apiErrorMessage } from '@/lib/api/apiErrorMessage'
+import type { EntityId } from '@/lib/api/entityId'
 import { subscribeSessionExpired } from '@/lib/auth/session'
 import { clearTokens, readTokens, writeTokens } from '@/lib/auth/tokenStorage'
 import { useLocale } from '@/lib/i18n/LocaleContext'
@@ -116,7 +117,7 @@ export function useAuthFlow() {
     setUser(await authApi.updateLocale(locale))
   }
 
-  async function updateActiveBranch(activeBranch: number) {
+  async function updateActiveBranch(activeBranch: EntityId) {
     setUser(await authApi.updateActiveBranch(activeBranch))
   }
 

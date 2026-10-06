@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import type { EntityId } from '@/lib/api/entityId'
 import { notifications } from '@/lib/toast/notifications'
 import {
   emptySpecialistForm,
@@ -12,7 +13,7 @@ import type { Specialist, SpecialistCertificate, SpecialistInput, WorkSchedule }
 import { useSpecialists } from './useSpecialists'
 
 interface UseSpecialistDialogOptions {
-  defaultBranchId: number
+  defaultBranchId: EntityId
   specialists: Pick<ReturnType<typeof useSpecialists>, 'create' | 'update'>
 }
 

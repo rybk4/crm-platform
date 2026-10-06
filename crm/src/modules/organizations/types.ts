@@ -1,5 +1,7 @@
+import type { EntityId } from '@/lib/api/entityId'
+
 export interface Organization {
-  id: number
+  id: EntityId
   name: string
   slug: string
   currency: string
@@ -8,8 +10,8 @@ export interface Organization {
 }
 
 export interface Branch {
-  id: number
-  organization: number
+  id: EntityId
+  organization: EntityId
   organization_name: string
   name: string
   address: string

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import { parseEntityId, sameEntityId } from '@/lib/api/entityId'
 import type { ActiveBranchDetails } from '@/modules/auth/types'
 import { useSpecialists } from '@/modules/specialists/hooks/useSpecialists'
 import { Button } from '@/ui/Button'
@@ -29,16 +30,18 @@ export function ServicesPage({ activeBranch }: ServicesPageProps) {
   const [pendingDelete, setPendingDelete] = useState<Service | null>(null)
   const allSpecialists = useSpecialists().specialists
   const specialists = allSpecialists.filter(
-    (item) => !activeBranch || item.branch === activeBranch.id,
+    (item) => !activeBranch || sameEntityId(item.branch, activeBranch.id),
   )
   const services = useServices()
   const dialog = useServiceDialog({
-    defaultSpecialistId: Number(specialistFilter || specialists[0]?.id || 0),
+    defaultSpecialistId: specialistFilter
+      ? parseEntityId(specialistFilter)
+      : (specialists[0]?.id ?? 0),
     services,
   })
 
   const branchServices = services.services.filter(
-    (item) => !activeBranch || item.branch_id === activeBranch.id,
+    (item) => !activeBranch || sameEntityId(item.branch_id, activeBranch.id),
   )
   const visible = useMemo(
     () => filterBySpecialist(branchServices, specialistFilter),

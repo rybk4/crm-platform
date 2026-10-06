@@ -416,6 +416,52 @@
   color: var(--app-primary);
   background: var(--app-primary-soft);
 }
+.journal-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(150px, 1fr));
+  gap: 10px;
+  overflow-x: auto;
+}
+.journal-week__day {
+  min-height: 300px;
+  padding: 12px;
+}
+.journal-week__day > header,
+.journal-week__items {
+  display: grid;
+  gap: 8px;
+}
+.journal-week__day > header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--app-border);
+}
+.journal-week__day > header span,
+.journal-week__items small {
+  color: var(--app-muted);
+  font-size: 12px;
+}
+.journal-week__items {
+  padding-top: 10px;
+}
+.journal-week__items button {
+  display: grid;
+  gap: 3px;
+  padding: 10px;
+  border: 1px solid var(--app-border);
+  border-radius: 10px;
+  text-align: left;
+  color: var(--app-text);
+  background: var(--app-surface);
+  cursor: pointer;
+}
+.journal-week__items button:hover {
+  border-color: var(--app-primary);
+}
+.journal-week__items time,
+.journal-week__items span {
+  color: var(--app-muted);
+  font-size: 12px;
+}
 .appointment-form {
   display: grid;
   gap: 14px;
@@ -429,6 +475,20 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+}
+.appointment-form__payment {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(120px, 0.6fr) auto;
+  align-items: end;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
+  background: var(--app-surface-subtle);
+}
+.appointment-form__payment > strong,
+.appointment-form__payment > span {
+  grid-column: 1 / -1;
 }
 @media (max-width: 1100px) {
   .journal-summary {
@@ -483,6 +543,9 @@
     color: var(--app-danger) !important;
   }
   .appointment-form__row {
+    grid-template-columns: 1fr;
+  }
+  .appointment-form__payment {
     grid-template-columns: 1fr;
   }
 }

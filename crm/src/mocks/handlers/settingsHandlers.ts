@@ -9,7 +9,7 @@ let profile: OrganizationProfile = {
 
 /** Как сделал бы сервер: оставленные адреса сохраняют id, новые получают следующий. */
 function toProfile(input: OrganizationProfileInput): OrganizationProfile {
-  let nextPhotoId = profile.photos.reduce((max, photo) => Math.max(max, photo.id), 0)
+  let nextPhotoId = profile.photos.reduce((max, photo) => Math.max(max, Number(photo.id) || 0), 0)
   const { photo_urls: photoUrls, ...fields } = input
   const photos = photoUrls.map(
     (url) => profile.photos.find((photo) => photo.url === url) ?? { id: ++nextPhotoId, url },

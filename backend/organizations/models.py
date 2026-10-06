@@ -38,6 +38,8 @@ class Organization(UUIDModel, BaseMixin):
     working_days = models.CharField("Рабочие дни", max_length=255, blank=True)
     timezone = models.CharField("Часовой пояс", max_length=64, default="Asia/Almaty")
     currency = models.CharField("Валюта", max_length=3, default="KZT")
+    subscription_started_at = models.DateTimeField("Подписка началась", blank=True, null=True)
+    subscription_expires_at = models.DateTimeField("Подписка истекает", blank=True, null=True)
 
     class Meta:
         verbose_name = "Организация"
@@ -72,3 +74,19 @@ class Branch(UUIDModel, BaseMixin):
 
     def __str__(self):
         return f"{self.organization} — {self.name}"
+
+
+class OrganizationPhoto(UUIDModel, BaseMixin):
+    organization = models.ForeignKey(
+        Organization,
+        on_delete=models.CASCADE,
+        related_name="photos",
+        verbose_name="Организация",
+    )
+    image = models.ImageField("Фотография", upload_to="organization_photos/")
+    position = models.PositiveSmallIntegerField("Порядок", default=0)
+
+    class Meta:
+        verbose_name = "Фотография организации"
+        verbose_name_plural = "Фотографии организации"
+        ordering = ("position", "create_date")

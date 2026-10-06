@@ -1,13 +1,14 @@
 import { useCallback, useState } from 'react'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import type { EntityId } from '@/lib/api/entityId'
 import { notifications } from '@/lib/toast/notifications'
 import { emptyServiceForm, isServiceFormValid, serviceToForm } from '../model'
 import type { Service, ServiceInput } from '../types'
 import type { useServices } from './useServices'
 
 interface UseServiceDialogOptions {
-  defaultSpecialistId: number
+  defaultSpecialistId: EntityId
   services: Pick<ReturnType<typeof useServices>, 'create' | 'update'>
 }
 

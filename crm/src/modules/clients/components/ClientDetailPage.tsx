@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import { parseEntityId } from '@/lib/api/entityId'
 import { ErrorState } from '@/ui/ErrorState'
 import { Loader } from '@/ui/Loader'
 import { useClient } from '../hooks/useClient'
@@ -17,7 +18,7 @@ import './client-detail.css'
 export function ClientDetailPage() {
   const { t } = useLocale()
   const navigate = useNavigate()
-  const clientId = Number(useParams().clientId)
+  const clientId = parseEntityId(useParams().clientId ?? '')
   const client = useClient(clientId)
   const clients = useClients()
   const [tab, setTab] = useState<ClientProfileTab>('profile')

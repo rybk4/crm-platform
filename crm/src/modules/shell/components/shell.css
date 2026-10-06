@@ -312,6 +312,29 @@
 .app-sidebar[data-collapsed='true'] .sidebar-demo__label {
   display: none;
 }
+.sidebar-subscription {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 12px 8px;
+  padding: 9px 11px;
+  border-radius: 10px;
+  color: var(--app-primary);
+  background: var(--app-primary-soft);
+  font-size: 12px;
+  font-weight: 700;
+}
+.sidebar-subscription[data-expired='true'] {
+  color: var(--app-danger);
+}
+.app-sidebar[data-collapsed='true'] .sidebar-subscription {
+  justify-content: center;
+  margin-inline: 8px;
+  padding-inline: 8px;
+}
+.app-sidebar[data-collapsed='true'] .sidebar-subscription__label {
+  display: none;
+}
 
 .profile-popover__languages {
   min-width: 0;

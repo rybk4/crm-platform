@@ -1,0 +1,19 @@
+.campaign-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+  gap: var(--app-space-5);
+}
+.campaign-recipients h3 {
+  margin-top: 0;
+}
+.campaign-recipients__list {
+  max-height: 340px;
+  overflow: auto;
+  display: grid;
+  border-top: 1px solid var(--app-border);
+}
+@media (max-width: 720px) {
+  .campaign-form {
+    grid-template-columns: 1fr;
+  }
+}

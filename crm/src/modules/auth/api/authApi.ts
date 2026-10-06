@@ -1,4 +1,5 @@
 import { ApiClient } from '@/lib/api/ApiClient'
+import type { EntityId } from '@/lib/api/entityId'
 import type { Locale } from '@/lib/i18n/locale'
 import type { AuthUser, LoginResponse, OtpRequestResponse, ProfileChanges } from '../types'
 
@@ -35,7 +36,7 @@ class AuthApi extends ApiClient {
     return this.updateCurrentUser({ locale })
   }
 
-  updateActiveBranch(activeBranch: number | null) {
+  updateActiveBranch(activeBranch: EntityId | null) {
     return this.updateCurrentUser({ active_branch: activeBranch })
   }
 }

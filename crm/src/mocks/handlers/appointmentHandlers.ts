@@ -37,6 +37,10 @@ function buildAppointment(body: Record<string, unknown>, id: number): Appointmen
     client: client.id,
     client_name: client.name,
     client_phone: client.phone_number,
+    deal: existing?.deal ?? id,
+    deal_status: existing?.deal_status ?? 'open',
+    deal_payment_method: existing?.deal_payment_method ?? null,
+    deal_discount: existing?.deal_discount ?? '0',
     starts_at: startsAt.toISOString(),
     ends_at: endsAt.toISOString(),
     duration_minutes: service.duration_minutes,
@@ -52,6 +56,10 @@ function buildAppointment(body: Record<string, unknown>, id: number): Appointmen
 function filtered(query: Record<string, string>) {
   return db.appointments
     .filter((item) => (query.date ? dayKey(new Date(item.starts_at)) === query.date : true))
+    .filter((item) =>
+      query.date_from ? dayKey(new Date(item.starts_at)) >= query.date_from : true,
+    )
+    .filter((item) => (query.date_to ? dayKey(new Date(item.starts_at)) <= query.date_to : true))
     .filter((item) => (query.specialist ? item.specialist === Number(query.specialist) : true))
     .filter((item) => (query.status ? item.status === query.status : true))
     .filter((item) => (query.client ? item.client === Number(query.client) : true))

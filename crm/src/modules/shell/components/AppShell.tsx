@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { AnalyticsPage } from '@/modules/analytics/components/AnalyticsPage'
+import { CampaignsPage } from '@/modules/campaigns/components/CampaignsPage'
+import { FinancePage } from '@/modules/finance/components/FinancePage'
+import { LoyaltyPage } from '@/modules/loyalty/components/LoyaltyPage'
 import { DashboardPage } from '@/modules/dashboard/components/DashboardPage'
 import type { AuthUser } from '@/modules/auth/types'
 import { ClientDetailPage } from '@/modules/clients/components/ClientDetailPage'
@@ -12,16 +15,18 @@ import { SettingsPage } from '@/modules/settings/components/SettingsPage'
 import { SpecialistDetailPage } from '@/modules/specialists/components/SpecialistDetailPage'
 import { SpecialistsPage } from '@/modules/specialists/components/SpecialistsPage'
 import { useMediaQuery } from '@/lib/browser/useMediaQuery'
+import type { EntityId } from '@/lib/api/entityId'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { Locale } from '@/lib/i18n/locale'
 import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
 import { Sidebar } from './Sidebar'
+import { HelpPage } from './HelpPage'
 import './shell.css'
 
 interface AppShellProps {
   user: AuthUser
-  onActiveBranchChange: (branchId: number) => Promise<void>
+  onActiveBranchChange: (branchId: EntityId) => Promise<void>
   onLocaleChange: (locale: Locale) => Promise<void>
   onLogout: () => void
 }
@@ -98,6 +103,7 @@ export function AppShell({ user, onActiveBranchChange, onLocaleChange, onLogout 
             />
             <Route path="/clients" element={<ClientsPage />} />
             <Route path="/clients/:clientId" element={<ClientDetailPage />} />
+            <Route path="/campaigns" element={<CampaignsPage />} />
             <Route
               path="/specialists"
               element={
@@ -118,6 +124,10 @@ export function AppShell({ user, onActiveBranchChange, onLocaleChange, onLogout 
               }
             />
             <Route path="/analytics" element={<AnalyticsPage />} />
+            <Route path="/loyalty" element={<LoyaltyPage />} />
+            <Route path="/finance" element={<FinancePage />} />
+            <Route path="/tutorial" element={<HelpPage kind="tutorial" />} />
+            <Route path="/support" element={<HelpPage kind="support" />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

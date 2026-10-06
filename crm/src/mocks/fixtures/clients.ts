@@ -1,4 +1,5 @@
 import type { Client } from '@/modules/clients/types'
+import type { EntityId } from '@/lib/api/entityId'
 import { generatedSeeds } from './clientNames'
 import { organization } from './organization'
 
@@ -214,7 +215,7 @@ const NEWCOMER_WINDOW_DAYS = 75
  * `NEWCOMER_WINDOW_DAYS` дней: иначе показатель «новые клиенты» скачет.
  * Значение — день первого появления в виде смещения от сегодняшнего дня.
  */
-export const newcomerEntryDay = new Map<number, number>(
+export const newcomerEntryDay = new Map<EntityId, number>(
   clients
     .slice(-NEWCOMER_COUNT)
     .map((client, index) => [

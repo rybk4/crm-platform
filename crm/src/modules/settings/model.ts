@@ -1,3 +1,4 @@
+import { parseEntityId } from '@/lib/api/entityId'
 import type { TranslationKey } from '@/lib/i18n/messages'
 import { formatPhoneInput, isValidPhone, normalizePhone } from '@/lib/validation/phone'
 import type { OrganizationProfile, OrganizationProfileInput } from './types'
@@ -59,7 +60,7 @@ export function formToInput(form: SettingsForm): OrganizationProfileInput {
     name: form.name.trim(),
     phone: normalizePhone(form.phone),
     email: form.email.trim(),
-    city: form.city ? Number(form.city) : null,
+    city: form.city ? parseEntityId(form.city) : null,
     address: form.address.trim(),
     working_days: form.working_days.trim(),
     description: form.description.trim(),

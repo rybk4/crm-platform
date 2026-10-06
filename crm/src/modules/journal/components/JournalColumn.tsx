@@ -1,4 +1,5 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import type { EntityId } from '@/lib/api/entityId'
 import { timeFromMinutes } from '@/lib/datetime/day'
 import type { Specialist } from '@/modules/specialists/types'
 import { Avatar } from '@/ui/Avatar'
@@ -15,7 +16,7 @@ interface JournalColumnProps {
   appointments: readonly Appointment[]
   height: number
   onOpen: (appointment: Appointment) => void
-  onCreate: (specialistId?: number, startTime?: string) => void
+  onCreate: (specialistId?: EntityId, startTime?: string) => void
 }
 
 export function JournalColumn({

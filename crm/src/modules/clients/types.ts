@@ -1,4 +1,5 @@
 import type { AppointmentStatus } from '@/modules/journal/types'
+import type { EntityId } from '@/lib/api/entityId'
 
 export const clientSegments = ['new', 'regular', 'vip', 'sleeping'] as const
 
@@ -14,15 +15,15 @@ export const clientGenders = ['male', 'female'] as const
 export type ClientGender = (typeof clientGenders)[number]
 
 export interface ClientRecentVisit {
-  id: number
+  id: EntityId
   starts_at: string
   service_name: string
   status: AppointmentStatus
 }
 
 export interface Client {
-  id: number
-  organization_id: number
+  id: EntityId
+  organization_id: EntityId
   /** Полное имя «Фамилия Имя Отчество» — собирает сервер. */
   name: string
   last_name: string
@@ -50,7 +51,7 @@ export interface Client {
 }
 
 export interface ClientVisit {
-  id: number
+  id: EntityId
   starts_at: string
   service_name: string
   specialist_name: string
@@ -79,6 +80,6 @@ export type ClientInput = Pick<
 /** Фильтры, которые считает сервер: по ним нужны записи, а не только карточка клиента. */
 export interface ClientListFilters {
   status?: ClientStatus
-  service?: number
+  service?: EntityId
   visit_date?: string
 }

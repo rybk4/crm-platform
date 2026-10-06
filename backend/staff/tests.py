@@ -3,9 +3,11 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError, transaction
 from django.db.models import ProtectedError
 from django.test import TestCase
+from rest_framework.test import APIClient
 
 from organizations.models import Branch, Organization
 from professions.models import Profession
+from services.models import Service, ServiceCategory
 
 from .models import Staff, StaffProfession
 
@@ -107,3 +109,62 @@ class StaffProfessionTests(TestCase):
         self.staff.update(title="Топ-стилист")
 
         self.assertEqual(Staff.objects.get(pk=self.staff.pk).title, "Топ-стилист")
+
+
+class StaffApiTests(TestCase):
+    def setUp(self):
+        self.organization = Organization.objects.create(name="Лаванда")
+        self.branch = Branch.objects.create(organization=self.organization, name="На Абая")
+        self.user = get_user_model().objects.create_user(
+            username="owner", organization=self.organization, active_branch=self.branch
+        )
+        self.staff = Staff.objects.create(
+            organization=self.organization, branch=self.branch, name="Анна"
+        )
+        category = ServiceCategory.objects.create(name="Уход", code="care-api")
+        self.service = Service.objects.create(
+            organization=self.organization,
+            category=category,
+            name="Уход",
+            duration_minutes=45,
+            price="8000",
+        )
+        self.api = APIClient()
+        self.api.force_authenticate(self.user)
+
+    def test_profile_schedule_certificates_and_services_are_saved(self):
+        profile = self.api.patch(
+            f"/api/specialists/{self.staff.pk}/",
+            {
+                "photo_url": "https://example.com/photo.jpg",
+                "vacation_start": "2026-10-10",
+                "vacation_end": "2026-10-15",
+                "payout_model": "percent",
+                "payout_value": "45",
+                "certificates": [
+                    {"title": "Диплом", "image_url": "https://example.com/diploma.jpg", "position": 0}
+                ],
+                "schedule": [
+                    {
+                        "weekday": 0,
+                        "is_day_off": False,
+                        "start_time": "09:00",
+                        "end_time": "18:00",
+                        "break_start": "13:00",
+                        "break_end": "14:00",
+                    }
+                ],
+            },
+            format="json",
+        )
+        services = self.api.put(
+            f"/api/specialists/{self.staff.pk}/services/",
+            {"service_ids": [str(self.service.pk)]},
+            format="json",
+        )
+
+        self.assertEqual(profile.status_code, 200, profile.data)
+        self.assertEqual(profile.data["certificates"][0]["title"], "Диплом")
+        self.assertEqual(profile.data["schedule"][0]["start_time"], "09:00")
+        self.assertEqual(services.status_code, 200, services.data)
+        self.assertTrue(self.staff.services.filter(pk=self.service.pk).exists())

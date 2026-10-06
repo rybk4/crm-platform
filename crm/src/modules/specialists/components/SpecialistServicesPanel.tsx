@@ -1,4 +1,5 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import type { EntityId } from '@/lib/api/entityId'
 import { formatMoney } from '@/lib/format/money'
 import type { Service } from '@/modules/services/types'
 import { Button } from '@/ui/Button'
@@ -7,8 +8,8 @@ import { Checkbox } from '@/ui/Checkbox'
 
 interface SpecialistServicesPanelProps {
   services: Service[]
-  selectedIds: number[]
-  onToggle: (serviceId: number, selected: boolean) => void
+  selectedIds: EntityId[]
+  onToggle: (serviceId: EntityId, selected: boolean) => void
   onSave: () => void
 }
 

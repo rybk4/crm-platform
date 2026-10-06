@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from core.admin import BaseMixinAdmin
 
-from .models import Branch, City, Organization
+from .models import Branch, City, Organization, OrganizationPhoto
 
 
 @admin.register(City)
@@ -30,3 +30,8 @@ class BranchAdmin(BaseMixinAdmin):
     list_display = ("name", "organization", "address", "is_active", "row_status")
     list_filter = ("row_status", "is_active", "organization")
     search_fields = ("name", "address")
+
+
+@admin.register(OrganizationPhoto)
+class OrganizationPhotoAdmin(BaseMixinAdmin):
+    list_display = ("organization", "position", "row_status")

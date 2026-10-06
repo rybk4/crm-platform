@@ -1,4 +1,5 @@
 import type { Client, ClientInput, ClientVisit } from '@/modules/clients/types'
+import { sameEntityId, type EntityId } from '@/lib/api/entityId'
 import { dayKey } from '@/lib/datetime/day'
 import { db, nextId, refreshDerived } from '../db'
 import { organization } from '../fixtures/organization'
@@ -29,11 +30,11 @@ function toClient(body: Record<string, unknown>, id: number): Client {
   }
 }
 
-function appointmentsOf(clientId: number) {
-  return db.appointments.filter((item) => item.client === clientId)
+function appointmentsOf(clientId: EntityId) {
+  return db.appointments.filter((item) => sameEntityId(item.client, clientId))
 }
 
-function visitsOf(clientId: number): ClientVisit[] {
+function visitsOf(clientId: EntityId): ClientVisit[] {
   return appointmentsOf(clientId)
     .sort((left, right) => right.starts_at.localeCompare(left.starts_at))
     .map((item) => ({
@@ -55,7 +56,7 @@ function matchesFilters(client: Client, query: Record<string, string>) {
 
   return appointmentsOf(client.id).some(
     (item) =>
-      (!query.service || item.service === Number(query.service)) &&
+      (!query.service || sameEntityId(item.service, query.service)) &&
       (!query.visit_date || dayKey(new Date(item.starts_at)) === query.visit_date),
   )
 }

@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import { sameEntityId } from '@/lib/api/entityId'
 import type { Branch } from '@/modules/organizations/types'
 import { useBranches } from '@/modules/organizations/hooks/useBranches'
 import { useServices } from '@/modules/services/hooks/useServices'
@@ -27,7 +28,9 @@ export function SpecialistDetailPage() {
   const specialists = useSpecialists()
   const services = useServices()
   const branches = useBranches()
-  const specialist = specialists.specialists.find((item) => item.id === Number(specialistId))
+  const specialist = specialists.specialists.find((item) =>
+    sameEntityId(item.id, specialistId ?? null),
+  )
   if (specialists.isLoading || services.isLoading) return <Loader label={t('loading')} />
 
   if (!specialist) {
@@ -41,8 +44,8 @@ export function SpecialistDetailPage() {
     )
   }
 
-  const branchServices = services.services.filter(
-    (service) => service.branch_id === specialist.branch,
+  const branchServices = services.services.filter((service) =>
+    sameEntityId(service.branch_id, specialist.branch),
   )
 
   return (

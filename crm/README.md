@@ -14,28 +14,25 @@ npm install
 npm run dev
 ```
 
-Sections that have no backend endpoints yet (journal, clients, analytics) are
-served by a built-in demo dataset, so the app starts and can be explored without
-a server. Set `VITE_DEMO_DATA=off` to send every request to the real API; see
-[src/mocks/README.md](./src/mocks/README.md) for how the layer is wired and how
-to remove it section by section. With demo data on, requests never reach the
-backend at `http://127.0.0.1:8000`.
+All business sections use the Django API by default. Set `VITE_DEMO_DATA=on` to
+explore the product without a server; see [src/mocks/README.md](./src/mocks/README.md).
 
 Vite proxies `/api` requests to the backend during local development. Inside
 docker the proxy target is overridden with the `API_PROXY_TARGET` variable.
 
 ## Sections
 
-`Обзор` (the landing screen), `Журнал` (day board and list of appointments),
-`Клиенты` (base, segments, visit history), `Специалисты`, `Услуги`, `Аналитика`.
-Theme and language are switched from the profile menu in the sidebar.
+`Обзор`, `Журнал` (day, week, list, deal payment), `Клиенты`, `Рассылки`,
+`Специалисты`, `Услуги`, `Лояльность`, `Финансы`, `Аналитика`, `Обучение`,
+`Поддержка` and `Настройки`. Theme, language, and active branch are switched
+from the profile menu.
 
 ## Structure
 
 - `src/modules` — business modules with their own API, hooks, and components.
 - `src/lib` — framework-independent shared utilities.
 - `src/ui` — project-owned wrappers around Material UI components.
-- `src/mocks` — temporary demo dataset for endpoints the backend does not expose yet.
+- `src/mocks` — optional in-memory demo dataset for offline product demos.
 
 ## Rules
 

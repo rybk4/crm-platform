@@ -1,0 +1,18 @@
+.business-page {
+  display: grid;
+  gap: var(--app-space-5);
+}
+.business-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--app-space-4);
+}
+.business-grid p {
+  color: var(--app-text-muted);
+  margin: var(--app-space-2) 0 0;
+}
+.business-form {
+  display: grid;
+  gap: var(--app-space-4);
+  padding-top: var(--app-space-2);
+}

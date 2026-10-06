@@ -31,9 +31,8 @@ import { UiProvider } from '@/ui/UiProvider'
 import { ToastProvider } from '@/ui/ToastProvider'
 import { ServerStatusBanner } from '@/modules/shell/components/ServerStatusBanner'
 
-// Демо-данные: временный слой на время, пока части API ещё нет.
-// Как отключить и как удалить целиком — src/mocks/README.md.
-if (import.meta.env.VITE_DEMO_DATA !== 'off') installMockApi()
+// Демо-данные включаются явно; штатно все разделы работают с Django API.
+if (import.meta.env.VITE_DEMO_DATA === 'on') installMockApi()
 
 const queryClient = new QueryClient({
   defaultOptions: {

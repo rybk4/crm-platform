@@ -5,6 +5,7 @@ import { authRoutes } from './authHandlers'
 import { catalogRoutes } from './catalogHandlers'
 import { clientRoutes } from './clientHandlers'
 import { settingsRoutes } from './settingsHandlers'
+import { businessRoutes } from './businessHandlers'
 
 /**
  * Порядок не важен: маршруты не пересекаются. Чтобы отдать раздел настоящему
@@ -17,4 +18,5 @@ export const mockRoutes: MockRoute[] = [
   ...clientRoutes,
   ...analyticsRoutes,
   ...settingsRoutes,
+  ...businessRoutes,
 ]

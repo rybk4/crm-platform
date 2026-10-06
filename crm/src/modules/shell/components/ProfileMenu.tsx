@@ -1,6 +1,7 @@
 import { useCallback, useRef } from 'react'
 
 import { useDismissOnOutside } from '@/lib/browser/useDismissOnOutside'
+import type { EntityId } from '@/lib/api/entityId'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { supportedLocales, type Locale } from '@/lib/i18n/locale'
 import type { AuthUser } from '@/modules/auth/types'
@@ -20,7 +21,7 @@ const localeLabelKeys = {
 interface ProfileMenuProps {
   collapsed: boolean
   user: AuthUser
-  onActiveBranchChange: (branchId: number) => Promise<void>
+  onActiveBranchChange: (branchId: EntityId) => Promise<void>
   onLocaleChange: (locale: Locale) => Promise<void>
   onLogout: () => void
 }

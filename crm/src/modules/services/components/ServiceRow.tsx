@@ -24,7 +24,7 @@ export function ServiceRow({ service, onEdit, onDelete }: ServiceRowProps) {
       </div>
 
       <div className="service-row__owner">
-        <strong>{service.specialist_name}</strong>
+        <strong>{service.specialist_names?.join(', ') || service.specialist_name}</strong>
         <span>{service.branch_name}</span>
       </div>
 

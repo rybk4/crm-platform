@@ -9,11 +9,11 @@ interface SpecialistPlanningPanelProps {
   tab: Extract<SpecialistProfileTab, 'vacations' | 'payouts'>
   vacationStart: string
   vacationEnd: string
-  payoutModel: string
+  payoutModel: 'percent' | 'fixed' | 'salary'
   payoutValue: string
   onVacationStartChange: (value: string) => void
   onVacationEndChange: (value: string) => void
-  onPayoutModelChange: (value: string) => void
+  onPayoutModelChange: (value: 'percent' | 'fixed' | 'salary') => void
   onPayoutValueChange: (value: string) => void
   onSave: () => void
 }
@@ -76,7 +76,7 @@ export function SpecialistPlanningPanel({
               { value: 'fixed', label: t('payoutFixed') },
               { value: 'salary', label: t('payoutSalary') },
             ]}
-            onChange={onPayoutModelChange}
+            onChange={(value) => onPayoutModelChange(value as 'percent' | 'fixed' | 'salary')}
           />
           <TextField
             id="payout-value"

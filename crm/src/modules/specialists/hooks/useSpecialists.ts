@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { apiErrorMessage } from '@/lib/api/apiErrorMessage'
+import type { EntityId } from '@/lib/api/entityId'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { notifications } from '@/lib/toast/notifications'
 import type { TranslationKey } from '@/lib/i18n/messages'
@@ -36,13 +37,13 @@ export function useSpecialists() {
   })
 
   const update = useMutation({
-    mutationFn: ({ id, input }: { id: number; input: SpecialistInput }) =>
+    mutationFn: ({ id, input }: { id: EntityId; input: SpecialistInput }) =>
       specialistsApi.update(id, input),
     ...mutationHandlers('specialistUpdated'),
   })
 
   const remove = useMutation({
-    mutationFn: (id: number) => specialistsApi.remove(id),
+    mutationFn: (id: EntityId) => specialistsApi.remove(id),
     ...mutationHandlers('specialistDeleted'),
   })
 

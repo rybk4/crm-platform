@@ -35,8 +35,8 @@ export const db: MockDatabase = {
   appointments: generateAppointments(),
 }
 
-export function nextId(items: readonly { id: number }[]) {
-  return items.reduce((max, item) => Math.max(max, item.id), 0) + 1
+export function nextId(items: readonly { id: string | number }[]) {
+  return items.reduce((max, item) => Math.max(max, Number(item.id) || 0), 0) + 1
 }
 
 function segmentOf(visits: number, totalSpent: number, lastVisit: Date | null, now: Date) {

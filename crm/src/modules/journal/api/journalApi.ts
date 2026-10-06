@@ -1,9 +1,12 @@
 import { ApiClient } from '@/lib/api/ApiClient'
-import type { Appointment, AppointmentInput, AppointmentStatus } from '../types'
+import type { EntityId } from '@/lib/api/entityId'
+import type { Appointment, AppointmentInput, AppointmentStatus, DealPaymentInput } from '../types'
 
 interface ListOptions {
   date?: string
-  specialist?: number | null
+  dateFrom?: string
+  dateTo?: string
+  specialist?: EntityId | null
   status?: string | null
   signal?: AbortSignal
 }
@@ -13,11 +16,13 @@ class JournalApi extends ApiClient {
     super('/api/appointments/')
   }
 
-  list({ date, specialist, status, signal }: ListOptions = {}) {
+  list({ date, dateFrom, dateTo, specialist, status, signal }: ListOptions = {}) {
     return this.get<Appointment[]>('', {
       signal,
       params: {
         date,
+        date_from: dateFrom,
+        date_to: dateTo,
         specialist: specialist ?? undefined,
         status: status ?? undefined,
       },
@@ -28,17 +33,29 @@ class JournalApi extends ApiClient {
     return this.post<Appointment>('', input)
   }
 
-  update(id: number, input: AppointmentInput) {
+  update(id: EntityId, input: AppointmentInput) {
     return this.put<Appointment>(`${id}/`, input)
   }
 
-  changeStatus(id: number, status: AppointmentStatus) {
+  changeStatus(id: EntityId, status: AppointmentStatus) {
     return this.patch<Appointment>(`${id}/`, { status })
   }
 
-  remove(id: number) {
+  remove(id: EntityId) {
     return this.delete(`${id}/`)
   }
 }
 
 export const journalApi = new JournalApi()
+
+class DealsApi extends ApiClient {
+  constructor() {
+    super('/api/deals/')
+  }
+
+  close(id: EntityId, input: DealPaymentInput) {
+    return this.patch(`${id}/close/`, input)
+  }
+}
+
+export const dealsApi = new DealsApi()

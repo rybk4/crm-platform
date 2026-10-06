@@ -1,19 +1,21 @@
+import type { EntityId } from '@/lib/api/entityId'
+
 export interface City {
-  id: number
+  id: EntityId
   name: string
 }
 
 export interface OrganizationPhoto {
-  id: number
+  id: EntityId
   url: string
 }
 
 export interface OrganizationProfile {
-  id: number
+  id: EntityId
   name: string
   phone: string
   email: string
-  city: number | null
+  city: EntityId | null
   address: string
   working_days: string
   description: string

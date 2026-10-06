@@ -1,17 +1,16 @@
 # Демо-данные CRM
 
-Слой временный: он отвечает на запросы фронтенда, пока соответствующих
-эндпоинтов нет на бэкенде. Код разделов написан так, будто сервер уже есть, —
-модули ходят в сеть через обычные наследники `ApiClient`, а подмена происходит
-на уровне транспорта (`lib/api/transport.ts`).
+Опциональный слой для автономной демонстрации без Django. Модули ходят через
+обычные наследники `ApiClient`, а подмена происходит на уровне транспорта
+(`lib/api/transport.ts`).
 
-## Как выключить
+## Как включить
 
 Полностью:
 
 ```bash
 # crm/.env
-VITE_DEMO_DATA=off
+VITE_DEMO_DATA=on
 ```
 
 Насовсем — удалить папку `src/mocks`, вызов `installMockApi()` из `src/main.tsx`
@@ -38,17 +37,4 @@ VITE_DEMO_DATA=off
 одинаковые при каждой перезагрузке. Изменения через интерфейс живут до
 перезагрузки страницы.
 
-## Эндпоинты, которых ещё нет на бэкенде
-
-- `GET/POST /api/appointments/`, `GET/PUT/PATCH/DELETE /api/appointments/{id}/`
-- `GET/POST /api/clients/` (фильтры `status`, `service`, `visit_date=YYYY-MM-DD`),
-  `GET/PUT/DELETE /api/clients/{id}/`, `GET /api/clients/{id}/visits/`
-- `GET /api/analytics/summary/?period=7|30|90`
-- `GET/PUT /api/organization/profile/` — профиль организации для «Настроек»; логотип
-  (`avatar_url`) и фото (`photo_urls`) приходят адресами: уже загруженные — как есть,
-  новые — data URL
-- `GET /api/cities/` — справочник городов
-
-Остальные адреса (вход по коду, `/api/users/me/`, `/api/branches/`,
-`/api/specialists/`, `/api/services/`) тоже пока отвечают отсюда: бэкенд
-пересобирается с нуля, и в нём сейчас только модели без API.
+Backend реализует те же адреса; mock-слой нужен только для демонстрации и тестов.

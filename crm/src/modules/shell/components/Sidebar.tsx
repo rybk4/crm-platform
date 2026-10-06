@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { isDemoMode } from '@/lib/api/demoMode'
+import type { EntityId } from '@/lib/api/entityId'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { Locale } from '@/lib/i18n/locale'
 import { Icon } from '@/ui/Icon'
@@ -14,7 +16,7 @@ interface SidebarProps {
   mobile: boolean
   open: boolean
   user: AuthUser
-  onActiveBranchChange: (branchId: number) => Promise<void>
+  onActiveBranchChange: (branchId: EntityId) => Promise<void>
   onClose: () => void
   onLocaleChange: (locale: Locale) => Promise<void>
   onLogout: () => void
@@ -33,6 +35,13 @@ export function Sidebar({
   onToggleCollapsed,
 }: SidebarProps) {
   const { t } = useLocale()
+  const [renderedAt] = useState(() => Date.now())
+  const subscriptionDays = user.subscription_expires_at
+    ? Math.max(
+        0,
+        Math.ceil((new Date(user.subscription_expires_at).getTime() - renderedAt) / 86_400_000),
+      )
+    : null
 
   return (
     <aside
@@ -79,6 +88,17 @@ export function Sidebar({
         <p className="sidebar-demo" title={t('demoDataHint')}>
           <span aria-hidden="true" />
           <span className="sidebar-demo__label">{t('demoDataBadge')}</span>
+        </p>
+      ) : null}
+
+      {subscriptionDays !== null ? (
+        <p className="sidebar-subscription" data-expired={subscriptionDays === 0}>
+          <Icon name="calendar" size={18} />
+          <span className="sidebar-subscription__label">
+            {subscriptionDays === 0
+              ? t('subscriptionExpired')
+              : t('subscriptionDaysLeft', { count: subscriptionDays })}
+          </span>
         </p>
       ) : null}
 

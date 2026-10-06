@@ -1,11 +1,12 @@
 import { formatMoney } from '@/lib/format/money'
+import type { EntityId } from '@/lib/api/entityId'
 import type { Service, ServiceInput } from './types'
 
 export const supportedCurrencies = ['KZT', 'RUB', 'USD'] as const
 
 const DEFAULT_DURATION_MINUTES = 60
 
-export function emptyServiceForm(specialistId = 0): ServiceInput {
+export function emptyServiceForm(specialistId: EntityId = 0): ServiceInput {
   return {
     specialist: specialistId,
     name: '',
@@ -39,5 +40,9 @@ export function formatPrice(value: string, currency: string) {
 
 export function filterBySpecialist(services: Service[], specialistFilter: string) {
   if (!specialistFilter) return services
-  return services.filter((item) => String(item.specialist) === specialistFilter)
+  return services.filter(
+    (item) =>
+      String(item.specialist) === specialistFilter ||
+      item.specialists?.some((id) => String(id) === specialistFilter),
+  )
 }

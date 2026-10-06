@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "staff",
     "services",
     "work_schedule",
+    "operations",
 ]
 
 MIDDLEWARE = [
@@ -87,12 +88,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Вход через API будет отдельным шагом; пока API закрыт для анонимов.
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "core.authentication.SignedBearerAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
 }
+
+CRM_ACCESS_TOKEN_AGE = env.int("CRM_ACCESS_TOKEN_AGE", default=900)
+CRM_REFRESH_TOKEN_AGE = env.int("CRM_REFRESH_TOKEN_AGE", default=2592000)
+CRM_OTP_CODE = env("CRM_OTP_CODE", default="0000")
+CRM_CAMPAIGN_WEBHOOK_URL = env("CRM_CAMPAIGN_WEBHOOK_URL", default="")
+CRM_CAMPAIGN_WEBHOOK_TOKEN = env("CRM_CAMPAIGN_WEBHOOK_TOKEN", default="")
 
 REDIS_URL = env("REDIS_URL", default="redis://localhost:6379/0")
 

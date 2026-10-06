@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { parseEntityId } from '@/lib/api/entityId'
 import { arrangeClients, pageCount, pageItems } from '../model'
 import type { ClientSort } from '../model'
 import type { Client, ClientListFilters } from '../types'
@@ -16,7 +17,7 @@ const emptyDraft: ClientFilterDraft = { visit_date: '', service: '', status: '' 
 function draftToFilters(draft: ClientFilterDraft): ClientListFilters {
   return {
     visit_date: draft.visit_date || undefined,
-    service: draft.service ? Number(draft.service) : undefined,
+    service: draft.service ? parseEntityId(draft.service) : undefined,
     status: draft.status || undefined,
   }
 }

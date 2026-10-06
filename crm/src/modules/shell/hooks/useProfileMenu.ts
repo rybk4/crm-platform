@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { apiErrorMessage } from '@/lib/api/apiErrorMessage'
+import type { EntityId } from '@/lib/api/entityId'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { Locale } from '@/lib/i18n/locale'
 import { notifications } from '@/lib/toast/notifications'
 import { useBranches } from '@/modules/organizations/hooks/useBranches'
 
 interface UseProfileMenuOptions {
-  activeBranchId: number | null
-  onActiveBranchChange: (branchId: number) => Promise<void>
+  activeBranchId: EntityId | null
+  onActiveBranchChange: (branchId: EntityId) => Promise<void>
   onLocaleChange: (locale: Locale) => Promise<void>
 }
 
@@ -35,7 +36,7 @@ export function useProfileMenu({
 
   const toggle = useCallback(() => setOpen((value) => !value), [])
 
-  async function selectBranch(branchId: number) {
+  async function selectBranch(branchId: EntityId) {
     if (branchId === activeBranchId || savingBranch) return
 
     setSavingBranch(true)

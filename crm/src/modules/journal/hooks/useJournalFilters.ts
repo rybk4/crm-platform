@@ -1,15 +1,16 @@
 import { useCallback, useMemo, useState } from 'react'
 
 import { dayKey, shiftDayKey } from '@/lib/datetime/day'
+import type { EntityId } from '@/lib/api/entityId'
 import type { AppointmentStatus } from '../types'
 
-export type JournalView = 'board' | 'list'
+export type JournalView = 'board' | 'week' | 'list'
 
 /** Выбор дня, фильтры и режим показа журнала — это состояние экрана, не сервера. */
 export function useJournalFilters(today = new Date()) {
   const todayKey = useMemo(() => dayKey(today), [today])
   const [date, setDate] = useState(todayKey)
-  const [specialist, setSpecialist] = useState<number | null>(null)
+  const [specialist, setSpecialist] = useState<EntityId | null>(null)
   const [status, setStatus] = useState<AppointmentStatus | null>(null)
   const [view, setView] = useState<JournalView>('board')
 

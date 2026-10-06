@@ -1,20 +1,21 @@
 import type { Service } from '@/modules/services/types'
 import type { Specialist } from '@/modules/specialists/types'
+import { sameEntityId, type EntityId } from '@/lib/api/entityId'
 import { db, nextId, refreshDerived } from '../db'
 import { organization } from '../fixtures/organization'
 import { created, noContent, notFound, ok, route } from '../router'
 
-function branchOf(branchId: number) {
-  return db.branches.find((item) => item.id === branchId) ?? db.branches[0]
+function branchOf(branchId: EntityId) {
+  return db.branches.find((item) => sameEntityId(item.id, branchId)) ?? db.branches[0]
 }
 
-function specialistOf(specialistId: number) {
-  return db.specialists.find((item) => item.id === specialistId) ?? db.specialists[0]
+function specialistOf(specialistId: EntityId) {
+  return db.specialists.find((item) => sameEntityId(item.id, specialistId)) ?? db.specialists[0]
 }
 
 function toSpecialist(body: Record<string, unknown>, id: number): Specialist {
   const input = body as unknown as Omit<Specialist, 'id'>
-  const branch = branchOf(Number(input.branch))
+  const branch = branchOf(input.branch)
 
   return {
     ...input,
@@ -30,7 +31,7 @@ function toSpecialist(body: Record<string, unknown>, id: number): Specialist {
 
 function toService(body: Record<string, unknown>, id: number): Service {
   const input = body as unknown as Omit<Service, 'id'>
-  const specialist = specialistOf(Number(input.specialist))
+  const specialist = specialistOf(input.specialist)
   const branch = branchOf(specialist.branch)
 
   return {
@@ -63,6 +64,26 @@ export const catalogRoutes = [
     db.specialists[index] = toSpecialist(body, Number(params.id))
     refreshDerived()
     return ok(db.specialists[index])
+  }),
+  route('patch', '/api/specialists/:id/', ({ body, params }) => {
+    const index = db.specialists.findIndex((item) => item.id === Number(params.id))
+    if (index < 0) return notFound()
+
+    db.specialists[index] = { ...db.specialists[index], ...body } as Specialist
+    return ok(db.specialists[index])
+  }),
+  route('put', '/api/specialists/:id/services/', ({ body, params }) => {
+    const specialist = db.specialists.find((item) => item.id === Number(params.id))
+    if (!specialist) return notFound()
+    const serviceIds = (body.service_ids ?? []) as EntityId[]
+    for (const service of db.services) {
+      if (serviceIds.some((id) => sameEntityId(id, service.id))) {
+        service.specialist = specialist.id
+        service.specialist_name = specialist.full_name
+      }
+    }
+    refreshDerived()
+    return ok(specialist)
   }),
   route('delete', '/api/specialists/:id/', ({ params }) => {
     const id = Number(params.id)

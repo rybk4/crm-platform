@@ -1,6 +1,7 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { apiErrorMessage } from '@/lib/api/apiErrorMessage'
+import type { EntityId } from '@/lib/api/entityId'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { TranslationKey } from '@/lib/i18n/messages'
 import { notifications } from '@/lib/toast/notifications'
@@ -37,12 +38,13 @@ export function useClients(filters: ClientListFilters = {}) {
   })
 
   const update = useMutation({
-    mutationFn: ({ id, input }: { id: number; input: ClientInput }) => clientsApi.update(id, input),
+    mutationFn: ({ id, input }: { id: EntityId; input: ClientInput }) =>
+      clientsApi.update(id, input),
     ...mutationHandlers('clientUpdated'),
   })
 
   const remove = useMutation({
-    mutationFn: (id: number) => clientsApi.remove(id),
+    mutationFn: (id: EntityId) => clientsApi.remove(id),
     ...mutationHandlers('clientDeleted'),
   })
 

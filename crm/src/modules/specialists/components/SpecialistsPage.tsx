@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import { sameEntityId } from '@/lib/api/entityId'
 import type { ActiveBranchDetails } from '@/modules/auth/types'
 import { useBranches } from '@/modules/organizations/hooks/useBranches'
 import { Button } from '@/ui/Button'
@@ -40,7 +41,7 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
   }
 
   const branchItems = specialists.specialists.filter(
-    (item) => !activeBranch || item.branch === activeBranch.id,
+    (item) => !activeBranch || sameEntityId(item.branch, activeBranch.id),
   )
   const filters = useSpecialistFilters(branchItems)
   const positions = [...new Set(branchItems.map((item) => item.job_title).filter(Boolean))].sort()

@@ -1,4 +1,5 @@
 import { minutesFromTime, minutesOfDay, weekdayIndex } from '@/lib/datetime/day'
+import { sameEntityId, type EntityId } from '@/lib/api/entityId'
 import type { TranslationKey } from '@/lib/i18n/messages'
 import type { Specialist, WorkSchedule } from '@/modules/specialists/types'
 import type { IconName } from '@/ui/Icon'
@@ -73,7 +74,7 @@ export function appointmentRange(appointment: Appointment) {
   }
 }
 
-export function emptyAppointmentForm(specialistId = 0, startsAt = ''): AppointmentInput {
+export function emptyAppointmentForm(specialistId: EntityId = 0, startsAt = ''): AppointmentInput {
   return {
     specialist: specialistId,
     service: 0,
@@ -122,10 +123,10 @@ export function splitStartsAt(startsAt: string) {
 }
 
 interface OverlapCandidate {
-  specialist: number
+  specialist: EntityId
   startsAt: string
   durationMinutes: number
-  excludeId?: number
+  excludeId?: EntityId
 }
 
 /** Двойная запись к одному специалисту — то, что сервер тоже не пропустит. */
@@ -136,7 +137,11 @@ export function hasOverlap(appointments: readonly Appointment[], candidate: Over
   const end = start + candidate.durationMinutes * 60000
 
   return appointments.some((item) => {
-    if (item.id === candidate.excludeId || item.specialist !== candidate.specialist) return false
+    if (
+      (candidate.excludeId !== undefined && sameEntityId(item.id, candidate.excludeId)) ||
+      !sameEntityId(item.specialist, candidate.specialist)
+    )
+      return false
     if (item.status === 'cancelled') return false
 
     return start < new Date(item.ends_at).getTime() && end > new Date(item.starts_at).getTime()
