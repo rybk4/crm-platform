@@ -15,7 +15,7 @@ import { useFinance } from '../hooks/useFinance'
 import { useFinanceDialog } from '../hooks/useFinanceDialog'
 import type { Bill, PaymentMethod } from '../types'
 import { FinanceDialogs } from './FinanceDialogs'
-import './finance.css'
+import '@/ui/business-layout.css'
 
 export function FinancePage() {
   const { t } = useLocale()

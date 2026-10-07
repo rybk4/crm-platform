@@ -1,12 +1,7 @@
-import type { ReactNode } from 'react'
+import type { PageHeaderProps } from './PageHeader.types'
+export type { PageHeaderProps } from './PageHeader.types'
 
 import './page-header.css'
-
-interface PageHeaderProps {
-  title: string
-  description: string
-  actions?: ReactNode
-}
 
 export function PageHeader({ title, description, actions }: PageHeaderProps) {
   return (

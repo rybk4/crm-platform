@@ -1,17 +1,6 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react'
-
-interface ErrorBoundaryProps {
-  children: ReactNode
-  /** Смена значения сбрасывает состояние ошибки — например, при переходе по маршруту. */
-  resetKey?: string | number
-  renderFallback: (error: Error, retry: () => void) => ReactNode
-  onError?: (error: Error, info: ErrorInfo) => void
-}
-
-interface ErrorBoundaryState {
-  error: Error | null
-  resetKey: string | number | undefined
-}
+import { Component, type ErrorInfo } from 'react'
+import type { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types'
+export type { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types'
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {

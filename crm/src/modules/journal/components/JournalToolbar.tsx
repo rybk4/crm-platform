@@ -1,8 +1,8 @@
 import { formatDayTitle } from '@/lib/format/datetime'
-import { parseEntityId, type EntityId } from '@/lib/api/entityId'
+import { parseEntityId } from '@/lib/api/entityId'
 import { fromDayKey } from '@/lib/datetime/day'
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { Specialist } from '@/modules/specialists/types'
+
 import { Button } from '@/ui/Button'
 import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
@@ -13,21 +13,8 @@ import { appointmentStatuses } from '../types'
 import { statusMeta } from '../model'
 import type { AppointmentStatus } from '../types'
 import type { JournalView } from '../hooks/useJournalFilters'
-
-interface JournalToolbarProps {
-  date: string
-  isToday: boolean
-  specialists: readonly Specialist[]
-  specialist: EntityId | null
-  status: AppointmentStatus | null
-  view: JournalView
-  onDateChange: (date: string) => void
-  onShift: (days: number) => void
-  onToday: () => void
-  onSpecialistChange: (specialist: EntityId | null) => void
-  onStatusChange: (status: AppointmentStatus | null) => void
-  onViewChange: (view: JournalView) => void
-}
+import type { JournalToolbarProps } from './JournalToolbar.types'
+export type { JournalToolbarProps } from './JournalToolbar.types'
 
 export function JournalToolbar({
   date,

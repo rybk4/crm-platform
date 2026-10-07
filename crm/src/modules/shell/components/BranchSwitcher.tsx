@@ -1,14 +1,6 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { EntityId } from '@/lib/api/entityId'
-import type { Branch } from '@/modules/organizations/types'
-
-interface BranchSwitcherProps {
-  branches: Branch[]
-  activeBranchId: EntityId | null
-  loading: boolean
-  disabled: boolean
-  onSelect: (branchId: EntityId) => void
-}
+import type { BranchSwitcherProps } from './BranchSwitcher.types'
+export type { BranchSwitcherProps } from './BranchSwitcher.types'
 
 export function BranchSwitcher({
   branches,

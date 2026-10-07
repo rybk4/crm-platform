@@ -1,19 +1,15 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { parseEntityId } from '@/lib/api/entityId'
-import type { Specialist } from '@/modules/specialists/types'
+
 import { Button } from '@/ui/Button'
 import { Checkbox } from '@/ui/Checkbox'
 import { Dialog } from '@/ui/Dialog'
 import { SelectField } from '@/ui/SelectField'
 import { TextField } from '@/ui/TextField'
-import type { useServiceDialog } from '../hooks/useServiceDialog'
-import { supportedCurrencies } from '../model'
 
-interface ServiceDialogProps {
-  dialog: ReturnType<typeof useServiceDialog>
-  specialists: Specialist[]
-  saving: boolean
-}
+import { supportedCurrencies } from '../model'
+import type { ServiceDialogProps } from './ServiceDialog.types'
+export type { ServiceDialogProps } from './ServiceDialog.types'
 
 export function ServiceDialog({ dialog, specialists, saving }: ServiceDialogProps) {
   const { t } = useLocale()

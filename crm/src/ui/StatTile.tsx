@@ -1,20 +1,9 @@
-import type { IconName } from './Icon'
 import { Icon } from './Icon'
 import { Surface } from './Surface'
+import type { StatTileProps } from './StatTile.types'
+export type { StatDirection, StatTileProps } from './StatTile.types'
+
 import './stat-tile.css'
-
-export type StatDirection = 'up' | 'down' | 'flat'
-
-interface StatTileProps {
-  label: string
-  value: string
-  icon: IconName
-  hint?: string
-  deltaLabel?: string
-  /** Куда смотрит стрелка; хорошо это или плохо, решает `deltaGood`. */
-  direction?: StatDirection
-  deltaGood?: boolean
-}
 
 export function StatTile({
   label,

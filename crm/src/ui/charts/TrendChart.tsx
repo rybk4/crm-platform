@@ -10,21 +10,10 @@ import {
   niceCeil,
   plotPoints,
 } from './chartGeometry'
+import type { TrendChartProps } from './TrendChart.types'
+export type { TrendPoint, TrendChartProps } from './TrendChart.types'
+
 import './charts.css'
-
-export interface TrendPoint {
-  label: string
-  value: number
-}
-
-interface TrendChartProps {
-  points: readonly TrendPoint[]
-  ariaLabel: string
-  formatValue: (value: number) => string
-  /** Подпись отметки оси: короче значения в подсказке. */
-  formatAxisValue?: (value: number) => string
-  height?: number
-}
 
 const PADDING = { top: 12, right: 14, bottom: 26, left: 72 }
 

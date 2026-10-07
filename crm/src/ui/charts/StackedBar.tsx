@@ -1,18 +1,7 @@
-import type { StatusTone } from '../StatusPill'
+import type { StackedBarProps } from './StackedBar.types'
+export type { StackedSegment, StackedBarProps } from './StackedBar.types'
+
 import './charts.css'
-
-export interface StackedSegment {
-  id: string
-  label: string
-  value: number
-  valueLabel: string
-  tone: StatusTone
-}
-
-interface StackedBarProps {
-  segments: readonly StackedSegment[]
-  ariaLabel: string
-}
 
 export function StackedBar({ segments, ariaLabel }: StackedBarProps) {
   const total = segments.reduce((sum, segment) => sum + segment.value, 0)

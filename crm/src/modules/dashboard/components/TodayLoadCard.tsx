@@ -2,11 +2,8 @@ import { formatDecimal, formatPercent } from '@/lib/format/number'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Card } from '@/ui/Card'
 import { BarList } from '@/ui/charts/BarList'
-import type { SpecialistDayLoad } from '../model'
-
-interface TodayLoadCardProps {
-  items: readonly SpecialistDayLoad[]
-}
+import type { TodayLoadCardProps } from './TodayLoadCard.types'
+export type { TodayLoadCardProps } from './TodayLoadCard.types'
 
 export function TodayLoadCard({ items }: TodayLoadCardProps) {
   const { t } = useLocale()

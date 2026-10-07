@@ -2,14 +2,13 @@ import partnersMark from '@/assets/partners-mark.svg'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Surface } from '@/ui/Surface'
 import { Heading, Text } from '@/ui/Text'
-import type { AuthFlow } from '../hooks/useAuthFlow'
+
 import { CodeStep } from './CodeStep'
 import { PhoneStep } from './PhoneStep'
-import './auth.css'
+import type { AuthScreenProps } from './AuthScreen.types'
+export type { AuthScreenProps } from './AuthScreen.types'
 
-interface AuthScreenProps {
-  auth: AuthFlow
-}
+import './auth.css'
 
 export function AuthScreen({ auth }: AuthScreenProps) {
   const { t } = useLocale()

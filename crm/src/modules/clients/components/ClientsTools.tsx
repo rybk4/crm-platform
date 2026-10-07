@@ -4,14 +4,11 @@ import { Button } from '@/ui/Button'
 import { Icon } from '@/ui/Icon'
 import { SearchField } from '@/ui/SearchField'
 import { SelectField } from '@/ui/SelectField'
-import type { useClientFilters } from '../hooks/useClientFilters'
+
 import { clientSorts } from '../model'
 import type { ClientSort } from '../model'
-
-interface ClientsToolsProps {
-  filters: ReturnType<typeof useClientFilters>
-  onAdd: () => void
-}
+import type { ClientsToolsProps } from './ClientsTools.types'
+export type { ClientsToolsProps } from './ClientsTools.types'
 
 const sortLabels: Record<ClientSort, TranslationKey> = {
   none: 'clientSortNone',

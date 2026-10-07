@@ -6,14 +6,8 @@ import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
 import { Surface } from '@/ui/Surface'
 import { scheduleSummary, specialistInitials, upcomingScheduleDays } from '../model'
-import type { Specialist } from '../types'
-
-interface SpecialistCardProps {
-  specialist: Specialist
-  onOpen: (specialist: Specialist) => void
-  onEdit: (specialist: Specialist) => void
-  onDelete: (specialist: Specialist) => void
-}
+import type { SpecialistCardProps } from './SpecialistCard.types'
+export type { SpecialistCardProps } from './SpecialistCard.types'
 
 export function SpecialistCard({ specialist, onOpen, onEdit, onDelete }: SpecialistCardProps) {
   const { t } = useLocale()

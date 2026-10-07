@@ -1,22 +1,12 @@
 import { minutesOfDay, timeFromMinutes } from '@/lib/datetime/day'
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { Specialist } from '@/modules/specialists/types'
-import type { EntityId } from '@/lib/api/entityId'
-import { dayWindow, type DayWindow } from '../model'
-import type { Appointment } from '../types'
+
+import { dayWindow } from '../model'
+
 import { JournalColumn } from './JournalColumn'
 import { boardHeightPx, HEAD_PX, offsetPx, rulerMarks } from './boardLayout'
-
-interface JournalBoardProps {
-  specialists: readonly Specialist[]
-  appointments: readonly Appointment[]
-  bounds: DayWindow
-  day: Date
-  /** Метку «сейчас» рисуем только на сегодняшнем дне. */
-  now: Date | null
-  onOpen: (appointment: Appointment) => void
-  onCreate: (specialistId?: EntityId, startTime?: string) => void
-}
+import type { JournalBoardProps } from './JournalBoard.types'
+export type { JournalBoardProps } from './JournalBoard.types'
 
 export function JournalBoard({
   specialists,

@@ -7,12 +7,8 @@ import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Button } from '@/ui/Button'
 import { Card } from '@/ui/Card'
 import { TrendChart } from '@/ui/charts/TrendChart'
-import type { AnalyticsPoint } from '../types'
-
-interface RevenueCardProps {
-  points: readonly AnalyticsPoint[]
-  currency: string
-}
+import type { RevenueCardProps } from './RevenueCard.types'
+export type { RevenueCardProps } from './RevenueCard.types'
 
 export function RevenueCard({ points, currency }: RevenueCardProps) {
   const { locale, t } = useLocale()

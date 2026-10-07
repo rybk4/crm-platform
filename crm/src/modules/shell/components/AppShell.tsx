@@ -6,7 +6,7 @@ import { CampaignsPage } from '@/modules/campaigns/components/CampaignsPage'
 import { FinancePage } from '@/modules/finance/components/FinancePage'
 import { LoyaltyPage } from '@/modules/loyalty/components/LoyaltyPage'
 import { DashboardPage } from '@/modules/dashboard/components/DashboardPage'
-import type { AuthUser } from '@/modules/auth/types'
+
 import { ClientDetailPage } from '@/modules/clients/components/ClientDetailPage'
 import { ClientsPage } from '@/modules/clients/components/ClientsPage'
 import { JournalPage } from '@/modules/journal/components/JournalPage'
@@ -15,21 +15,17 @@ import { SettingsPage } from '@/modules/settings/components/SettingsPage'
 import { SpecialistDetailPage } from '@/modules/specialists/components/SpecialistDetailPage'
 import { SpecialistsPage } from '@/modules/specialists/components/SpecialistsPage'
 import { useMediaQuery } from '@/lib/browser/useMediaQuery'
-import type { EntityId } from '@/lib/api/entityId'
+
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { Locale } from '@/lib/i18n/locale'
+
 import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
 import { Sidebar } from './Sidebar'
 import { HelpPage } from './HelpPage'
-import './shell.css'
+import type { AppShellProps } from './AppShell.types'
+export type { AppShellProps } from './AppShell.types'
 
-interface AppShellProps {
-  user: AuthUser
-  onActiveBranchChange: (branchId: EntityId) => Promise<void>
-  onLocaleChange: (locale: Locale) => Promise<void>
-  onLogout: () => void
-}
+import './shell.css'
 
 export function AppShell({ user, onActiveBranchChange, onLocaleChange, onLogout }: AppShellProps) {
   const { t } = useLocale()

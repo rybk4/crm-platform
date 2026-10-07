@@ -1,17 +1,12 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { TranslationKey } from '@/lib/i18n/messages'
-
-export type ClientProfileTab = 'profile' | 'history'
+import type { ClientProfileTab, ClientProfileTabsProps } from './ClientProfileTabs.types'
+export type { ClientProfileTab, ClientProfileTabsProps } from './ClientProfileTabs.types'
 
 const tabs: { value: ClientProfileTab; labelKey: TranslationKey }[] = [
   { value: 'profile', labelKey: 'clientTabProfile' },
   { value: 'history', labelKey: 'clientTabHistory' },
 ]
-
-interface ClientProfileTabsProps {
-  value: ClientProfileTab
-  onChange: (value: ClientProfileTab) => void
-}
 
 export function ClientProfileTabs({ value, onChange }: ClientProfileTabsProps) {
   const { t } = useLocale()

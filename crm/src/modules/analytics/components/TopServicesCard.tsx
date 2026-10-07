@@ -2,12 +2,8 @@ import { formatMoney } from '@/lib/format/money'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Card } from '@/ui/Card'
 import { BarList } from '@/ui/charts/BarList'
-import type { TopServiceItem } from '../types'
-
-interface TopServicesCardProps {
-  items: readonly TopServiceItem[]
-  currency: string
-}
+import type { TopServicesCardProps } from './TopServicesCard.types'
+export type { TopServicesCardProps } from './TopServicesCard.types'
 
 export function TopServicesCard({ items, currency }: TopServicesCardProps) {
   const { t } = useLocale()

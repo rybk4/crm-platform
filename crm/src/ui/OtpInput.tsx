@@ -1,15 +1,9 @@
 import { useRef, type ChangeEvent, type ClipboardEvent, type KeyboardEvent } from 'react'
 
-import './otp-input.css'
+import type { OtpInputProps } from './OtpInput.types'
+export type { OtpInputProps } from './OtpInput.types'
 
-interface OtpInputProps {
-  value: string
-  length?: number
-  disabled?: boolean
-  error?: boolean
-  getDigitLabel: (position: number) => string
-  onChange: (value: string) => void
-}
+import './otp-input.css'
 
 function digitsOnly(value: string, length: number) {
   return value.replace(/\D/g, '').slice(0, length)

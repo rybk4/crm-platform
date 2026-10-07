@@ -1,11 +1,6 @@
 import MuiAvatar from '@mui/material/Avatar'
-
-interface AvatarProps {
-  label: string
-  value: string
-  className?: string
-  src?: string
-}
+import type { AvatarProps } from './Avatar.types'
+export type { AvatarProps } from './Avatar.types'
 
 export function Avatar({ label, value, className, src }: AvatarProps) {
   return (

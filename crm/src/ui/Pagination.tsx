@@ -1,13 +1,9 @@
 import MuiPagination from '@mui/material/Pagination'
 
-import './pagination.css'
+import type { PaginationProps } from './Pagination.types'
+export type { PaginationProps } from './Pagination.types'
 
-interface PaginationProps {
-  ariaLabel: string
-  page: number
-  pages: number
-  onChange: (page: number) => void
-}
+import './pagination.css'
 
 /** Номера страниц под списком; при одной странице не рисуется. */
 export function Pagination({ ariaLabel, page, pages, onChange }: PaginationProps) {

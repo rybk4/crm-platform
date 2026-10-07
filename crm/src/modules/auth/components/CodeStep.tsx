@@ -5,15 +5,8 @@ import { Alert } from '@/ui/Alert'
 import { Button } from '@/ui/Button'
 import { OtpInput } from '@/ui/OtpInput'
 import { Text } from '@/ui/Text'
-
-interface CodeStepProps {
-  phone: string
-  debugHint: string
-  loading: boolean
-  errorMessage: string
-  onSubmit: (code: string) => Promise<void>
-  onBack: () => void
-}
+import type { CodeStepProps } from './CodeStep.types'
+export type { CodeStepProps } from './CodeStep.types'
 
 export function CodeStep({
   phone,

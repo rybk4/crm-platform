@@ -3,13 +3,8 @@ import { Avatar } from '@/ui/Avatar'
 import { Button } from '@/ui/Button'
 import { Icon } from '@/ui/Icon'
 import { specialistInitials } from '../model'
-import type { Specialist } from '../types'
-
-interface SpecialistProfileHeaderProps {
-  specialist: Specialist
-  onBack: () => void
-  onEdit: () => void
-}
+import type { SpecialistProfileHeaderProps } from './SpecialistProfileHeader.types'
+export type { SpecialistProfileHeaderProps } from './SpecialistProfileHeader.types'
 
 export function SpecialistProfileHeader({
   specialist,

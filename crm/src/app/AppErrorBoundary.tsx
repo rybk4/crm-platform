@@ -1,13 +1,10 @@
-import type { ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { ErrorBoundary } from '@/ui/ErrorBoundary'
 import { ErrorState } from '@/ui/ErrorState'
-
-interface AppErrorBoundaryProps {
-  children: ReactNode
-}
+import type { AppErrorBoundaryProps } from './AppErrorBoundary.types'
+export type { AppErrorBoundaryProps } from './AppErrorBoundary.types'
 
 /**
  * Ловит ошибки рендера всего приложения и показывает карточку вместо белого

@@ -3,13 +3,8 @@ import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
 import { supportedImageAccept } from '../model'
 import { takeFiles } from '@/lib/browser/takeInputFiles'
-
-interface OrganizationAvatarPickerProps {
-  url: string | null
-  name: string
-  onPick: (file: File) => void
-  onRemove: () => void
-}
+import type { OrganizationAvatarPickerProps } from './OrganizationAvatarPicker.types'
+export type { OrganizationAvatarPickerProps } from './OrganizationAvatarPicker.types'
 
 export function OrganizationAvatarPicker({
   url,

@@ -1,12 +1,10 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { LocaleContext } from './LocaleContext'
 import { readLocale, writeLocale, type Locale } from './locale'
 import { translate } from './messages'
-
-interface LocaleProviderProps {
-  children: ReactNode
-}
+import type { LocaleProviderProps } from './LocaleProvider.types'
+export type { LocaleProviderProps } from './LocaleProvider.types'
 
 export function LocaleProvider({ children }: LocaleProviderProps) {
   const [locale, setLocaleState] = useState<Locale>(readLocale)

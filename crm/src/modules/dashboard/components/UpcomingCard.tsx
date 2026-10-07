@@ -5,14 +5,11 @@ import { formatTime } from '@/lib/format/datetime'
 import { formatMoney } from '@/lib/format/money'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { statusMeta } from '@/modules/journal/model'
-import type { Appointment } from '@/modules/journal/types'
+
 import { Card } from '@/ui/Card'
 import { StatusPill } from '@/ui/StatusPill'
-
-interface UpcomingCardProps {
-  appointments: readonly Appointment[]
-  now: Date
-}
+import type { UpcomingCardProps } from './UpcomingCard.types'
+export type { UpcomingCardProps } from './UpcomingCard.types'
 
 export function UpcomingCard({ appointments, now }: UpcomingCardProps) {
   const { locale, t } = useLocale()

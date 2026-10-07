@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { parseEntityId, sameEntityId } from '@/lib/api/entityId'
-import type { ActiveBranchDetails } from '@/modules/auth/types'
+
 import { useSpecialists } from '@/modules/specialists/hooks/useSpecialists'
 import { Button } from '@/ui/Button'
 import { ConfirmDialog } from '@/ui/ConfirmDialog'
@@ -18,11 +18,10 @@ import { filterBySpecialist } from '../model'
 import type { Service } from '../types'
 import { ServiceDialog } from './ServiceDialog'
 import { ServiceRow } from './ServiceRow'
-import './services.css'
+import type { ServicesPageProps } from './ServicesPage.types'
+export type { ServicesPageProps } from './ServicesPage.types'
 
-interface ServicesPageProps {
-  activeBranch: ActiveBranchDetails | null
-}
+import './services.css'
 
 export function ServicesPage({ activeBranch }: ServicesPageProps) {
   const { t } = useLocale()

@@ -1,30 +1,24 @@
 import { useCallback, useRef } from 'react'
 
 import { useDismissOnOutside } from '@/lib/browser/useDismissOnOutside'
-import type { EntityId } from '@/lib/api/entityId'
+
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import { supportedLocales, type Locale } from '@/lib/i18n/locale'
-import type { AuthUser } from '@/modules/auth/types'
+import { supportedLocales } from '@/lib/i18n/locale'
+
 import { Avatar } from '@/ui/Avatar'
 import { Button } from '@/ui/Button'
 import { Icon } from '@/ui/Icon'
 import { useProfileMenu } from '../hooks/useProfileMenu'
 import { BranchSwitcher } from './BranchSwitcher'
 import { ThemePicker } from './ThemePicker'
+import type { ProfileMenuProps } from './ProfileMenu.types'
+export type { ProfileMenuProps } from './ProfileMenu.types'
 
 const localeLabelKeys = {
   ru: 'languageRussian',
   en: 'languageEnglish',
   kk: 'languageKazakh',
 } as const
-
-interface ProfileMenuProps {
-  collapsed: boolean
-  user: AuthUser
-  onActiveBranchChange: (branchId: EntityId) => Promise<void>
-  onLocaleChange: (locale: Locale) => Promise<void>
-  onLogout: () => void
-}
 
 export function ProfileMenu({
   collapsed,

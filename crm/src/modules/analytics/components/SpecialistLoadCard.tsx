@@ -3,12 +3,8 @@ import { formatPercent } from '@/lib/format/number'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Card } from '@/ui/Card'
 import { BarList } from '@/ui/charts/BarList'
-import type { SpecialistLoadItem } from '../types'
-
-interface SpecialistLoadCardProps {
-  items: readonly SpecialistLoadItem[]
-  currency: string
-}
+import type { SpecialistLoadCardProps } from './SpecialistLoadCard.types'
+export type { SpecialistLoadCardProps } from './SpecialistLoadCard.types'
 
 export function SpecialistLoadCard({ items, currency }: SpecialistLoadCardProps) {
   const { t } = useLocale()

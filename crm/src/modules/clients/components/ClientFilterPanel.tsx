@@ -1,17 +1,14 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { Service } from '@/modules/services/types'
+
 import { Button } from '@/ui/Button'
 import { SelectField } from '@/ui/SelectField'
 import { SidePanel } from '@/ui/SidePanel'
 import { TextField } from '@/ui/TextField'
-import type { ClientFilterDraft, useClientFilters } from '../hooks/useClientFilters'
+import type { ClientFilterDraft } from '../hooks/useClientFilters'
 import { statusLabelKeys } from '../model'
 import { clientStatuses } from '../types'
-
-interface ClientFilterPanelProps {
-  filters: ReturnType<typeof useClientFilters>
-  services: readonly Service[]
-}
+import type { ClientFilterPanelProps } from './ClientFilterPanel.types'
+export type { ClientFilterPanelProps } from './ClientFilterPanel.types'
 
 export function ClientFilterPanel({ filters, services }: ClientFilterPanelProps) {
   const { t } = useLocale()

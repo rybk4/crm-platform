@@ -3,14 +3,8 @@ import { Button } from '@/ui/Button'
 import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
 import { TextField } from '@/ui/TextField'
-import type { SpecialistCertificate } from '../types'
-
-interface CertificateListProps {
-  certificates: SpecialistCertificate[]
-  onAdd: () => void
-  onChange: (index: number, changes: Partial<SpecialistCertificate>) => void
-  onRemove: (index: number) => void
-}
+import type { CertificateListProps } from './CertificateList.types'
+export type { CertificateListProps } from './CertificateList.types'
 
 export function CertificateList({ certificates, onAdd, onChange, onRemove }: CertificateListProps) {
   const { t } = useLocale()

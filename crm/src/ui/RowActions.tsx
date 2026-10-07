@@ -1,10 +1,7 @@
-import type { ReactNode } from 'react'
+import type { RowActionsProps } from './RowActions.types'
+export type { RowActionsProps } from './RowActions.types'
 
 import './row-actions.css'
-
-interface RowActionsProps {
-  children: ReactNode
-}
 
 /** Иконочные действия в конце строки списка. */
 export function RowActions({ children }: RowActionsProps) {

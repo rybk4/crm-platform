@@ -1,15 +1,10 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Checkbox } from '@/ui/Checkbox'
 import { TextField } from '@/ui/TextField'
-import type { ClientForm, ClientFormErrors, ClientFormField } from '../model'
+import type { ClientFormField } from '../model'
 import { ClientStatusFields } from './ClientStatusFields'
-
-export interface ClientFieldsProps {
-  idPrefix: string
-  form: ClientForm
-  errors: ClientFormErrors
-  patch: <K extends ClientFormField>(field: K, value: ClientForm[K]) => void
-}
+import type { ClientFieldsProps } from './ClientFormFields.types'
+export type { ClientFieldsProps } from './ClientFormFields.types'
 
 /** Поля клиента в порядке ana-partners: личные данные, статус, заметка. */
 export function ClientFormFields({ idPrefix, form, errors, patch }: ClientFieldsProps) {

@@ -2,11 +2,8 @@ import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { TranslationKey } from '@/lib/i18n/messages'
 import type { SpecialistProfileTab } from '../hooks/useSpecialistProfile'
 import { specialistProfileTabs } from '../hooks/useSpecialistProfile'
-
-interface SpecialistProfileTabsProps {
-  value: SpecialistProfileTab
-  onChange: (value: SpecialistProfileTab) => void
-}
+import type { SpecialistProfileTabsProps } from './SpecialistProfileTabs.types'
+export type { SpecialistProfileTabsProps } from './SpecialistProfileTabs.types'
 
 const tabLabels: Record<SpecialistProfileTab, TranslationKey> = {
   about: 'specialistTabAbout',

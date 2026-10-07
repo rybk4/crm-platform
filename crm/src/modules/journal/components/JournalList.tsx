@@ -5,12 +5,8 @@ import { Icon } from '@/ui/Icon'
 import { StatusPill } from '@/ui/StatusPill'
 import { Surface } from '@/ui/Surface'
 import { sourceLabelKeys, statusMeta } from '../model'
-import type { Appointment } from '../types'
-
-interface JournalListProps {
-  appointments: readonly Appointment[]
-  onOpen: (appointment: Appointment) => void
-}
+import type { JournalListProps } from './JournalList.types'
+export type { JournalListProps } from './JournalList.types'
 
 export function JournalList({ appointments, onOpen }: JournalListProps) {
   const { locale, t } = useLocale()

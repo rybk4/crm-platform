@@ -3,17 +3,13 @@ import type { FormEvent } from 'react'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Button } from '@/ui/Button'
 import { TextField } from '@/ui/TextField'
-import type { useOrganizationProfile } from '../hooks/useOrganizationProfile'
+
 import { useSettingsForm } from '../hooks/useSettingsForm'
-import type { City, OrganizationProfile } from '../types'
+
 import { OrganizationMainFields } from './OrganizationMainFields'
 import { OrganizationPhotos } from './OrganizationPhotos'
-
-interface OrganizationSettingsProps {
-  profile: OrganizationProfile
-  cities: City[]
-  update: ReturnType<typeof useOrganizationProfile>['update']
-}
+import type { OrganizationSettingsProps } from './OrganizationSettings.types'
+export type { OrganizationSettingsProps } from './OrganizationSettings.types'
 
 export function OrganizationSettings({ profile, cities, update }: OrganizationSettingsProps) {
   const { t } = useLocale()

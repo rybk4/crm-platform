@@ -2,26 +2,16 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { isDemoMode } from '@/lib/api/demoMode'
-import type { EntityId } from '@/lib/api/entityId'
+
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { Locale } from '@/lib/i18n/locale'
+
 import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
-import type { AuthUser } from '@/modules/auth/types'
+
 import { navigationItems } from '../navigation'
 import { ProfileMenu } from './ProfileMenu'
-
-interface SidebarProps {
-  collapsed: boolean
-  mobile: boolean
-  open: boolean
-  user: AuthUser
-  onActiveBranchChange: (branchId: EntityId) => Promise<void>
-  onClose: () => void
-  onLocaleChange: (locale: Locale) => Promise<void>
-  onLogout: () => void
-  onToggleCollapsed: () => void
-}
+import type { SidebarProps } from './Sidebar.types'
+export type { SidebarProps } from './Sidebar.types'
 
 export function Sidebar({
   collapsed,

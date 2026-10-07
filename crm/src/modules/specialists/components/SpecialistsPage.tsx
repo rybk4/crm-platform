@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { sameEntityId } from '@/lib/api/entityId'
-import type { ActiveBranchDetails } from '@/modules/auth/types'
+
 import { useBranches } from '@/modules/organizations/hooks/useBranches'
 import { Button } from '@/ui/Button'
 import { ConfirmDialog } from '@/ui/ConfirmDialog'
@@ -18,11 +18,10 @@ import { useSpecialists } from '../hooks/useSpecialists'
 import type { Specialist } from '../types'
 import { SpecialistCard } from './SpecialistCard'
 import { SpecialistDialog } from './SpecialistDialog'
-import './specialists.css'
+import type { SpecialistsPageProps } from './SpecialistsPage.types'
+export type { SpecialistsPageProps } from './SpecialistsPage.types'
 
-interface SpecialistsPageProps {
-  activeBranch: ActiveBranchDetails | null
-}
+import './specialists.css'
 
 export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
   const { t } = useLocale()

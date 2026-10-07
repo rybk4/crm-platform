@@ -1,14 +1,12 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { EntityId } from '@/lib/api/entityId'
+
 import { ErrorState } from '@/ui/ErrorState'
 import { Loader } from '@/ui/Loader'
 import { TextField } from '@/ui/TextField'
 import { useVisitHistory } from '../hooks/useVisitHistory'
 import { VisitHistoryTable } from './VisitHistoryTable'
-
-interface ClientVisitHistoryPanelProps {
-  clientId: EntityId
-}
+import type { ClientVisitHistoryPanelProps } from './ClientVisitHistoryPanel.types'
+export type { ClientVisitHistoryPanelProps } from './ClientVisitHistoryPanel.types'
 
 export function ClientVisitHistoryPanel({ clientId }: ClientVisitHistoryPanelProps) {
   const { t } = useLocale()

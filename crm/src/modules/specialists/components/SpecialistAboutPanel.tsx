@@ -2,16 +2,8 @@ import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Avatar } from '@/ui/Avatar'
 import { Icon } from '@/ui/Icon'
 import { specialistInitials } from '../model'
-import type { Specialist } from '../types'
-
-interface SpecialistAboutPanelProps {
-  specialist: Specialist
-}
-
-interface ProfileFieldProps {
-  label: string
-  value: string
-}
+import type { SpecialistAboutPanelProps, ProfileFieldProps } from './SpecialistAboutPanel.types'
+export type { SpecialistAboutPanelProps, ProfileFieldProps } from './SpecialistAboutPanel.types'
 
 function ProfileField({ label, value }: ProfileFieldProps) {
   return (

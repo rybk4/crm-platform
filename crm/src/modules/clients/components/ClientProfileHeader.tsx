@@ -3,12 +3,8 @@ import { Avatar } from '@/ui/Avatar'
 import { Button } from '@/ui/Button'
 import { Icon } from '@/ui/Icon'
 import { clientInitials } from '../model'
-import type { Client } from '../types'
-
-interface ClientProfileHeaderProps {
-  client: Client
-  onBack: () => void
-}
+import type { ClientProfileHeaderProps } from './ClientProfileHeader.types'
+export type { ClientProfileHeaderProps } from './ClientProfileHeader.types'
 
 export function ClientProfileHeader({ client, onBack }: ClientProfileHeaderProps) {
   const { t } = useLocale()

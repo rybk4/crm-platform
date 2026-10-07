@@ -3,15 +3,8 @@ import MuiTextField from '@mui/material/TextField'
 
 import { Icon } from './Icon'
 import { IconButton } from './IconButton'
-
-interface SearchFieldProps {
-  id: string
-  label: string
-  value: string
-  onChange: (value: string) => void
-  placeholder?: string
-  clearLabel?: string
-}
+import type { SearchFieldProps } from './SearchField.types'
+export type { SearchFieldProps } from './SearchField.types'
 
 export function SearchField({
   id,

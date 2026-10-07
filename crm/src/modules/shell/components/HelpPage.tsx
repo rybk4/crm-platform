@@ -4,11 +4,10 @@ import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Card } from '@/ui/Card'
 import { Icon } from '@/ui/Icon'
 import { PageHeader } from '@/ui/PageHeader'
-import './help.css'
+import type { HelpPageProps } from './HelpPage.types'
+export type { HelpPageProps } from './HelpPage.types'
 
-interface HelpPageProps {
-  kind: 'tutorial' | 'support'
-}
+import './help.css'
 
 const tutorialSteps = [
   { title: 'tutorialJournalTitle', text: 'tutorialJournalText', path: '/journal' },

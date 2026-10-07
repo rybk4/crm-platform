@@ -1,10 +1,6 @@
 import Paper from '@mui/material/Paper'
-import type { ReactNode } from 'react'
-
-interface SurfaceProps {
-  children: ReactNode
-  className?: string
-}
+import type { SurfaceProps } from './Surface.types'
+export type { SurfaceProps } from './Surface.types'
 
 export function Surface({ children, className }: SurfaceProps) {
   return <Paper className={className}>{children}</Paper>

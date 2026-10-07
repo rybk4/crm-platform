@@ -3,12 +3,8 @@ import { Icon } from '@/ui/Icon'
 import { IconButton } from '@/ui/IconButton'
 import { supportedImageAccept } from '../model'
 import { takeFiles } from '@/lib/browser/takeInputFiles'
-
-interface OrganizationPhotosProps {
-  photos: string[]
-  onAdd: (files: File[]) => void
-  onRemove: (url: string) => void
-}
+import type { OrganizationPhotosProps } from './OrganizationPhotos.types'
+export type { OrganizationPhotosProps } from './OrganizationPhotos.types'
 
 export function OrganizationPhotos({ photos, onAdd, onRemove }: OrganizationPhotosProps) {
   const { t } = useLocale()

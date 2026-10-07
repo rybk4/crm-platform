@@ -4,12 +4,8 @@ import { Checkbox } from '@/ui/Checkbox'
 import { Dialog } from '@/ui/Dialog'
 import { SelectField } from '@/ui/SelectField'
 import { TextField } from '@/ui/TextField'
-import type { useFinanceDialog } from '../hooks/useFinanceDialog'
-
-interface FinanceDialogsProps {
-  dialog: ReturnType<typeof useFinanceDialog>
-  saving: boolean
-}
+import type { FinanceDialogsProps } from './FinanceDialogs.types'
+export type { FinanceDialogsProps } from './FinanceDialogs.types'
 
 export function FinanceDialogs({ dialog, saving }: FinanceDialogsProps) {
   const { t } = useLocale()

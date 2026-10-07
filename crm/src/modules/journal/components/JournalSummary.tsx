@@ -1,13 +1,8 @@
 import { formatCompactMoney } from '@/lib/format/money'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { StatTile } from '@/ui/StatTile'
-import type { DayTotals } from '../model'
-
-interface JournalSummaryProps {
-  totals: DayTotals
-  availableMinutes: number
-  currency: string
-}
+import type { JournalSummaryProps } from './JournalSummary.types'
+export type { JournalSummaryProps } from './JournalSummary.types'
 
 export function JournalSummary({ totals, availableMinutes, currency }: JournalSummaryProps) {
   const { t } = useLocale()

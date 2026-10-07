@@ -1,24 +1,13 @@
-import type { ReactNode } from 'react'
-
 import { Surface } from './Surface'
-import './toolbar.css'
+import type { ToolbarProps, ToolbarFieldProps } from './Toolbar.types'
+export type { ToolbarProps, ToolbarFieldProps } from './Toolbar.types'
 
-interface ToolbarProps {
-  children: ReactNode
-  /** Раскладку полей задаёт раздел: здесь только подложка и отступы. */
-  className?: string
-}
+import './toolbar.css'
 
 export function Toolbar({ children, className }: ToolbarProps) {
   return (
     <Surface className={className ? `ui-toolbar ${className}` : 'ui-toolbar'}>{children}</Surface>
   )
-}
-
-interface ToolbarFieldProps {
-  label: string
-  value: string
-  hint?: string
 }
 
 /** Неизменяемое значение в тулбаре: активный филиал, выбранный период и т. п. */

@@ -1,23 +1,15 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { EntityId } from '@/lib/api/entityId'
+
 import { timeFromMinutes } from '@/lib/datetime/day'
-import type { Specialist } from '@/modules/specialists/types'
+
 import { Avatar } from '@/ui/Avatar'
 import { specialistInitials } from '@/modules/specialists/model'
-import { appointmentRange, type DayWindow } from '../model'
-import type { Appointment } from '../types'
+import { appointmentRange } from '../model'
+
 import { AppointmentCard } from './AppointmentCard'
 import { heightPx, offsetPx, rulerMarks } from './boardLayout'
-
-interface JournalColumnProps {
-  specialist: Specialist
-  window: DayWindow | null
-  bounds: DayWindow
-  appointments: readonly Appointment[]
-  height: number
-  onOpen: (appointment: Appointment) => void
-  onCreate: (specialistId?: EntityId, startTime?: string) => void
-}
+import type { JournalColumnProps } from './JournalColumn.types'
+export type { JournalColumnProps } from './JournalColumn.types'
 
 export function JournalColumn({
   specialist,

@@ -2,16 +2,16 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { sameEntityId } from '@/lib/api/entityId'
-import type { Branch } from '@/modules/organizations/types'
+
 import { useBranches } from '@/modules/organizations/hooks/useBranches'
 import { useServices } from '@/modules/services/hooks/useServices'
-import type { Service } from '@/modules/services/types'
+
 import { ErrorState } from '@/ui/ErrorState'
 import { Loader } from '@/ui/Loader'
 import { useSpecialistDialog } from '../hooks/useSpecialistDialog'
 import { useSpecialistProfile } from '../hooks/useSpecialistProfile'
 import { useSpecialists } from '../hooks/useSpecialists'
-import type { Specialist } from '../types'
+
 import { SpecialistAboutPanel } from './SpecialistAboutPanel'
 import { SpecialistDialog } from './SpecialistDialog'
 import { SpecialistPlanningPanel } from './SpecialistPlanningPanel'
@@ -19,6 +19,9 @@ import { SpecialistProfileHeader } from './SpecialistProfileHeader'
 import { SpecialistProfileTabs } from './SpecialistProfileTabs'
 import { SpecialistSchedulePanel } from './SpecialistSchedulePanel'
 import { SpecialistServicesPanel } from './SpecialistServicesPanel'
+import type { SpecialistProfileContentProps } from './SpecialistDetailPage.types'
+export type { SpecialistProfileContentProps } from './SpecialistDetailPage.types'
+
 import './specialists-detail.css'
 
 export function SpecialistDetailPage() {
@@ -58,14 +61,6 @@ export function SpecialistDetailPage() {
       onBack={() => navigate('/specialists')}
     />
   )
-}
-
-interface SpecialistProfileContentProps {
-  specialist: Specialist
-  services: Service[]
-  branches: Branch[]
-  specialists: ReturnType<typeof useSpecialists>
-  onBack: () => void
 }
 
 function SpecialistProfileContent({

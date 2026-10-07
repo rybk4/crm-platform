@@ -1,17 +1,7 @@
+import type { BarListProps } from './BarList.types'
+export type { BarItem, BarListProps } from './BarList.types'
+
 import './charts.css'
-
-export interface BarItem {
-  id: string
-  label: string
-  value: number
-  valueLabel: string
-  hint?: string
-}
-
-interface BarListProps {
-  items: readonly BarItem[]
-  ariaLabel: string
-}
 
 export function BarList({ items, ariaLabel }: BarListProps) {
   const max = Math.max(...items.map((item) => item.value), 0)

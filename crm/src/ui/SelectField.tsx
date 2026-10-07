@@ -1,20 +1,7 @@
 import MenuItem from '@mui/material/MenuItem'
 import MuiTextField from '@mui/material/TextField'
-
-export interface SelectOption {
-  value: string
-  label: string
-}
-
-interface SelectFieldProps {
-  id: string
-  label: string
-  value: string
-  options: readonly SelectOption[]
-  onChange: (value: string) => void
-  disabled?: boolean
-  required?: boolean
-}
+import type { SelectFieldProps } from './SelectField.types'
+export type { SelectOption, SelectFieldProps } from './SelectField.types'
 
 export function SelectField({
   id,

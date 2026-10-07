@@ -1,15 +1,6 @@
 import MuiIconButton from '@mui/material/IconButton'
-import type { ReactNode } from 'react'
-
-interface IconButtonProps {
-  ariaLabel: string
-  children: ReactNode
-  className?: string
-  title?: string
-  ariaControls?: string
-  expanded?: boolean
-  onClick: () => void
-}
+import type { IconButtonProps } from './IconButton.types'
+export type { IconButtonProps } from './IconButton.types'
 
 export function IconButton({
   ariaLabel,

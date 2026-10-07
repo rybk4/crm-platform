@@ -1,12 +1,8 @@
 import { iconPaths } from './icons/iconPaths'
-import type { IconName } from './icons/names'
+import type { IconProps } from './Icon.types'
+export type { IconProps } from './Icon.types'
 
-export type { IconName }
-
-interface IconProps {
-  name: IconName
-  size?: number
-}
+export type { IconName } from './icons/names'
 
 export function Icon({ name, size = 20 }: IconProps) {
   return (

@@ -4,9 +4,11 @@ import { useLocale } from '@/lib/i18n/LocaleContext'
 import type { TranslationKey } from '@/lib/i18n/messages'
 import { statusMeta } from '@/modules/journal/model'
 import { Icon } from '@/ui/Icon'
-import type { ClientVisit } from '../types'
+
 import { durationLabel, visitSortKeys } from '../visitHistory'
-import type { VisitSort, VisitSortKey, VisitTotals } from '../visitHistory'
+import type { VisitSortKey } from '../visitHistory'
+import type { VisitHistoryTableProps } from './VisitHistoryTable.types'
+export type { VisitHistoryTableProps } from './VisitHistoryTable.types'
 
 const columnLabels: Record<VisitSortKey, TranslationKey> = {
   date: 'clientHistoryDate',
@@ -15,13 +17,6 @@ const columnLabels: Record<VisitSortKey, TranslationKey> = {
   service: 'clientHistoryService',
   duration: 'clientHistoryDuration',
   price: 'clientHistoryPrice',
-}
-
-interface VisitHistoryTableProps {
-  rows: ClientVisit[]
-  totals: VisitTotals
-  sort: VisitSort
-  onSort: (key: VisitSortKey) => void
 }
 
 export function VisitHistoryTable({ rows, totals, sort, onSort }: VisitHistoryTableProps) {

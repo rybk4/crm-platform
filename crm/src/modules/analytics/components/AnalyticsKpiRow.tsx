@@ -1,30 +1,11 @@
 import { formatCompactMoney } from '@/lib/format/money'
 import { formatPercent } from '@/lib/format/number'
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { IconName } from '@/ui/Icon'
+
 import { StatTile } from '@/ui/StatTile'
 import { deltaLabelKey, metricDelta } from '../model'
-import type { AnalyticsMetric, AnalyticsSummary } from '../types'
-
-interface AnalyticsKpiRowProps {
-  summary: AnalyticsSummary
-}
-
-interface Kpi {
-  key: string
-  labelKey:
-    | 'analyticsRevenue'
-    | 'analyticsAppointments'
-    | 'analyticsNewClients'
-    | 'analyticsAverageCheck'
-    | 'analyticsLoad'
-    | 'analyticsCancelRate'
-  icon: IconName
-  metric: AnalyticsMetric
-  value: string
-  /** Рост отмен — плохая новость, поэтому стрелка вверх здесь красная. */
-  growthIsGood: boolean
-}
+import type { AnalyticsKpiRowProps, Kpi } from './AnalyticsKpiRow.types'
+export type { AnalyticsKpiRowProps, Kpi } from './AnalyticsKpiRow.types'
 
 export function AnalyticsKpiRow({ summary }: AnalyticsKpiRowProps) {
   const { t } = useLocale()

@@ -2,12 +2,8 @@ import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Checkbox } from '@/ui/Checkbox'
 import { TextField } from '@/ui/TextField'
 import { weekdayKeys } from '../model'
-import type { WorkSchedule } from '../types'
-
-interface ScheduleEditorProps {
-  schedule: WorkSchedule[]
-  onChange: (weekday: number, changes: Partial<WorkSchedule>) => void
-}
+import type { ScheduleEditorProps } from './ScheduleEditor.types'
+export type { ScheduleEditorProps } from './ScheduleEditor.types'
 
 export function ScheduleEditor({ schedule, onChange }: ScheduleEditorProps) {
   const { t } = useLocale()

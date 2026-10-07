@@ -3,20 +3,8 @@ import { Button } from '@/ui/Button'
 import { Card } from '@/ui/Card'
 import { SelectField } from '@/ui/SelectField'
 import { TextField } from '@/ui/TextField'
-import type { SpecialistProfileTab } from '../hooks/useSpecialistProfile'
-
-interface SpecialistPlanningPanelProps {
-  tab: Extract<SpecialistProfileTab, 'vacations' | 'payouts'>
-  vacationStart: string
-  vacationEnd: string
-  payoutModel: 'percent' | 'fixed' | 'salary'
-  payoutValue: string
-  onVacationStartChange: (value: string) => void
-  onVacationEndChange: (value: string) => void
-  onPayoutModelChange: (value: 'percent' | 'fixed' | 'salary') => void
-  onPayoutValueChange: (value: string) => void
-  onSave: () => void
-}
+import type { SpecialistPlanningPanelProps } from './SpecialistPlanningPanel.types'
+export type { SpecialistPlanningPanelProps } from './SpecialistPlanningPanel.types'
 
 export function SpecialistPlanningPanel({
   tab,

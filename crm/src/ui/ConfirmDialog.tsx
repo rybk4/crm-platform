@@ -1,17 +1,8 @@
 import { Button } from './Button'
 import { Dialog } from './Dialog'
 import { Text } from './Text'
-
-interface ConfirmDialogProps {
-  open: boolean
-  title: string
-  description: string
-  confirmLabel: string
-  cancelLabel: string
-  onConfirm: () => void
-  onCancel: () => void
-  loading?: boolean
-}
+import type { ConfirmDialogProps } from './ConfirmDialog.types'
+export type { ConfirmDialogProps } from './ConfirmDialog.types'
 
 /** Подтверждение необратимого действия: удаления записи, клиента, услуги. */
 export function ConfirmDialog({

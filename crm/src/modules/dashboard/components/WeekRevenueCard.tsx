@@ -2,14 +2,11 @@ import { formatShortDate } from '@/lib/format/datetime'
 import { formatMoney } from '@/lib/format/money'
 import { formatCompactNumber } from '@/lib/format/number'
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { AnalyticsPoint } from '@/modules/analytics/types'
+
 import { Card } from '@/ui/Card'
 import { TrendChart } from '@/ui/charts/TrendChart'
-
-interface WeekRevenueCardProps {
-  points: readonly AnalyticsPoint[]
-  currency: string
-}
+import type { WeekRevenueCardProps } from './WeekRevenueCard.types'
+export type { WeekRevenueCardProps } from './WeekRevenueCard.types'
 
 export function WeekRevenueCard({ points, currency }: WeekRevenueCardProps) {
   const { locale, t } = useLocale()

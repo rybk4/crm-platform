@@ -5,13 +5,8 @@ import { formatPhoneInput, isValidPhone, normalizePhone } from '@/lib/validation
 import { Alert } from '@/ui/Alert'
 import { Button } from '@/ui/Button'
 import { TextField } from '@/ui/TextField'
-
-interface PhoneStepProps {
-  initialPhone: string
-  loading: boolean
-  errorMessage: string
-  onSubmit: (phone: string) => Promise<void>
-}
+import type { PhoneStepProps } from './PhoneStep.types'
+export type { PhoneStepProps } from './PhoneStep.types'
 
 export function PhoneStep({ initialPhone, loading, errorMessage, onSubmit }: PhoneStepProps) {
   const { t } = useLocale()

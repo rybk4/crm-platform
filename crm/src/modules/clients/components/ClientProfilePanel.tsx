@@ -3,15 +3,10 @@ import type { FormEvent } from 'react'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Button } from '@/ui/Button'
 import { useClientProfileForm } from '../hooks/useClientProfileForm'
-import type { useClients } from '../hooks/useClients'
-import type { Client } from '../types'
-import { ClientFormFields } from './ClientFormFields'
 
-interface ClientProfilePanelProps {
-  client: Client
-  clients: ReturnType<typeof useClients>
-  onCancel: () => void
-}
+import { ClientFormFields } from './ClientFormFields'
+import type { ClientProfilePanelProps } from './ClientProfilePanel.types'
+export type { ClientProfilePanelProps } from './ClientProfilePanel.types'
 
 export function ClientProfilePanel({ client, clients, onCancel }: ClientProfilePanelProps) {
   const { t } = useLocale()

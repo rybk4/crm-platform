@@ -1,15 +1,10 @@
 import { formatDayTitle } from '@/lib/format/datetime'
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { ActiveBranchDetails } from '@/modules/auth/types'
+
 import { Icon } from '@/ui/Icon'
 import { greetingKey } from '../model'
-
-interface DashboardHeroProps {
-  name: string
-  now: Date
-  activeBranch: ActiveBranchDetails | null
-  elapsedPercent: number
-}
+import type { DashboardHeroProps } from './DashboardHero.types'
+export type { DashboardHeroProps } from './DashboardHero.types'
 
 export function DashboardHero({ name, now, activeBranch, elapsedPercent }: DashboardHeroProps) {
   const { locale, t } = useLocale()

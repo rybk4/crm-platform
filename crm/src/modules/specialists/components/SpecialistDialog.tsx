@@ -1,21 +1,18 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { parseEntityId } from '@/lib/api/entityId'
-import type { Branch } from '@/modules/organizations/types'
+
 import { Button } from '@/ui/Button'
 import { Checkbox } from '@/ui/Checkbox'
 import { Dialog } from '@/ui/Dialog'
 import { SelectField } from '@/ui/SelectField'
 import { TextField } from '@/ui/TextField'
-import type { useSpecialistDialog } from '../hooks/useSpecialistDialog'
+
 import { CertificateList } from './CertificateList'
 import { ScheduleEditor } from './ScheduleEditor'
-import './specialist-form.css'
+import type { SpecialistDialogProps } from './SpecialistDialog.types'
+export type { SpecialistDialogProps } from './SpecialistDialog.types'
 
-interface SpecialistDialogProps {
-  dialog: ReturnType<typeof useSpecialistDialog>
-  branches: Branch[]
-  saving: boolean
-}
+import './specialist-form.css'
 
 export function SpecialistDialog({ dialog, branches, saving }: SpecialistDialogProps) {
   const { t } = useLocale()

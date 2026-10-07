@@ -5,13 +5,8 @@ import { RowActions } from '@/ui/RowActions'
 import { StatusPill } from '@/ui/StatusPill'
 import { Surface } from '@/ui/Surface'
 import { formatPrice } from '../model'
-import type { Service } from '../types'
-
-interface ServiceRowProps {
-  service: Service
-  onEdit: (service: Service) => void
-  onDelete: (service: Service) => void
-}
+import type { ServiceRowProps } from './ServiceRow.types'
+export type { ServiceRowProps } from './ServiceRow.types'
 
 export function ServiceRow({ service, onEdit, onDelete }: ServiceRowProps) {
   const { t } = useLocale()

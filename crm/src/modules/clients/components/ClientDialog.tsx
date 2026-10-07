@@ -1,13 +1,10 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Button } from '@/ui/Button'
 import { Dialog } from '@/ui/Dialog'
-import type { useClientDialog } from '../hooks/useClientDialog'
-import { ClientFormFields } from './ClientFormFields'
 
-interface ClientDialogProps {
-  dialog: ReturnType<typeof useClientDialog>
-  saving: boolean
-}
+import { ClientFormFields } from './ClientFormFields'
+import type { ClientDialogProps } from './ClientDialog.types'
+export type { ClientDialogProps } from './ClientDialog.types'
 
 export function ClientDialog({ dialog, saving }: ClientDialogProps) {
   const { t } = useLocale()

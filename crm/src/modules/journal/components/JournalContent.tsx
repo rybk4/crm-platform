@@ -1,26 +1,13 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { Specialist } from '@/modules/specialists/types'
-import type { EntityId } from '@/lib/api/entityId'
+
 import { EmptyState } from '@/ui/EmptyState'
 import { Loader } from '@/ui/Loader'
-import type { DayWindow } from '../model'
-import type { Appointment } from '../types'
-import type { JournalView } from '../hooks/useJournalFilters'
+
 import { JournalBoard } from './JournalBoard'
 import { JournalList } from './JournalList'
 import { JournalWeek } from './JournalWeek'
-
-interface JournalContentProps {
-  loading: boolean
-  view: JournalView
-  columns: readonly Specialist[]
-  appointments: readonly Appointment[]
-  bounds: DayWindow
-  day: Date
-  now: Date | null
-  onOpen: (appointment: Appointment) => void
-  onCreate: (specialistId?: EntityId, startTime?: string) => void
-}
+import type { JournalContentProps } from './JournalContent.types'
+export type { JournalContentProps } from './JournalContent.types'
 
 /** Состояние раздела: загрузка, пустой день или само расписание. */
 export function JournalContent({

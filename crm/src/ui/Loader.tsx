@@ -1,8 +1,7 @@
-import './loader.css'
+import type { LoaderProps } from './Loader.types'
+export type { LoaderProps } from './Loader.types'
 
-interface LoaderProps {
-  label: string
-}
+import './loader.css'
 
 /** Единственный вид ожидания данных во всех разделах. */
 export function Loader({ label }: LoaderProps) {

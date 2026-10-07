@@ -1,21 +1,8 @@
-import type { IconName } from './Icon'
 import { Icon } from './Icon'
+import type { SegmentedControlProps } from './SegmentedControl.types'
+export type { SegmentedOption, SegmentedControlProps } from './SegmentedControl.types'
+
 import './segmented-control.css'
-
-export interface SegmentedOption {
-  value: string
-  label: string
-  icon?: IconName
-}
-
-interface SegmentedControlProps {
-  ariaLabel: string
-  value: string
-  options: readonly SegmentedOption[]
-  onChange: (value: string) => void
-  /** Иконка без подписи: текст остаётся доступным для скринридера. */
-  iconOnly?: boolean
-}
 
 export function SegmentedControl({
   ariaLabel,

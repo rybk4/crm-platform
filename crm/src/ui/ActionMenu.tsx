@@ -1,23 +1,13 @@
 import { useState } from 'react'
 
 import { useDismissOnOutside } from '@/lib/browser/useDismissOnOutside'
-import type { IconName } from './Icon'
+
 import { Icon } from './Icon'
 import { IconButton } from './IconButton'
+import type { ActionMenuProps } from './ActionMenu.types'
+export type { ActionMenuItem, ActionMenuProps } from './ActionMenu.types'
+
 import './action-menu.css'
-
-export interface ActionMenuItem {
-  key: string
-  label: string
-  icon: IconName
-  danger?: boolean
-  onSelect: () => void
-}
-
-interface ActionMenuProps {
-  label: string
-  items: readonly ActionMenuItem[]
-}
 
 /** Кнопка «…» с выпадающим списком действий над записью. */
 export function ActionMenu({ label, items }: ActionMenuProps) {

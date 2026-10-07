@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { formatCompactMoney } from '@/lib/format/money'
 import { formatPercent } from '@/lib/format/number'
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { AuthUser } from '@/modules/auth/types'
+
 import { StatTile } from '@/ui/StatTile'
 import { useDashboard } from '../hooks/useDashboard'
 import { DashboardHero } from './DashboardHero'
@@ -11,11 +11,10 @@ import { NewClientsCard } from './NewClientsCard'
 import { TodayLoadCard } from './TodayLoadCard'
 import { UpcomingCard } from './UpcomingCard'
 import { WeekRevenueCard } from './WeekRevenueCard'
-import './dashboard.css'
+import type { DashboardPageProps } from './DashboardPage.types'
+export type { DashboardPageProps } from './DashboardPage.types'
 
-interface DashboardPageProps {
-  user: AuthUser
-}
+import './dashboard.css'
 
 export function DashboardPage({ user }: DashboardPageProps) {
   const { t } = useLocale()

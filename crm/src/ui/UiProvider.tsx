@@ -1,6 +1,6 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { readStoredValue, writeStoredValue } from '@/lib/browser/storage'
 import { AppThemeContext } from './theme/AppThemeContext'
@@ -12,10 +12,10 @@ import {
   type AppThemeDefinition,
   type AppThemeId,
 } from './theme/themes'
+import type { ThemeVariables, UiProviderProps } from './UiProvider.types'
+export type { ThemeVariables, UiProviderProps } from './UiProvider.types'
 
 const THEME_STORAGE_KEY = 'crm.theme.v1'
-
-type ThemeVariables = CSSProperties & Record<`--${string}`, string>
 
 function readStoredTheme(): AppThemeId {
   const storedTheme = readStoredValue(THEME_STORAGE_KEY)
@@ -93,10 +93,6 @@ function createMuiTheme(theme: AppThemeDefinition) {
       },
     },
   })
-}
-
-interface UiProviderProps {
-  children: ReactNode
 }
 
 export function UiProvider({ children }: UiProviderProps) {

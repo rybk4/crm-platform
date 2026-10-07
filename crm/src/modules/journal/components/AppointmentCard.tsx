@@ -1,11 +1,6 @@
 import { statusMeta } from '../model'
-import type { Appointment } from '../types'
-
-interface AppointmentCardProps {
-  appointment: Appointment
-  style?: { top: number; height: number }
-  onOpen: (appointment: Appointment) => void
-}
+import type { AppointmentCardProps } from './AppointmentCard.types'
+export type { AppointmentCardProps } from './AppointmentCard.types'
 
 export function AppointmentCard({ appointment, style, onOpen }: AppointmentCardProps) {
   const meta = statusMeta[appointment.status]

@@ -3,12 +3,9 @@ import { Button } from '@/ui/Button'
 import { Checkbox } from '@/ui/Checkbox'
 import { Dialog } from '@/ui/Dialog'
 import { TextField } from '@/ui/TextField'
-import type { useLoyaltyDialog } from '../hooks/useLoyaltyDialog'
+import type { LoyaltyDialogProps } from './LoyaltyDialog.types'
+export type { LoyaltyDialogProps } from './LoyaltyDialog.types'
 
-interface LoyaltyDialogProps {
-  dialog: ReturnType<typeof useLoyaltyDialog>
-  saving: boolean
-}
 export function LoyaltyDialog({ dialog, saving }: LoyaltyDialogProps) {
   const { t } = useLocale()
   const form = dialog.form

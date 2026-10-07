@@ -5,13 +5,8 @@ import { ActionMenu } from '@/ui/ActionMenu'
 import { Avatar } from '@/ui/Avatar'
 import { Surface } from '@/ui/Surface'
 import { clientBadge, clientInitials, clientServiceChips, recentVisitsByDate } from '../model'
-import type { Client } from '../types'
-
-interface ClientCardProps {
-  client: Client
-  onOpen: (client: Client) => void
-  onDelete: (client: Client) => void
-}
+import type { ClientCardProps } from './ClientCard.types'
+export type { ClientCardProps } from './ClientCard.types'
 
 export function ClientCard({ client, onOpen, onDelete }: ClientCardProps) {
   const { locale, t } = useLocale()

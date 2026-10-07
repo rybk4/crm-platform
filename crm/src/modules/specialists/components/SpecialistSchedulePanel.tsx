@@ -2,14 +2,10 @@ import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Button } from '@/ui/Button'
 import { Card } from '@/ui/Card'
 import { scheduleSummary, weekdayKeys } from '../model'
-import type { WorkSchedule } from '../types'
-import { ScheduleEditor } from './ScheduleEditor'
 
-interface SpecialistSchedulePanelProps {
-  schedule: WorkSchedule[]
-  onChange: (weekday: number, changes: Partial<WorkSchedule>) => void
-  onSave: () => void
-}
+import { ScheduleEditor } from './ScheduleEditor'
+import type { SpecialistSchedulePanelProps } from './SpecialistSchedulePanel.types'
+export type { SpecialistSchedulePanelProps } from './SpecialistSchedulePanel.types'
 
 export function SpecialistSchedulePanel({
   schedule,

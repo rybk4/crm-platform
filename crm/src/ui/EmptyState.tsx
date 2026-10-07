@@ -1,16 +1,9 @@
-import type { ReactNode } from 'react'
-
-import type { IconName } from './Icon'
 import { Icon } from './Icon'
 import { Surface } from './Surface'
-import './empty-state.css'
+import type { EmptyStateProps } from './EmptyState.types'
+export type { EmptyStateProps } from './EmptyState.types'
 
-interface EmptyStateProps {
-  icon: IconName
-  title: string
-  description: string
-  action?: ReactNode
-}
+import './empty-state.css'
 
 export function EmptyState({ icon, title, description, action }: EmptyStateProps) {
   return (

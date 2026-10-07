@@ -1,10 +1,6 @@
 import MuiAlert from '@mui/material/Alert'
-import type { ReactNode } from 'react'
-
-interface AlertProps {
-  children: ReactNode
-  tone?: 'error' | 'info'
-}
+import type { AlertProps } from './Alert.types'
+export type { AlertProps } from './Alert.types'
 
 export function Alert({ children, tone = 'error' }: AlertProps) {
   return (

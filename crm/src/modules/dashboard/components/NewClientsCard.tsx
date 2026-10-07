@@ -4,13 +4,11 @@ import { formatShortDate } from '@/lib/format/datetime'
 import { formatMoney } from '@/lib/format/money'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { clientInitials } from '@/modules/clients/model'
-import type { Client } from '@/modules/clients/types'
+
 import { Avatar } from '@/ui/Avatar'
 import { Card } from '@/ui/Card'
-
-interface NewClientsCardProps {
-  clients: readonly Client[]
-}
+import type { NewClientsCardProps } from './NewClientsCard.types'
+export type { NewClientsCardProps } from './NewClientsCard.types'
 
 export function NewClientsCard({ clients }: NewClientsCardProps) {
   const { locale, t } = useLocale()

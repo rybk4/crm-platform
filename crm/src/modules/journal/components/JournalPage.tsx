@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { dayKey, fromDayKey, shiftDayKey } from '@/lib/datetime/day'
 import { sameEntityId } from '@/lib/api/entityId'
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { ActiveBranchDetails } from '@/modules/auth/types'
+
 import { useClients } from '@/modules/clients/hooks/useClients'
 import { useFinance } from '@/modules/finance/hooks/useFinance'
 import { useServices } from '@/modules/services/hooks/useServices'
@@ -18,11 +18,10 @@ import type { Appointment } from '../types'
 import { AppointmentDialog } from './AppointmentDialog'
 import { JournalContent } from './JournalContent'
 import { JournalToolbar } from './JournalToolbar'
-import './journal.css'
+import type { JournalPageProps } from './JournalPage.types'
+export type { JournalPageProps } from './JournalPage.types'
 
-interface JournalPageProps {
-  activeBranch: ActiveBranchDetails | null
-}
+import './journal.css'
 
 export function JournalPage({ activeBranch }: JournalPageProps) {
   const { t } = useLocale()

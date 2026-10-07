@@ -1,15 +1,8 @@
-import type { IconName } from './Icon'
 import { Icon } from './Icon'
+import type { StatusPillProps } from './StatusPill.types'
+export type { StatusTone, StatusPillProps } from './StatusPill.types'
+
 import './status-pill.css'
-
-export type StatusTone = 'neutral' | 'info' | 'success' | 'warning' | 'danger'
-
-interface StatusPillProps {
-  label: string
-  tone?: StatusTone
-  icon?: IconName
-  size?: 'sm' | 'md'
-}
 
 export function StatusPill({ label, tone = 'neutral', icon, size = 'md' }: StatusPillProps) {
   return (

@@ -1,15 +1,8 @@
-import type { ReactNode } from 'react'
-
 import { Surface } from './Surface'
-import './card.css'
+import type { CardProps } from './Card.types'
+export type { CardProps } from './Card.types'
 
-interface CardProps {
-  children: ReactNode
-  title?: string
-  hint?: string
-  actions?: ReactNode
-  className?: string
-}
+import './card.css'
 
 export function Card({ children, title, hint, actions, className }: CardProps) {
   return (

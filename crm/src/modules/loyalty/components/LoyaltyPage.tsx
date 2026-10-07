@@ -15,7 +15,7 @@ import { useLoyalty } from '../hooks/useLoyalty'
 import { useLoyaltyDialog } from '../hooks/useLoyaltyDialog'
 import type { LoyaltyKind, LoyaltyProgram } from '../types'
 import { LoyaltyDialog } from './LoyaltyDialog'
-import '@/modules/finance/components/finance.css'
+import '@/ui/business-layout.css'
 
 export function LoyaltyPage() {
   const { t } = useLocale()

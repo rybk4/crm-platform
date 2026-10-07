@@ -2,13 +2,8 @@ import { dayKey } from '@/lib/datetime/day'
 import { formatDayTitle, formatTime } from '@/lib/format/datetime'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { Surface } from '@/ui/Surface'
-import type { Appointment } from '../types'
-
-interface JournalWeekProps {
-  start: Date
-  appointments: readonly Appointment[]
-  onOpen: (appointment: Appointment) => void
-}
+import type { JournalWeekProps } from './JournalWeek.types'
+export type { JournalWeekProps } from './JournalWeek.types'
 
 export function JournalWeek({ start, appointments, onOpen }: JournalWeekProps) {
   const { locale, t } = useLocale()

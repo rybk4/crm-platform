@@ -11,7 +11,7 @@ import { useCampaignDialog } from '../hooks/useCampaignDialog'
 import { useCampaigns } from '../hooks/useCampaigns'
 import { CampaignDialog } from './CampaignDialog'
 import './campaigns.css'
-import '@/modules/finance/components/finance.css'
+import '@/ui/business-layout.css'
 
 const campaignStatusKeys = {
   draft: 'campaignStatus_draft',

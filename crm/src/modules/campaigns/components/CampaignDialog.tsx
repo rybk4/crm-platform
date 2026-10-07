@@ -1,17 +1,15 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { Client } from '@/modules/clients/types'
+
 import { Button } from '@/ui/Button'
 import { Checkbox } from '@/ui/Checkbox'
 import { Dialog } from '@/ui/Dialog'
 import { TextField } from '@/ui/TextField'
-import type { useCampaignDialog } from '../hooks/useCampaignDialog'
+
+import type { CampaignDialogProps } from './CampaignDialog.types'
+export type { CampaignDialogProps } from './CampaignDialog.types'
+
 import './campaigns.css'
 
-interface CampaignDialogProps {
-  dialog: ReturnType<typeof useCampaignDialog>
-  clients: readonly Client[]
-  saving: boolean
-}
 export function CampaignDialog({ dialog, clients, saving }: CampaignDialogProps) {
   const { t } = useLocale()
   const allSelected = clients.length > 0 && dialog.form.recipients.length === clients.length

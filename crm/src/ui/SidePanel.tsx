@@ -1,18 +1,11 @@
 import Drawer from '@mui/material/Drawer'
-import type { ReactNode } from 'react'
 
 import { Icon } from './Icon'
 import { IconButton } from './IconButton'
-import './side-panel.css'
+import type { SidePanelProps } from './SidePanel.types'
+export type { SidePanelProps } from './SidePanel.types'
 
-interface SidePanelProps {
-  open: boolean
-  title: string
-  closeLabel: string
-  children: ReactNode
-  onClose: () => void
-  footer?: ReactNode
-}
+import './side-panel.css'
 
 export function SidePanel({ open, title, closeLabel, children, onClose, footer }: SidePanelProps) {
   return (

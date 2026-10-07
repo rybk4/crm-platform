@@ -1,17 +1,6 @@
 import Typography from '@mui/material/Typography'
-import type { ReactNode } from 'react'
-
-interface HeadingProps {
-  children: ReactNode
-  level?: 1 | 2
-  className?: string
-}
-
-interface TextProps {
-  children: ReactNode
-  tone?: 'default' | 'muted'
-  className?: string
-}
+import type { HeadingProps, TextProps } from './Text.types'
+export type { HeadingProps, TextProps } from './Text.types'
 
 export function Heading({ children, level = 1, className }: HeadingProps) {
   return (

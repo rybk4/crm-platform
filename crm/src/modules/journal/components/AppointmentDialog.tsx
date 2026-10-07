@@ -1,9 +1,6 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { parseEntityId, sameEntityId } from '@/lib/api/entityId'
-import type { Client } from '@/modules/clients/types'
-import type { PaymentMethod } from '@/modules/finance/types'
-import type { Service } from '@/modules/services/types'
-import type { Specialist } from '@/modules/specialists/types'
+
 import { Button } from '@/ui/Button'
 import { Dialog } from '@/ui/Dialog'
 import { Icon } from '@/ui/Icon'
@@ -12,17 +9,8 @@ import { TextField } from '@/ui/TextField'
 import { statusMeta } from '../model'
 import { appointmentStatuses } from '../types'
 import type { Appointment, AppointmentStatus } from '../types'
-import type { useAppointmentDialog } from '../hooks/useAppointmentDialog'
-
-interface AppointmentDialogProps {
-  dialog: ReturnType<typeof useAppointmentDialog>
-  specialists: readonly Specialist[]
-  services: readonly Service[]
-  clients: readonly Client[]
-  paymentMethods: readonly PaymentMethod[]
-  saving: boolean
-  onDelete: (appointment: Appointment) => void
-}
+import type { AppointmentDialogProps } from './AppointmentDialog.types'
+export type { AppointmentDialogProps } from './AppointmentDialog.types'
 
 export function AppointmentDialog({
   dialog,

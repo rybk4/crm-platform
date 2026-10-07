@@ -1,17 +1,12 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import type { EntityId } from '@/lib/api/entityId'
+
 import { formatMoney } from '@/lib/format/money'
-import type { Service } from '@/modules/services/types'
+
 import { Button } from '@/ui/Button'
 import { Card } from '@/ui/Card'
 import { Checkbox } from '@/ui/Checkbox'
-
-interface SpecialistServicesPanelProps {
-  services: Service[]
-  selectedIds: EntityId[]
-  onToggle: (serviceId: EntityId, selected: boolean) => void
-  onSave: () => void
-}
+import type { SpecialistServicesPanelProps } from './SpecialistServicesPanel.types'
+export type { SpecialistServicesPanelProps } from './SpecialistServicesPanel.types'
 
 export function SpecialistServicesPanel({
   services,

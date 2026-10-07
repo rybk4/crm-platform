@@ -1,19 +1,7 @@
 import MuiButton from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
-import type { ReactNode } from 'react'
-
-interface ButtonProps {
-  children: ReactNode
-  type?: 'button' | 'submit'
-  kind?: 'primary' | 'quiet' | 'outline' | 'danger'
-  className?: string
-  fullWidth?: boolean
-  loading?: boolean
-  disabled?: boolean
-  startIcon?: ReactNode
-  ariaLabel?: string
-  onClick?: () => void
-}
+import type { ButtonProps } from './Button.types'
+export type { ButtonProps } from './Button.types'
 
 export function Button({
   children,

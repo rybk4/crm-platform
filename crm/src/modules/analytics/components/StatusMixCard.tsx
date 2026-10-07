@@ -2,11 +2,8 @@ import { useLocale } from '@/lib/i18n/LocaleContext'
 import { statusMeta } from '@/modules/journal/model'
 import { Card } from '@/ui/Card'
 import { StackedBar } from '@/ui/charts/StackedBar'
-import type { StatusBreakdownItem } from '../types'
-
-interface StatusMixCardProps {
-  items: readonly StatusBreakdownItem[]
-}
+import type { StatusMixCardProps } from './StatusMixCard.types'
+export type { StatusMixCardProps } from './StatusMixCard.types'
 
 /** Зелёный и красный не ставим рядом: разница видна и при дальтонизме. */
 const order = ['completed', 'confirmed', 'pending', 'cancelled', 'no_show'] as const

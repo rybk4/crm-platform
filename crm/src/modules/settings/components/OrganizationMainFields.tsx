@@ -1,14 +1,10 @@
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { SelectField } from '@/ui/SelectField'
 import { TextField } from '@/ui/TextField'
-import type { useSettingsForm } from '../hooks/useSettingsForm'
-import type { City } from '../types'
-import { OrganizationAvatarPicker } from './OrganizationAvatarPicker'
 
-interface OrganizationMainFieldsProps {
-  settings: ReturnType<typeof useSettingsForm>
-  cities: City[]
-}
+import { OrganizationAvatarPicker } from './OrganizationAvatarPicker'
+import type { OrganizationMainFieldsProps } from './OrganizationMainFields.types'
+export type { OrganizationMainFieldsProps } from './OrganizationMainFields.types'
 
 export function OrganizationMainFields({ settings, cities }: OrganizationMainFieldsProps) {
   const { t } = useLocale()

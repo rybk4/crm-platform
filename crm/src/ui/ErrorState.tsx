@@ -1,20 +1,11 @@
-import type { IconName } from './Icon'
 import { Icon } from './Icon'
 import { Button } from './Button'
 import { Surface } from './Surface'
 import { Heading, Text } from './Text'
-import './error-state.css'
+import type { ErrorStateProps } from './ErrorState.types'
+export type { ErrorStateProps } from './ErrorState.types'
 
-interface ErrorStateProps {
-  title: string
-  description: string
-  actionLabel: string
-  onAction: () => void
-  icon?: IconName
-  secondaryActionLabel?: string
-  onSecondaryAction?: () => void
-  details?: string
-}
+import './error-state.css'
 
 export function ErrorState({
   title,
