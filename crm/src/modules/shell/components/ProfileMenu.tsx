@@ -3,22 +3,15 @@ import { useCallback, useRef } from 'react'
 import { useDismissOnOutside } from '@/lib/browser/useDismissOnOutside'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
-import { supportedLocales } from '@/lib/i18n/locale'
 
 import { Avatar } from '@/ui/Avatar'
 import { Button } from '@/ui/Button'
 import { Icon } from '@/ui/Icon'
 import { useProfileMenu } from '../hooks/useProfileMenu'
 import { BranchSwitcher } from './BranchSwitcher'
-import { ThemePicker } from './ThemePicker'
+import { LanguageSwitcher } from './LanguageSwitcher'
 import type { ProfileMenuProps } from './ProfileMenu.types'
 export type { ProfileMenuProps } from './ProfileMenu.types'
-
-const localeLabelKeys = {
-  ru: 'languageRussian',
-  en: 'languageEnglish',
-  kk: 'languageKazakh',
-} as const
 
 export function ProfileMenu({
   collapsed,
@@ -27,7 +20,7 @@ export function ProfileMenu({
   onLocaleChange,
   onLogout,
 }: ProfileMenuProps) {
-  const { locale, t } = useLocale()
+  const { t } = useLocale()
   const menu = useProfileMenu({
     activeBranchId: user.active_branch,
     onActiveBranchChange,
@@ -76,15 +69,6 @@ export function ProfileMenu({
               <strong>{displayName}</strong>
               <span>{user.phone_number}</span>
             </div>
-            <Button
-              className="profile-popover__header-logout"
-              kind="quiet"
-              startIcon={<Icon name="logout" />}
-              ariaLabel={t('logout')}
-              onClick={onLogout}
-            >
-              {t('logout')}
-            </Button>
           </header>
 
           <BranchSwitcher
@@ -95,24 +79,19 @@ export function ProfileMenu({
             onSelect={(branchId) => void menu.selectBranch(branchId)}
           />
 
-          <fieldset className="profile-popover__languages" disabled={menu.savingLocale}>
-            <legend>{t('interfaceLanguage')}</legend>
-            <div>
-              {supportedLocales.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  aria-pressed={locale === item}
-                  data-selected={locale === item}
-                  onClick={() => void menu.selectLocale(item)}
-                >
-                  {t(localeLabelKeys[item])}
-                </button>
-              ))}
-            </div>
-          </fieldset>
+          <LanguageSwitcher
+            disabled={menu.savingLocale}
+            onSelect={(item) => void menu.selectLocale(item)}
+          />
 
-          <ThemePicker />
+          <Button
+            className="profile-popover__logout"
+            kind="quiet"
+            startIcon={<Icon name="logout" />}
+            onClick={onLogout}
+          >
+            {t('logout')}
+          </Button>
         </div>
       ) : null}
     </div>

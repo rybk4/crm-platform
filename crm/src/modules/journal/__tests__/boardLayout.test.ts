@@ -15,8 +15,16 @@ describe('сетка дня', () => {
   })
 
   it('держит минимальную высоту короткой записи', () => {
-    expect(heightPx(10)).toBe(28)
+    expect(heightPx(10)).toBe(50)
     expect(heightPx(60)).toBe(104)
+  })
+
+  it('перестраивает сетку под выбранный интервал', () => {
+    expect(heightPx(20, 15)).toBe(104)
+    expect(offsetPx(600, bounds, 15)).toBe(108)
+    expect(offsetPx(605, bounds, 15)).toBe(108)
+    expect(rulerMarks({ ...bounds, close: 630 }, 25)).toEqual([570, 595, 620])
+    expect(rulerMarks({ ...bounds, close: 630 }, 15)).toEqual([570, 585, 600, 615])
   })
 
   it('считает высоту всей сетки', () => {

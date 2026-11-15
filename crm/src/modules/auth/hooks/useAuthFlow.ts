@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { ApiError } from '@/lib/api/ApiError'
 import { apiErrorMessage } from '@/lib/api/apiErrorMessage'
 import type { EntityId } from '@/lib/api/entityId'
 import { subscribeSessionExpired } from '@/lib/auth/session'
@@ -18,15 +19,13 @@ export function useAuthFlow() {
   const [stage, setStage] = useState<AuthStage>('initializing')
   const [phone, setPhone] = useState('+7')
   const [user, setUser] = useState<AuthUser | null>(null)
-  const [debugHint, setDebugHint] = useState('')
-  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [rejectedField, setRejectedField] = useState<'phone' | 'code' | null>(null)
 
   const logout = useCallback(() => {
     clearTokens()
     setUser(null)
-    setDebugHint('')
-    setError('')
+    setRejectedField(null)
     setStage('phone')
   }, [])
 
@@ -66,18 +65,22 @@ export function useAuthFlow() {
       return
     }
 
-    setError('')
+    setRejectedField(null)
     setLoading(true)
     try {
       const response = await authApi.requestOtp(normalized)
+      if (!response.user_exists) {
+        setRejectedField('phone')
+        notifications.error(t('authUserNotFound'))
+        return
+      }
       setPhone(normalized)
-      setDebugHint(response.debug ?? '')
-      setLoading(false)
       setStage('code')
-      notifications.info(response.detail)
     } catch (error) {
+      if (error instanceof ApiError && (error.status === 400 || error.status === 404)) {
+        setRejectedField('phone')
+      }
       const message = apiErrorMessage(error, t('errorUnexpected'))
-      setError(message)
       notifications.error(message)
     } finally {
       setLoading(false)
@@ -90,7 +93,7 @@ export function useAuthFlow() {
       return
     }
 
-    setError('')
+    setRejectedField(null)
     setLoading(true)
     try {
       const response = await authApi.verifyOtp(phone, code.trim())
@@ -99,17 +102,20 @@ export function useAuthFlow() {
       setStage('authenticated')
       notifications.success(response.detail)
     } catch (error) {
+      if (error instanceof ApiError && error.status === 400) setRejectedField('code')
       const message = apiErrorMessage(error, t('errorUnexpected'))
-      setError(message)
       notifications.error(message)
     } finally {
       setLoading(false)
     }
   }
 
+  function clearRejection() {
+    setRejectedField(null)
+  }
+
   function backToPhone() {
-    setDebugHint('')
-    setError('')
+    setRejectedField(null)
     setStage('phone')
   }
 
@@ -125,9 +131,9 @@ export function useAuthFlow() {
     stage,
     phone,
     user,
-    debugHint,
-    error,
     loading,
+    rejectedField,
+    clearRejection,
     submitPhone,
     submitCode,
     backToPhone,

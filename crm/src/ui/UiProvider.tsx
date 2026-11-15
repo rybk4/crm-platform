@@ -1,26 +1,10 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { useEffect, useMemo, useState } from 'react'
 
-import { readStoredValue, writeStoredValue } from '@/lib/browser/storage'
-import { AppThemeContext } from './theme/AppThemeContext'
-import {
-  appThemes,
-  DEFAULT_THEME_ID,
-  getAppTheme,
-  isAppThemeId,
-  type AppThemeDefinition,
-  type AppThemeId,
-} from './theme/themes'
+import { appTheme } from './theme/appTheme'
+import type { AppThemeDefinition } from './theme/types'
 import type { ThemeVariables, UiProviderProps } from './UiProvider.types'
 export type { ThemeVariables, UiProviderProps } from './UiProvider.types'
-
-const THEME_STORAGE_KEY = 'crm.theme.v1'
-
-function readStoredTheme(): AppThemeId {
-  const storedTheme = readStoredValue(THEME_STORAGE_KEY)
-  return isAppThemeId(storedTheme) ? storedTheme : DEFAULT_THEME_ID
-}
 
 function createMuiTheme(theme: AppThemeDefinition) {
   return createTheme({
@@ -95,54 +79,39 @@ function createMuiTheme(theme: AppThemeDefinition) {
   })
 }
 
+const muiTheme = createMuiTheme(appTheme)
+
+const themeVariables: ThemeVariables = {
+  '--app-font-family': appTheme.fontFamily,
+  '--app-display-font-family': appTheme.displayFontFamily,
+  '--app-background': appTheme.tokens.background,
+  '--app-surface': appTheme.tokens.surface,
+  '--app-surface-muted': appTheme.tokens.surfaceMuted,
+  '--app-border': appTheme.tokens.border,
+  '--app-muted': appTheme.tokens.muted,
+  '--app-text': appTheme.tokens.text,
+  '--app-primary': appTheme.tokens.primary,
+  '--app-on-primary': appTheme.tokens.onPrimary,
+  '--app-accent': appTheme.tokens.accent,
+  '--app-on-accent': appTheme.tokens.onAccent,
+  '--app-primary-soft': appTheme.tokens.primarySoft,
+  '--app-primary-border': appTheme.tokens.primaryBorder,
+  '--app-sidebar': appTheme.tokens.sidebar,
+  '--app-sidebar-text': appTheme.tokens.sidebarText,
+  '--app-sidebar-muted': appTheme.tokens.sidebarMuted,
+  '--app-sidebar-border': appTheme.tokens.sidebarBorder,
+  '--app-sidebar-active': appTheme.tokens.sidebarActive,
+  '--app-sidebar-active-text': appTheme.tokens.sidebarActiveText,
+  '--app-sidebar-marker': appTheme.tokens.sidebarMarker,
+}
+
 export function UiProvider({ children }: UiProviderProps) {
-  const [themeId, setThemeId] = useState<AppThemeId>(readStoredTheme)
-  const activeTheme = getAppTheme(themeId)
-  const muiTheme = useMemo(() => createMuiTheme(activeTheme), [activeTheme])
-  const contextValue = useMemo(
-    () => ({ activeTheme, themes: appThemes, selectTheme: setThemeId }),
-    [activeTheme],
-  )
-  const themeVariables = useMemo<ThemeVariables>(
-    () => ({
-      '--app-font-family': activeTheme.fontFamily,
-      '--app-display-font-family': activeTheme.displayFontFamily,
-      '--app-background': activeTheme.tokens.background,
-      '--app-surface': activeTheme.tokens.surface,
-      '--app-surface-muted': activeTheme.tokens.surfaceMuted,
-      '--app-border': activeTheme.tokens.border,
-      '--app-muted': activeTheme.tokens.muted,
-      '--app-text': activeTheme.tokens.text,
-      '--app-primary': activeTheme.tokens.primary,
-      '--app-on-primary': activeTheme.tokens.onPrimary,
-      '--app-accent': activeTheme.tokens.accent,
-      '--app-on-accent': activeTheme.tokens.onAccent,
-      '--app-primary-soft': activeTheme.tokens.primarySoft,
-      '--app-primary-border': activeTheme.tokens.primaryBorder,
-      '--app-sidebar': activeTheme.tokens.sidebar,
-      '--app-sidebar-text': activeTheme.tokens.sidebarText,
-      '--app-sidebar-muted': activeTheme.tokens.sidebarMuted,
-      '--app-sidebar-border': activeTheme.tokens.sidebarBorder,
-      '--app-sidebar-active': activeTheme.tokens.sidebarActive,
-      '--app-sidebar-active-text': activeTheme.tokens.sidebarActiveText,
-      '--app-sidebar-marker': activeTheme.tokens.sidebarMarker,
-    }),
-    [activeTheme],
-  )
-
-  useEffect(() => {
-    writeStoredValue(THEME_STORAGE_KEY, themeId)
-    document.documentElement.dataset.theme = themeId
-  }, [themeId])
-
   return (
-    <AppThemeContext.Provider value={contextValue}>
-      <ThemeProvider theme={muiTheme}>
-        <CssBaseline />
-        <div className="app-theme-root" style={themeVariables}>
-          {children}
-        </div>
-      </ThemeProvider>
-    </AppThemeContext.Provider>
+    <ThemeProvider theme={muiTheme}>
+      <CssBaseline />
+      <div className="app-theme-root" style={themeVariables}>
+        {children}
+      </div>
+    </ThemeProvider>
   )
 }

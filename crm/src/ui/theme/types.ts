@@ -1,23 +1,6 @@
-import type { TranslationKey } from '@/lib/i18n/messages'
-
-export type AppThemeId =
-  | 'cobalt-mandarin'
-  | 'ink-tomato'
-  | 'ultramarine-sun'
-  | 'signal-duo'
-  | 'bordeaux-ice'
-  | 'petrol-apricot'
-  | 'aubergine-yellow'
-  | 'sky-cherry'
-  | 'industrial-orange'
-
 export interface AppThemeDefinition {
-  id: AppThemeId
-  nameKey: TranslationKey
-  shortNameKey: TranslationKey
   fontFamily: string
   displayFontFamily: string
-  swatches: readonly [string, string, string]
   tokens: {
     background: string
     surface: string

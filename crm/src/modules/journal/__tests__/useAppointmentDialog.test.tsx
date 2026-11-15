@@ -172,4 +172,15 @@ describe('useAppointmentDialog', () => {
 
     expect(journal.update.mutateAsync).toHaveBeenCalledWith(expect.objectContaining({ id: 7 }))
   })
+  it('creates on the selected week day and resets payment when opening another visit', () => {
+    const { result } = setup()
+    act(() => result.current.openCreate(4, '11:30', '2026-10-25'))
+    expect(result.current.day).toBe('2026-10-25')
+    act(() => result.current.setPaymentOpen(true))
+    act(() => result.current.openEdit(existing))
+    expect(result.current.paymentOpen).toBe(false)
+    expect(result.current.canPay).toBe(true)
+    act(() => result.current.setTime('12:00'))
+    expect(result.current.canPay).toBe(false)
+  })
 })

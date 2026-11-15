@@ -25,7 +25,14 @@ export function OtpInput({
   }
 
   function updateDigit(index: number, event: ChangeEvent<HTMLInputElement>) {
-    const nextDigit = digitsOnly(event.target.value, 1)
+    const incoming = digitsOnly(event.target.value, length)
+    if (incoming.length > 1) {
+      if (incoming.length !== length) return
+      onChange(incoming)
+      focus(incoming.length - 1)
+      return
+    }
+    const nextDigit = incoming
     const next = [...digits]
     next[index] = nextDigit
     onChange(next.join(''))
@@ -65,7 +72,10 @@ export function OtpInput({
           value={digit}
           inputMode="numeric"
           pattern="[0-9]*"
-          maxLength={1}
+          maxLength={length}
+          name={`otp-${index + 1}`}
+          spellCheck={false}
+          aria-invalid={error}
           autoComplete={index === 0 ? 'one-time-code' : 'off'}
           aria-label={getDigitLabel(index + 1)}
           disabled={disabled}

@@ -1,0 +1,58 @@
+.auth-form .MuiButton-root {
+  min-height: 56px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.15px;
+  touch-action: manipulation;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 100ms ease;
+}
+
+.auth-form .MuiButton-root.MuiButton-contained.MuiButton-colorPrimary:not(.Mui-disabled) {
+  color: var(--app-on-primary);
+  background: color-mix(in srgb, var(--app-primary) 82%, var(--app-text));
+  box-shadow: 0 4px 12px -5px color-mix(in srgb, var(--app-primary) 45%, transparent);
+}
+
+.auth-form .MuiButton-root.MuiButton-contained.MuiButton-colorPrimary:not(.Mui-disabled):hover {
+  background: color-mix(in srgb, var(--app-primary) 74%, var(--app-text));
+  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--app-primary) 50%, transparent);
+}
+
+.auth-form .MuiButton-root.MuiButton-contained.MuiButton-colorPrimary:not(.Mui-disabled):active {
+  transform: translateY(1px);
+  background: color-mix(in srgb, var(--app-primary) 68%, var(--app-text));
+  box-shadow: none;
+}
+
+.auth-form .MuiButton-root.MuiButton-contained.Mui-disabled {
+  color: color-mix(in srgb, var(--app-primary) 50%, var(--app-muted));
+  background: var(--app-primary-soft);
+  box-shadow: none;
+}
+
+.auth-form .MuiButton-root.MuiButton-contained[aria-busy='true'] {
+  color: var(--app-on-primary);
+  background: color-mix(in srgb, var(--app-primary) 82%, var(--app-text));
+  box-shadow: none;
+}
+
+.auth-form .MuiButton-root:focus-visible {
+  outline: 2px solid var(--app-primary);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-form .MuiButton-root {
+    transition: none;
+  }
+
+  .auth-form .MuiButton-root.MuiButton-contained.MuiButton-colorPrimary:not(.Mui-disabled):active {
+    transform: none;
+  }
+}

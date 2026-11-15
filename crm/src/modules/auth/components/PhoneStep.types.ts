@@ -1,6 +1,7 @@
 export interface PhoneStepProps {
   initialPhone: string
   loading: boolean
-  errorMessage: string
+  rejected: boolean
+  onEdit: () => void
   onSubmit: (phone: string) => Promise<void>
 }

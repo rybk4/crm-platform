@@ -43,12 +43,14 @@ export function useAppointmentDialog({
   const [time, setTime] = useState(DEFAULT_TIME)
   const [paymentMethod, setPaymentMethod] = useState<EntityId | null>(null)
   const [discount, setDiscount] = useState('0')
+  const [paymentOpen, setPaymentOpen] = useState(false)
 
   const openCreate = useCallback(
-    (specialistId = defaultSpecialistId, startTime = DEFAULT_TIME) => {
+    (specialistId = defaultSpecialistId, startTime = DEFAULT_TIME, date = defaultDay) => {
+      setPaymentOpen(false)
       setEditing(null)
       setForm(emptyAppointmentForm(specialistId))
-      setDay(defaultDay)
+      setDay(date)
       setTime(startTime)
       setPaymentMethod(null)
       setDiscount('0')
@@ -58,6 +60,7 @@ export function useAppointmentDialog({
   )
 
   const openEdit = useCallback((appointment: Appointment) => {
+    setPaymentOpen(false)
     const parts = splitStartsAt(appointment.starts_at)
 
     setEditing(appointment)
@@ -130,6 +133,8 @@ export function useAppointmentDialog({
 
   return {
     open,
+    paymentOpen,
+    setPaymentOpen,
     editing,
     form,
     day,
@@ -147,6 +152,15 @@ export function useAppointmentDialog({
     setDiscount,
     pay,
     paying: journal.closeDeal?.isPending ?? false,
+    canPay: Boolean(
+      editing &&
+      form.specialist === editing.specialist &&
+      form.service === editing.service &&
+      form.client === editing.client &&
+      form.status === editing.status &&
+      day === splitStartsAt(editing.starts_at).day &&
+      time === splitStartsAt(editing.starts_at).time,
+    ),
     submit,
   }
 }

@@ -1,0 +1,80 @@
+.visit-summary {
+  display: grid;
+  gap: 24px;
+}
+.visit-summary h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+.visit-summary p {
+  margin: 0;
+  color: var(--app-muted);
+  white-space: pre-wrap;
+}
+.visit-summary__person {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: var(--app-background);
+  border-radius: 16px;
+}
+.visit-summary small {
+  display: block;
+  color: var(--app-muted);
+  font-size: 12px;
+}
+.visit-summary strong {
+  font-size: 14px;
+  font-weight: 500;
+}
+.visit-summary__date {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.visit-summary__date > div {
+  padding: 12px;
+  background: var(--app-background);
+  border-radius: 16px;
+}
+.visit-summary__service {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.visit-summary__service > div {
+  padding: 12px;
+}
+.visit-summary__service > strong {
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  background: var(--app-background);
+  white-space: nowrap;
+}
+.visit-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.visit-total > strong:last-child {
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--app-background);
+}
+.side-panel__footer .appointment-form__pay {
+  flex-basis: 100%;
+}
+.side-panel__footer .appointment-payment__submit {
+  background: var(--app-success);
+}

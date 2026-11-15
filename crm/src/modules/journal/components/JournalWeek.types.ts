@@ -1,7 +1,10 @@
-import type { Appointment } from '../types'
-
-export interface JournalWeekProps {
+import type { JournalBoardProps } from './JournalBoard.types'
+import type { Specialist } from '@/modules/specialists/types'
+export interface JournalWeekProps extends Pick<
+  JournalBoardProps,
+  'appointments' | 'bounds' | 'step' | 'onOpen' | 'onCreate'
+> {
   start: Date
-  appointments: readonly Appointment[]
-  onOpen: (appointment: Appointment) => void
+  end?: string
+  specialist: Specialist
 }

@@ -9,7 +9,7 @@
 services:
   db:
     image: postgres:18.6-alpine
-    restart: unless-stopped
+    restart: "no"
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -26,7 +26,7 @@ services:
 
   redis:
     image: redis:8.10.1-alpine
-    restart: unless-stopped
+    restart: "no"
     ports:
       - "6379:6379"
     volumes:
@@ -40,7 +40,7 @@ services:
   backend:
     build:
       context: ./backend
-    restart: unless-stopped
+    restart: "no"
     env_file:
       - .env
     environment:
@@ -69,7 +69,7 @@ services:
   frontend:
     build:
       context: ./crm
-    restart: unless-stopped
+    restart: "no"
     environment:
       # Куда vite проксирует /api внутри сети compose. Без префикса VITE_,
       # чтобы внутреннее имя хоста не попало в клиентский бандл.

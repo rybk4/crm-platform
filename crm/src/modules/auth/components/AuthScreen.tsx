@@ -9,6 +9,8 @@ import type { AuthScreenProps } from './AuthScreen.types'
 export type { AuthScreenProps } from './AuthScreen.types'
 
 import './auth.css'
+import './auth-buttons.css'
+import './auth-code.css'
 
 export function AuthScreen({ auth }: AuthScreenProps) {
   const { t } = useLocale()
@@ -17,34 +19,39 @@ export function AuthScreen({ auth }: AuthScreenProps) {
     <div className="auth-shell">
       <main className="auth-main">
         <Surface className="auth-surface">
-          <img className="auth-logo" src={partnersMark} alt="" />
-          <Heading className="auth-title">{t('authTitle')}</Heading>
-
-          {auth.stage === 'initializing' ? (
-            <div className="auth-loading" role="status" aria-live="polite">
-              <Text tone="muted">{t('authChecking')}</Text>
-            </div>
-          ) : null}
-
-          {auth.stage === 'phone' ? (
-            <PhoneStep
-              initialPhone={auth.phone}
-              loading={auth.loading}
-              errorMessage={auth.error}
-              onSubmit={auth.submitPhone}
-            />
-          ) : null}
-
-          {auth.stage === 'code' ? (
-            <CodeStep
-              phone={auth.phone}
-              debugHint={auth.debugHint}
-              loading={auth.loading}
-              errorMessage={auth.error}
-              onSubmit={auth.submitCode}
-              onBack={auth.backToPhone}
-            />
-          ) : null}
+          <div className="auth-brand">
+            <img className="auth-logo" src={partnersMark} width={48} height={48} alt="" />
+            <Heading className="auth-brand__name">{t('appName')}</Heading>
+          </div>
+          <div key={auth.stage} className="auth-step" data-stage={auth.stage}>
+            {auth.stage === 'initializing' ? (
+              <div className="auth-loading" role="status" aria-live="polite">
+                <Text tone="muted">{t('authChecking')}</Text>
+              </div>
+            ) : (
+              <>
+                {auth.stage === 'phone' ? (
+                  <PhoneStep
+                    initialPhone={auth.phone}
+                    loading={auth.loading}
+                    rejected={auth.rejectedField === 'phone'}
+                    onEdit={auth.clearRejection}
+                    onSubmit={auth.submitPhone}
+                  />
+                ) : null}
+                {auth.stage === 'code' ? (
+                  <CodeStep
+                    phone={auth.phone}
+                    loading={auth.loading}
+                    rejected={auth.rejectedField === 'code'}
+                    onEdit={auth.clearRejection}
+                    onSubmit={auth.submitCode}
+                    onBack={auth.backToPhone}
+                  />
+                ) : null}
+              </>
+            )}
+          </div>
         </Surface>
       </main>
     </div>

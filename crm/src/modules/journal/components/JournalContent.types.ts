@@ -5,13 +5,15 @@ import type { Appointment } from '../types'
 import type { JournalView } from '../hooks/useJournalFilters'
 
 export interface JournalContentProps {
+  step?: number
   loading: boolean
   view: JournalView
   columns: readonly Specialist[]
   appointments: readonly Appointment[]
   bounds: DayWindow
   day: Date
+  end?: string
   now: Date | null
   onOpen: (appointment: Appointment) => void
-  onCreate: (specialistId?: EntityId, startTime?: string) => void
+  onCreate: (specialistId?: EntityId, startTime?: string, date?: string) => void
 }

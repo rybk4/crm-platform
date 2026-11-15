@@ -32,6 +32,7 @@ export function Button({
       onClick={onClick}
       startIcon={loading ? <CircularProgress color="inherit" size={18} /> : startIcon}
       aria-label={ariaLabel}
+      aria-busy={loading}
     >
       {children}
     </MuiButton>

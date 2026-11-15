@@ -83,27 +83,3 @@ button,
 input {
   font: inherit;
 }
-
-.Toastify__toast-container {
-  width: min(380px, calc(100vw - 32px));
-}
-
-.Toastify__toast {
-  border: 1px solid var(--app-border);
-  border-radius: 8px;
-  color: var(--app-text);
-  background: var(--app-surface);
-  box-shadow: 0 12px 32px color-mix(in srgb, var(--app-text) 16%, transparent);
-  font-family: var(--app-font-family);
-  font-size: 14px;
-  line-height: 1.45;
-}
-
-.Toastify__progress-bar--success,
-.Toastify__progress-bar--info {
-  background: var(--app-primary);
-}
-
-.Toastify__progress-bar--error {
-  background: var(--app-danger);
-}

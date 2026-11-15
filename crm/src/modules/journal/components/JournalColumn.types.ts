@@ -4,11 +4,13 @@ import type { DayWindow } from '../model'
 import type { Appointment } from '../types'
 
 export interface JournalColumnProps {
+  step?: number
+  heading?: string
   specialist: Specialist
   window: DayWindow | null
   bounds: DayWindow
   appointments: readonly Appointment[]
   height: number
   onOpen: (appointment: Appointment) => void
-  onCreate: (specialistId?: EntityId, startTime?: string) => void
+  onCreate: (specialistId?: EntityId, startTime?: string, date?: string) => void
 }

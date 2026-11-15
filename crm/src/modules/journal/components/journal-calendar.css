@@ -1,0 +1,54 @@
+.ui-popover.MuiPaper-root {
+  border-radius: 16px;
+}
+.journal-calendar {
+  padding: 20px;
+  width: min(340px, calc(100vw - 32px));
+}
+.journal-calendar h3 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+.journal-calendar__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.journal-calendar__heading strong {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.journal-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+.journal-calendar__grid small {
+  text-align: center;
+  color: var(--app-muted);
+  padding-block: 8px;
+}
+.journal-calendar__grid button {
+  border: 0;
+  background: var(--app-surface);
+  color: var(--app-text);
+  border-radius: 8px;
+  height: 38px;
+  font: inherit;
+  cursor: pointer;
+}
+.journal-calendar__grid button[data-outside='true'] {
+  color: var(--app-muted);
+}
+.journal-calendar__grid button:hover {
+  background: var(--app-primary-soft);
+}
+.journal-calendar__grid button[aria-pressed='true'] {
+  background: var(--app-primary);
+  color: var(--app-on-primary);
+}
+.journal-calendar__grid button:focus-visible {
+  outline: 2px solid var(--app-primary);
+  outline-offset: 1px;
+}

@@ -6,6 +6,7 @@ export interface SelectOption {
 export interface SelectFieldProps {
   id: string
   label: string
+  hideLabel?: boolean
   value: string
   options: readonly SelectOption[]
   onChange: (value: string) => void

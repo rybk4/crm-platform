@@ -1,15 +1,11 @@
-from datetime import timedelta
-
 from django.conf import settings
 from django.core.cache import cache
 from django.db import transaction
-from django.utils import timezone
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from core.authentication import issue_token, read_token
-from organizations.models import Branch, Organization
 from .models import User
 from .serializers import UserSerializer
 
@@ -29,13 +25,13 @@ class OtpRequestView(APIView):
         phone = normalize_phone(request.data.get("phone_number"))
         if len(phone) != 12:
             return Response({"phone_number": ["Введите корректный номер телефона."]}, status=400)
+        if not User.objects.filter(phone=phone, is_active=True).exists():
+            return Response({"detail": "Пользователь с таким номером не найден."}, status=404)
         cache.set(f"crm:otp:{phone}", settings.CRM_OTP_CODE, timeout=300)
         payload = {
             "detail": "Код отправлен.",
-            "user_exists": User.objects.filter(phone=phone).exists(),
+            "user_exists": True,
         }
-        if settings.DEBUG:
-            payload["debug"] = settings.CRM_OTP_CODE
         return Response(payload)
 
 
@@ -48,30 +44,15 @@ class OtpVerifyView(APIView):
         phone = normalize_phone(request.data.get("phone_number"))
         code = str(request.data.get("code", "")).strip()
         expected = cache.get(f"crm:otp:{phone}")
-        if not expected or code != expected:
+        valid_format = len(code) == 4 and code.isascii() and code.isdigit()
+        if not valid_format or not expected or (not settings.DEBUG and code != expected):
             return Response({"code": ["Неверный или просроченный код."]}, status=400)
 
-        user = User.objects.filter(phone=phone).first()
-        created = user is None
-        if created:
-            started_at = timezone.now()
-            organization = Organization.objects.create(
-                name="Моя компания",
-                phone=phone,
-                subscription_started_at=started_at,
-                subscription_expires_at=started_at + timedelta(days=14),
-            )
-            branch = Branch.objects.create(
-                organization=organization, name="Основной филиал", phone=phone
-            )
-            user = User.objects.create_user(
-                username=f"owner-{phone[1:]}",
-                phone=phone,
-                organization=organization,
-                active_branch=branch,
-                first_name="Владелец",
-            )
-        elif user.active_branch_id is None and user.organization_id:
+        user = User.objects.filter(phone=phone, is_active=True).first()
+        if user is None:
+            cache.delete(f"crm:otp:{phone}")
+            return Response({"detail": "Пользователь с таким номером не найден."}, status=404)
+        if user.active_branch_id is None and user.organization_id:
             user.active_branch = user.organization.branches.first()
             user.save(update_fields=["active_branch"])
 
@@ -81,7 +62,7 @@ class OtpVerifyView(APIView):
                 "access": issue_token(user, "access"),
                 "refresh": issue_token(user, "refresh"),
                 "user": UserSerializer(user).data,
-                "created": created,
+                "created": False,
                 "detail": "Вход выполнен.",
             }
         )

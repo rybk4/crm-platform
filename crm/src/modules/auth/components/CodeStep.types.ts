@@ -1,8 +1,8 @@
 export interface CodeStepProps {
   phone: string
-  debugHint: string
   loading: boolean
-  errorMessage: string
+  rejected: boolean
+  onEdit: () => void
   onSubmit: (code: string) => Promise<void>
   onBack: () => void
 }

@@ -1,0 +1,113 @@
+.auth-form--code {
+  justify-items: stretch;
+  gap: 24px;
+}
+
+.auth-code-copy {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.auth-code-copy .MuiTypography-root {
+  color: color-mix(in srgb, var(--app-text) 65%, var(--app-surface));
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.auth-code-phone {
+  color: var(--app-text);
+  font-size: 18px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.auth-code-field {
+  display: grid;
+  gap: 12px;
+}
+
+.auth-form--code .ui-otp {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.auth-form--code .ui-otp__digit {
+  height: auto;
+  aspect-ratio: 1;
+  border: 2px solid var(--app-border);
+  border-radius: 16px;
+  background: var(--app-surface);
+  font-size: 24px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.auth-form--code .ui-otp__digit:hover:not(:disabled) {
+  background: var(--app-surface);
+}
+
+.auth-form--code .ui-otp__digit:focus {
+  border-color: var(--app-primary);
+}
+
+.auth-form--code .ui-otp[data-error='true'] .ui-otp__digit {
+  border-color: var(--app-danger);
+}
+
+.auth-code-field .MuiAlert-root {
+  justify-content: center;
+  padding: 0;
+  color: color-mix(in srgb, var(--app-danger) 80%, var(--app-text));
+  background: transparent;
+  font-size: 13px;
+  text-align: center;
+}
+
+.auth-code-field .MuiAlert-icon {
+  display: none;
+}
+
+.auth-form--code .auth-code-submit.MuiButton-root {
+  min-height: 52px;
+  padding: 12px 20px;
+  font-size: 15px;
+}
+
+.auth-form--code .auth-code-submit.MuiButton-root.MuiButton-contained.MuiButton-colorPrimary,
+.auth-form--code .auth-code-submit.MuiButton-root.MuiButton-contained.MuiButton-colorPrimary:hover {
+  box-shadow: none;
+}
+
+.auth-code-change {
+  justify-self: center;
+  min-height: 44px;
+  margin-top: -16px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  color: color-mix(in srgb, var(--app-primary) 70%, var(--app-text));
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.auth-code-change:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.auth-code-change:focus-visible {
+  outline: 2px solid var(--app-primary);
+  outline-offset: 2px;
+}
+
+.auth-code-change:disabled {
+  color: var(--app-muted);
+  cursor: not-allowed;
+}

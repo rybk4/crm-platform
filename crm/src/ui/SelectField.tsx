@@ -6,6 +6,7 @@ export type { SelectOption, SelectFieldProps } from './SelectField.types'
 export function SelectField({
   id,
   label,
+  hideLabel = false,
   value,
   options,
   onChange,
@@ -15,12 +16,18 @@ export function SelectField({
   return (
     <MuiTextField
       id={id}
-      label={label}
+      label={hideLabel ? undefined : label}
       value={value}
       onChange={(event) => onChange(event.target.value)}
       disabled={disabled}
       required={required}
       select
+      slotProps={{
+        select: {
+          displayEmpty: hideLabel,
+          inputProps: hideLabel ? { 'aria-label': label } : undefined,
+        },
+      }}
       fullWidth
     >
       {options.map((option) => (

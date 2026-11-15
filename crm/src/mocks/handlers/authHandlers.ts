@@ -15,7 +15,6 @@ export const authRoutes = [
 
     return ok({
       detail: 'Код отправлен.',
-      debug: '0000',
       user_exists: true,
     })
   }),

@@ -2,23 +2,24 @@ import { useState, type FormEvent } from 'react'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { formatPhoneInput, isValidPhone, normalizePhone } from '@/lib/validation/phone'
-import { Alert } from '@/ui/Alert'
 import { Button } from '@/ui/Button'
 import { TextField } from '@/ui/TextField'
 import type { PhoneStepProps } from './PhoneStep.types'
 export type { PhoneStepProps } from './PhoneStep.types'
 
-export function PhoneStep({ initialPhone, loading, errorMessage, onSubmit }: PhoneStepProps) {
+export function PhoneStep({ initialPhone, loading, rejected, onEdit, onSubmit }: PhoneStepProps) {
   const { t } = useLocale()
-  const [phone, setPhone] = useState(() => formatPhoneInput(initialPhone))
+  const [phone, setPhone] = useState(() =>
+    initialPhone === '+7' ? '' : formatPhoneInput(initialPhone),
+  )
   const [submitted, setSubmitted] = useState(false)
   const normalizedPhone = normalizePhone(phone)
-  const invalidPhone = phone !== '+7' && !isValidPhone(normalizedPhone)
+  const validPhone = isValidPhone(normalizedPhone) && normalizedPhone.length === 12
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setSubmitted(true)
-    if (!isValidPhone(normalizedPhone)) return
+    if (!validPhone) return
     void onSubmit(phone)
   }
 
@@ -29,23 +30,20 @@ export function PhoneStep({ initialPhone, loading, errorMessage, onSubmit }: Pho
         name="phone_number"
         label={t('authPhoneLabel')}
         value={phone}
-        onChange={(value) => setPhone(formatPhoneInput(value))}
+        onChange={(value) => {
+          setPhone(/\d/.test(value) ? formatPhoneInput(value) : '')
+          onEdit()
+        }}
+        type="tel"
         inputMode="tel"
         autoComplete="tel"
-        autoFocus
         placeholder={t('authPhonePlaceholder')}
         disabled={loading}
-        error={invalidPhone || (submitted && !isValidPhone(normalizedPhone))}
-        helperText={
-          invalidPhone || (submitted && !isValidPhone(normalizedPhone))
-            ? t('errorPhoneFormat')
-            : undefined
-        }
+        error={rejected || (submitted && !validPhone)}
+        helperText={submitted && !validPhone ? t('errorPhoneFormat') : undefined}
       />
 
-      {errorMessage ? <Alert>{errorMessage}</Alert> : null}
-
-      <Button type="submit" fullWidth loading={loading}>
+      <Button type="submit" fullWidth loading={loading} disabled={!validPhone}>
         {t('authGetCode')}
       </Button>
     </form>

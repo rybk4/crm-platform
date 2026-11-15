@@ -30,7 +30,6 @@ export interface ProfileChanges {
 
 export interface OtpRequestResponse {
   detail: string
-  debug?: string
   user_exists: boolean
 }
 

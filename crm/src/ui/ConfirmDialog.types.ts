@@ -7,4 +7,5 @@ export interface ConfirmDialogProps {
   onConfirm: () => void
   onCancel: () => void
   loading?: boolean
+  sidePanel?: boolean
 }

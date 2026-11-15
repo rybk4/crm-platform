@@ -6,24 +6,24 @@ export const RULER_STEP_MINUTES = 30
 /** Высота шапки колонки. Совпадает с `--journal-head` в journal.css. */
 export const HEAD_PX = 63
 
-export function offsetPx(minutes: number, bounds: DayWindow) {
-  return Math.max(minutes - bounds.open, 0) * MINUTE_PX
+export function offsetPx(minutes: number, bounds: DayWindow, step = 30) {
+  return Math.floor(Math.max(minutes - bounds.open, 0) / step) * 54
 }
 
-export function heightPx(durationMinutes: number) {
-  return Math.max(durationMinutes * MINUTE_PX - 4, 28)
+export function heightPx(durationMinutes: number, step = 30) {
+  return Math.max(Math.ceil(durationMinutes / step), 1) * 54 - 4
 }
 
-export function boardHeightPx(bounds: DayWindow) {
-  return Math.max(bounds.close - bounds.open, 60) * MINUTE_PX
+export function boardHeightPx(bounds: DayWindow, step = 30) {
+  return Math.ceil(Math.max(bounds.close - bounds.open, step) / step) * 54
 }
 
 /** Отметки часовой линейки, включая верхнюю границу дня. */
-export function rulerMarks(bounds: DayWindow) {
-  const first = Math.ceil(bounds.open / RULER_STEP_MINUTES) * RULER_STEP_MINUTES
+export function rulerMarks(bounds: DayWindow, step = 30) {
+  const first = bounds.open
   const marks: number[] = []
 
-  for (let minute = first; minute < bounds.close; minute += RULER_STEP_MINUTES) {
+  for (let minute = first; minute < bounds.close; minute += step) {
     marks.push(minute)
   }
 

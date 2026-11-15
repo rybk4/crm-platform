@@ -55,4 +55,47 @@ describe('OtpInput', () => {
     expect(digits[2]).toHaveValue('')
     expect(digits[2]).toHaveFocus()
   })
+
+  it('принимает полный код через автозаполнение', () => {
+    render(<OtpFixture />)
+    const digits = getDigits()
+
+    fireEvent.change(digits[0], { target: { value: '5927' } })
+
+    expect(digits.map((digit) => (digit as HTMLInputElement).value)).toEqual(['5', '9', '2', '7'])
+    expect(digits[3]).toHaveFocus()
+  })
+
+  it('сохраняет заполненный код при дальнейшем наборе', async () => {
+    const user = userEvent.setup()
+    render(<OtpFixture />)
+    const digits = getDigits()
+
+    await user.type(digits[0], '1234567890')
+
+    expect(digits.map((digit) => (digit as HTMLInputElement).value)).toEqual(['1', '2', '3', '4'])
+    expect(digits[3]).toHaveFocus()
+  })
+
+  it('позволяет заменить выбранную цифру после полного ввода', async () => {
+    const user = userEvent.setup()
+    render(<OtpFixture />)
+    const digits = getDigits()
+    fireEvent.change(digits[0], { target: { value: '5927' } })
+
+    await user.click(digits[1])
+    await user.keyboard('8')
+
+    expect(digits.map((digit) => (digit as HTMLInputElement).value)).toEqual(['5', '8', '2', '7'])
+  })
+
+  it('не принимает дописывание к занятой ячейке через мобильный ввод', () => {
+    render(<OtpFixture />)
+    const digits = getDigits()
+    fireEvent.change(digits[0], { target: { value: '1234' } })
+
+    fireEvent.change(digits[3], { target: { value: '45' } })
+
+    expect(digits.map((digit) => (digit as HTMLInputElement).value)).toEqual(['1', '2', '3', '4'])
+  })
 })

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 
 import { useLocale } from '@/lib/i18n/LocaleContext'
+import { formatPhoneInput } from '@/lib/validation/phone'
 import { Alert } from '@/ui/Alert'
 import { Button } from '@/ui/Button'
 import { OtpInput } from '@/ui/OtpInput'
@@ -8,14 +9,7 @@ import { Text } from '@/ui/Text'
 import type { CodeStepProps } from './CodeStep.types'
 export type { CodeStepProps } from './CodeStep.types'
 
-export function CodeStep({
-  phone,
-  debugHint,
-  loading,
-  errorMessage,
-  onSubmit,
-  onBack,
-}: CodeStepProps) {
+export function CodeStep({ phone, loading, rejected, onEdit, onSubmit, onBack }: CodeStepProps) {
   const { t } = useLocale()
   const [code, setCode] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -28,28 +22,37 @@ export function CodeStep({
   }
 
   return (
-    <form className="auth-form" onSubmit={handleSubmit} noValidate>
-      <div className="auth-code-copy">
-        <Text className="auth-code-label">{t('authSmsCodeLabel')}</Text>
-        <Text tone="muted">{t('authCodeSent', { phone })}</Text>
+    <form className="auth-form auth-form--code" onSubmit={handleSubmit} noValidate>
+      <div className="auth-code-copy" role="status" aria-live="polite">
+        <Text>{t('authCodeDestination')}</Text>
+        <strong className="auth-code-phone">{formatPhoneInput(phone)}</strong>
       </div>
 
-      <OtpInput
-        value={code}
-        onChange={setCode}
-        disabled={loading}
-        error={submitted && !/^\d{4}$/.test(code)}
-        getDigitLabel={(position) => t('authCodeDigit', { position })}
-      />
+      <div className="auth-code-field">
+        <OtpInput
+          value={code}
+          onChange={(value) => {
+            setCode(value)
+            onEdit()
+          }}
+          disabled={loading}
+          error={rejected || (submitted && !/^\d{4}$/.test(code))}
+          getDigitLabel={(position) => t('authCodeDigit', { position })}
+        />
 
-      {submitted && !/^\d{4}$/.test(code) ? <Alert>{t('errorCodeFormat')}</Alert> : null}
-      {errorMessage ? <Alert>{errorMessage}</Alert> : null}
-      {debugHint ? <p className="auth-debug">{t('authDebugCode', { code: debugHint })}</p> : null}
+        {submitted && !/^\d{4}$/.test(code) ? <Alert>{t('errorCodeFormat')}</Alert> : null}
+      </div>
 
-      <Button type="submit" fullWidth loading={loading} disabled={code.length !== 4}>
+      <Button
+        className="auth-code-submit"
+        type="submit"
+        fullWidth
+        loading={loading}
+        disabled={code.length !== 4}
+      >
         {t('authLogin')}
       </Button>
-      <button className="auth-back" type="button" disabled={loading} onClick={onBack}>
+      <button className="auth-code-change" type="button" disabled={loading} onClick={onBack}>
         {t('authChangePhone')}
       </button>
     </form>

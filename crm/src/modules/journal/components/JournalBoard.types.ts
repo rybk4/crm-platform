@@ -4,6 +4,7 @@ import type { DayWindow } from '../model'
 import type { Appointment } from '../types'
 
 export interface JournalBoardProps {
+  step?: number
   specialists: readonly Specialist[]
   appointments: readonly Appointment[]
   bounds: DayWindow
@@ -11,5 +12,5 @@ export interface JournalBoardProps {
   /** Метку «сейчас» рисуем только на сегодняшнем дне. */
   now: Date | null
   onOpen: (appointment: Appointment) => void
-  onCreate: (specialistId?: EntityId, startTime?: string) => void
+  onCreate: (specialistId?: EntityId, startTime?: string, date?: string) => void
 }

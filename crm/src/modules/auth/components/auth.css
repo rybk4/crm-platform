@@ -1,174 +1,159 @@
 .auth-shell {
-  min-height: 100vh;
-  padding: 32px;
+  min-height: 100svh;
+  padding: 40px 24px;
   background: var(--app-background);
 }
 
 .auth-main {
-  min-height: calc(100vh - 64px);
-  display: grid;
-  place-items: center;
-}
-
-.auth-surface.MuiPaper-root {
-  width: min(100%, 450px);
+  min-height: calc(100svh - 80px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 32px 62px;
-  border: 0;
-  border-radius: 32px;
-  background: var(--app-surface);
-  box-shadow:
-    0 5px 15px color-mix(in srgb, var(--app-text) 5%, transparent),
-    0 15px 35px -5px color-mix(in srgb, var(--app-text) 5%, transparent);
+  justify-content: center;
+  gap: 32px;
+}
+
+.auth-brand {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  gap: 12px;
+  color: var(--app-text);
+  font-family: var(--app-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
 }
 
 .auth-logo {
-  width: 52px;
-  height: 52px;
-  display: block;
+  flex-shrink: 0;
 }
 
-.auth-title.MuiTypography-root {
+.auth-surface.MuiPaper-root {
+  width: min(100%, 360px);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 36px;
+  border-radius: 64px;
+  background: var(--app-surface);
+  box-shadow: 0 12px 40px -16px color-mix(in srgb, var(--app-text) 16%, transparent);
+}
+
+.auth-brand__name.MuiTypography-root {
   margin: 0;
   font-family: var(--app-font-family);
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 650;
-  line-height: 1.25;
-  text-align: center;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
 .auth-form {
-  width: 100%;
+  width: min(100%, 260px);
+  align-self: center;
   display: grid;
-  gap: 16px;
+  gap: 24px;
 }
 
 .auth-form .MuiInputBase-root {
-  min-height: 52px;
+  min-height: 56px;
   border-radius: 16px;
-  background: var(--app-surface-muted);
-}
-
-.auth-form .MuiOutlinedInput-notchedOutline {
-  border: 0;
+  background: var(--app-surface);
 }
 
 .auth-form .MuiInputBase-input {
-  padding: 20px 16px 8px;
-  font-size: 16px;
+  padding: 16px;
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+  caret-color: var(--app-primary);
 }
 
-.auth-form .MuiInputLabel-root {
-  color: var(--app-muted);
-  font-size: 16px;
+.auth-form .MuiInputBase-input::selection {
+  color: var(--app-text);
+  background: var(--app-primary-soft);
 }
 
-.auth-form .MuiInputLabel-shrink {
-  transform: translate(14px, 6px) scale(0.75);
+.auth-form .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
+.auth-form .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-width: 2px;
+  border-color: var(--app-border);
 }
 
-.auth-form .MuiInputLabel-root.Mui-focused {
-  color: var(--app-muted);
+.auth-form .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-width: 2px;
+  border-color: var(--app-primary);
+}
+
+.auth-form .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+  border-color: var(--app-danger);
 }
 
 .auth-form .MuiFormHelperText-root {
-  margin: 6px 4px 0;
-}
-
-.auth-form .MuiButton-root {
-  min-height: 52px;
-  border-radius: 16px;
-  font-size: 15px;
-}
-
-.auth-form .MuiAlert-root {
-  padding: 8px 12px;
-  border: 1px solid var(--app-danger-border);
-  border-radius: 12px;
-  color: var(--app-danger);
-  background: var(--app-danger-soft);
+  margin: 8px 0 0;
   font-size: 13px;
-}
-
-.auth-code-copy {
-  display: grid;
-  gap: 5px;
-  text-align: center;
-}
-
-.auth-code-copy .MuiTypography-root {
-  font-size: 13px;
-}
-
-.auth-code-label.MuiTypography-root {
-  color: var(--app-text);
-  font-size: 15px;
-  font-weight: 650;
-}
-
-.auth-debug {
-  margin: -4px 0 0;
-  color: var(--app-muted);
-  font-size: 12px;
-  text-align: center;
-}
-
-.auth-back {
-  justify-self: center;
-  padding: 4px;
-  border: 0;
-  color: var(--app-text);
-  background: transparent;
-  font: inherit;
-  font-size: 14px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-
-.auth-back:hover {
-  color: var(--app-primary);
-}
-
-.auth-back:focus-visible {
-  outline: 2px solid var(--app-primary);
-  outline-offset: 2px;
-}
-
-.auth-back:disabled {
-  color: var(--app-muted);
-  cursor: not-allowed;
 }
 
 .auth-loading {
-  min-height: 180px;
+  min-height: 208px;
   display: grid;
   place-items: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .auth-shell {
-    padding: 16px;
+    padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
   }
 
   .auth-main {
-    min-height: calc(100vh - 32px);
+    min-height: calc(100svh - 48px);
+    gap: 28px;
   }
 
-  .auth-surface {
+  .auth-surface.MuiPaper-root {
     padding: 28px 24px;
+  }
+
+  .auth-brand__name.MuiTypography-root {
+    font-size: 21px;
   }
 }
 
-@media (max-width: 360px) {
-  .auth-surface {
-    padding-inline: 18px;
+.auth-step {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.auth-step[data-stage='phone'],
+.auth-step[data-stage='code'] {
+  animation: auth-step-enter 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.auth-step[data-stage='phone'] {
+  --auth-step-offset: -12px;
+}
+
+.auth-step[data-stage='code'] {
+  --auth-step-offset: 12px;
+}
+
+@keyframes auth-step-enter {
+  from {
+    opacity: 0;
+    transform: translateX(var(--auth-step-offset));
   }
 
-  .ui-otp {
-    gap: 7px;
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-step[data-stage='phone'],
+  .auth-step[data-stage='code'] {
+    animation: none;
   }
 }

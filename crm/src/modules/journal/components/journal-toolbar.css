@@ -1,0 +1,107 @@
+.journal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 15px;
+}
+.journal-toolbar__main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+.journal-toolbar__specialists {
+  width: 300px;
+  flex-shrink: 1;
+  min-width: 160px;
+}
+.journal-toolbar .MuiOutlinedInput-root {
+  height: 52px;
+  border-radius: 16px;
+  background: var(--app-surface);
+}
+.journal-toolbar .MuiOutlinedInput-notchedOutline {
+  border: 2px solid var(--app-background);
+}
+.journal-toolbar__navigation {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  border: 2px solid var(--app-background);
+  border-radius: 16px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.journal-toolbar__navigation time {
+  font-size: 16px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.journal-toolbar__calendar {
+  display: grid;
+  place-items: center;
+  position: relative;
+  width: 52px;
+  height: 52px;
+  background: var(--app-background);
+  border-radius: 16px;
+  border: 0;
+  cursor: pointer;
+}
+.journal-toolbar__calendar input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.journal-toolbar__calendar:focus-within {
+  outline: 2px solid var(--app-primary);
+  outline-offset: -2px;
+}
+.journal-toolbar .journal-toolbar__secondary.MuiButton-root {
+  height: 52px;
+  padding-inline: 24px;
+  border-radius: 16px;
+  color: var(--app-text);
+  background: var(--app-background);
+  white-space: nowrap;
+}
+.journal-toolbar .journal-toolbar__secondary:hover {
+  background: var(--app-border);
+}
+.journal-toolbar__aside {
+  min-width: 120px;
+}
+@media (max-width: 1100px) {
+  .journal-toolbar__specialists {
+    width: 240px;
+  }
+  .journal-toolbar__main {
+    gap: 8px;
+  }
+  .journal-toolbar .journal-toolbar__secondary.MuiButton-root {
+    padding-inline: 16px;
+  }
+}
+@media (max-width: 780px) {
+  .journal-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .journal-toolbar__main {
+    flex-wrap: wrap;
+  }
+  .journal-toolbar__specialists {
+    width: 100%;
+  }
+  .journal-toolbar__navigation {
+    flex: 1;
+    justify-content: space-between;
+  }
+  .journal-toolbar__aside > .MuiButton-root {
+    width: 100%;
+  }
+}

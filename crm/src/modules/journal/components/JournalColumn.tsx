@@ -12,6 +12,8 @@ import type { JournalColumnProps } from './JournalColumn.types'
 export type { JournalColumnProps } from './JournalColumn.types'
 
 export function JournalColumn({
+  step = 30,
+  heading,
   specialist,
   window,
   bounds,
@@ -25,25 +27,27 @@ export function JournalColumn({
   return (
     <div className="journal-column">
       <div className="journal-column__head">
-        <Avatar
-          className="journal-column__avatar"
-          label={specialist.full_name}
-          value={specialistInitials(specialist)}
-          src={specialist.photo_url}
-        />
-        <div className="journal-column__identity">
-          <strong>{specialist.full_name}</strong>
-          <span>
-            {window
-              ? `${timeFromMinutes(window.open)}–${timeFromMinutes(window.close)}`
-              : t('journalDayOffShort')}
-          </span>
-        </div>
+        {heading ? (
+          <strong>{heading}</strong>
+        ) : (
+          <>
+            <Avatar
+              className="journal-column__avatar"
+              label={specialist.full_name}
+              value={specialistInitials(specialist)}
+              src={specialist.photo_url}
+            />
+            <div className="journal-column__identity">
+              <strong>{specialist.full_name}</strong>
+              <span>{window ? specialist.phone_number : t('journalDayOffShort')}</span>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="journal-column__track" data-day-off={!window} style={{ height }}>
         <div className="journal-column__slots">
-          {rulerMarks(bounds).map((minute) => {
+          {rulerMarks(bounds, step).map((minute) => {
             const inShift = Boolean(window && minute >= window.open && minute < window.close)
             const inBreak = Boolean(
               window &&
@@ -80,8 +84,8 @@ export function JournalColumn({
               key={appointment.id}
               appointment={appointment}
               style={{
-                top: offsetPx(range.start, bounds),
-                height: heightPx(range.end - range.start),
+                top: offsetPx(range.start, bounds, step),
+                height: heightPx(range.end - range.start, step),
               }}
               onOpen={onOpen}
             />
