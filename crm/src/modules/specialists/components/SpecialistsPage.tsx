@@ -10,6 +10,7 @@ import { ConfirmDialog } from '@/ui/ConfirmDialog'
 import { EmptyState } from '@/ui/EmptyState'
 import { Icon } from '@/ui/Icon'
 import { Loader } from '@/ui/Loader'
+import { Pagination } from '@/ui/Pagination'
 import { SearchField } from '@/ui/SearchField'
 import { SelectField } from '@/ui/SelectField'
 import { useSpecialistDialog } from '../hooks/useSpecialistDialog'
@@ -21,6 +22,8 @@ import { SpecialistDialog } from './SpecialistDialog'
 import type { SpecialistsPageProps } from './SpecialistsPage.types'
 export type { SpecialistsPageProps } from './SpecialistsPage.types'
 
+import './specialists-fonts.css'
+import './specialists-tools.css'
 import './specialists.css'
 
 export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
@@ -48,21 +51,16 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
   return (
     <section className="specialists-page">
       <header className="specialists-page__header">
-        <div>
-          <h1>{t('specialistsTitle')}</h1>
-          <span>
-            {activeBranch?.name ?? t('selectBranch')} ·{' '}
-            {filters.items.length === 1
-              ? t('specialistsCountOne')
-              : t('specialistsCount', { count: filters.items.length })}
-          </span>
-        </div>
+        <span className="specialists-page__breadcrumb">{t('specialistsTitle')}</span>
+        <h1>{t('specialistsTitle')}</h1>
       </header>
 
       <div className="specialists-tools">
         <SearchField
           id="specialists-search"
           label={t('searchSpecialists')}
+          placeholder={t('searchSpecialists')}
+          hideLabel
           value={filters.search}
           clearLabel={t('clearSearch')}
           onChange={filters.setSearch}
@@ -70,6 +68,7 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
         <SelectField
           id="specialists-position"
           label={t('allPositions')}
+          hideLabel
           value={filters.position}
           options={[
             { value: '', label: t('allPositions') },
@@ -80,9 +79,10 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
         <SelectField
           id="specialists-status"
           label={t('activityFilter')}
+          hideLabel
           value={filters.status}
           options={[
-            { value: 'all', label: t('allStatuses') },
+            { value: 'all', label: t('specialistsAll') },
             { value: 'active', label: t('active') },
             { value: 'inactive', label: t('inactive') },
           ]}
@@ -93,14 +93,18 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
         <SelectField
           id="specialists-sort"
           label={t('sorting')}
+          hideLabel
           value={filters.sort}
           options={[
+            { value: 'none', label: t('sortNone') },
             { value: 'recent', label: t('sortRecent') },
             { value: 'name', label: t('sortByName') },
             { value: 'position', label: t('sortByPosition') },
           ]}
           onChange={(value) =>
-            filters.setSort(value === 'name' || value === 'position' ? value : 'recent')
+            filters.setSort(
+              value === 'name' || value === 'position' || value === 'recent' ? value : 'none',
+            )
           }
         />
         <Button
@@ -124,7 +128,7 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
       ) : null}
 
       <div className="specialist-grid">
-        {filters.items.map((specialist) => (
+        {filters.pageItems.map((specialist) => (
           <SpecialistCard
             key={specialist.id}
             specialist={specialist}
@@ -134,6 +138,17 @@ export function SpecialistsPage({ activeBranch }: SpecialistsPageProps) {
           />
         ))}
       </div>
+
+      {filters.pageCount > 1 ? (
+        <div className="specialists-page__pagination">
+          <Pagination
+            page={filters.page}
+            pages={filters.pageCount}
+            ariaLabel={t('specialistsPagination')}
+            onChange={filters.setPage}
+          />
+        </div>
+      ) : null}
 
       <SpecialistDialog
         dialog={dialog}

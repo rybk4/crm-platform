@@ -667,3 +667,13 @@
     transition: none;
   }
 }
+
+/* The reference specialists screen has its own inset and scrollable card list. */
+@media (min-width: 861px) {
+  .app-workspace:has(.specialists-page) {
+    padding-left: 26px;
+  }
+  .app-content:has(.specialists-page) {
+    padding: 36px 40px 16px;
+  }
+}

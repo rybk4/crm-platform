@@ -12,19 +12,21 @@ export function SearchField({
   value,
   onChange,
   placeholder,
+  hideLabel = false,
   clearLabel,
 }: SearchFieldProps) {
   return (
     <MuiTextField
       id={id}
       name={id}
-      label={label}
+      label={hideLabel ? undefined : label}
       value={value}
       placeholder={placeholder}
       onChange={(event) => onChange(event.target.value)}
       type="search"
       fullWidth
       slotProps={{
+        htmlInput: hideLabel ? { 'aria-label': label } : undefined,
         input: {
           startAdornment: (
             <InputAdornment position="start">

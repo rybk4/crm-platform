@@ -56,6 +56,7 @@ export function OrganizationMainFields({ settings, cities }: OrganizationMainFie
           id="organization-phone"
           name="phone"
           type="tel"
+          mask="phone"
           inputMode="tel"
           label={t('settingsOrganizationContacts')}
           value={form.phone}

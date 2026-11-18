@@ -5,9 +5,9 @@
 
 .auth-code-copy {
   display: grid;
-  justify-items: center;
+  justify-items: start;
   gap: 6px;
-  text-align: center;
+  text-align: left;
 }
 
 .auth-code-copy .MuiTypography-root {
@@ -36,9 +36,9 @@
 
 .auth-form--code .ui-otp__digit {
   height: auto;
-  aspect-ratio: 1;
-  border: 2px solid var(--app-border);
-  border-radius: 16px;
+  min-height: 64px;
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
   background: var(--app-surface);
   font-size: 24px;
   font-weight: 500;
@@ -63,7 +63,7 @@
   color: color-mix(in srgb, var(--app-danger) 80%, var(--app-text));
   background: transparent;
   font-size: 13px;
-  text-align: center;
+  text-align: left;
 }
 
 .auth-code-field .MuiAlert-icon {

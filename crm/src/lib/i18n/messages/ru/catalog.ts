@@ -1,5 +1,9 @@
 // Разделы «Специалисты» и «Услуги»: команда организации и её каталог.
 export const catalog = {
+  sortNone: 'Без сортировки',
+  specialistsAll: 'Все',
+  specialistOnline: 'Онлайн',
+  specialistsPagination: 'Страницы специалистов',
   specialistsTitle: 'Специалисты',
   specialistsDescription: 'Команда организации, доступность и настройки мастеров.',
   specialistsEmptyTitle: 'Добавьте специалистов организации',

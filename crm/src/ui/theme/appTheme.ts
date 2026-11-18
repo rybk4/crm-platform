@@ -3,6 +3,7 @@ import type { AppThemeDefinition } from './types'
 export const appTheme: AppThemeDefinition = {
   fontFamily: 'Onest, Arial, sans-serif',
   displayFontFamily: 'Onest, Arial, sans-serif',
+  referenceFontFamily: '"Specialists Inter", Arial, sans-serif',
   tokens: {
     background: '#F2F2F7',
     surface: '#FFFFFF',

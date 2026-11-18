@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react'
 
-import { formatPhoneInput } from '@/lib/validation/phone'
 import { validateClientForm } from '../model'
 import type { ClientForm, ClientFormErrors, ClientFormField } from '../model'
 
@@ -10,8 +9,7 @@ export function useClientFormState(initial: ClientForm) {
   const [errors, setErrors] = useState<ClientFormErrors>({})
 
   const patch = useCallback(<K extends ClientFormField>(field: K, value: ClientForm[K]) => {
-    const next = field === 'phone_number' ? formatPhoneInput(String(value)) : value
-    setForm((current) => ({ ...current, [field]: next }))
+    setForm((current) => ({ ...current, [field]: value }))
     setErrors((current) => ({ ...current, [field]: undefined }))
   }, [])
 

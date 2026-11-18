@@ -1,4 +1,5 @@
 import MuiTextField from '@mui/material/TextField'
+import { usePhoneInput } from './usePhoneInput'
 import type { TextFieldProps } from './TextField.types'
 export type { TextFieldProps } from './TextField.types'
 
@@ -8,6 +9,7 @@ export function TextField({
   label,
   value,
   onChange,
+  onBlur,
   error = false,
   helperText,
   autoComplete,
@@ -19,14 +21,20 @@ export function TextField({
   rows,
   required = false,
   placeholder,
+  mask,
 }: TextFieldProps) {
+  const input = usePhoneInput(value, onChange, mask === 'phone')
+
   return (
     <MuiTextField
       id={id}
       name={name}
       label={label}
       value={value}
-      onChange={(event) => onChange(event.target.value)}
+      onBlur={onBlur}
+      onChange={input.change}
+      onKeyDown={input.keyDown}
+      inputRef={input.inputRef}
       error={error}
       helperText={helperText}
       autoComplete={autoComplete}
@@ -40,7 +48,7 @@ export function TextField({
       fullWidth
       slotProps={{
         htmlInput: { inputMode },
-        inputLabel: type === 'date' ? { shrink: true } : undefined,
+        inputLabel: type === 'date' || mask === 'phone' ? { shrink: true } : undefined,
       }}
     />
   )

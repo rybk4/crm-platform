@@ -40,7 +40,7 @@ describe('useClientDialog', () => {
     expect(result.current.open).toBe(true)
   })
 
-  it('маскирует телефон, отправляет нормализованные данные и закрывается', async () => {
+  it('сохраняет введённый телефон, отправляет нормализованные данные и закрывается', async () => {
     const { result, mutateAsync } = setup()
 
     act(() => result.current.openCreate())
@@ -48,7 +48,7 @@ describe('useClientDialog', () => {
     act(() => result.current.patch('phone_number', '87015551122'))
     await act(() => result.current.submit())
 
-    expect(result.current.form.phone_number).toBe('+7 (701) 555-11-22')
+    expect(result.current.form.phone_number).toBe('87015551122')
     expect(mutateAsync).toHaveBeenCalledWith(
       expect.objectContaining({
         first_name: 'Дана',

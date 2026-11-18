@@ -63,6 +63,7 @@ export const common = {
   authEnterPhone: 'Enter your phone number',
   authPhoneDescription: 'Access your workspace',
   authUserNotFound: 'No user found with this phone number.',
+  authPhoneHint: 'Use the phone number linked to your account.',
   authPhoneLabel: 'Phone number',
   authPhonePlaceholder: '+7 (700) 123-45-67',
   authGetCode: 'Get code',

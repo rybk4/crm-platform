@@ -47,6 +47,7 @@ export function ClientFormFields({ idPrefix, form, errors, patch }: ClientFields
               id={`${idPrefix}-phone`}
               name="phone_number"
               type="tel"
+              mask="phone"
               inputMode="tel"
               label={t('clientPhone')}
               value={form.phone_number}

@@ -1,62 +1,37 @@
 .specialists-page {
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: calc(100vh - 72px);
+  font-family: var(--app-reference-font-family);
 }
 .specialists-page__header h1 {
   margin: 0;
-  font-family: var(--app-font-family);
+  font-family: inherit;
   font-size: 20px;
   font-weight: 600;
   line-height: 22px;
   letter-spacing: 0;
 }
-.specialists-page__header span {
-  display: block;
-  margin-top: 6px;
-  color: var(--app-muted);
-  font-size: 12px;
-}
-.specialists-tools {
+.specialists-page__header {
   display: grid;
-  grid-template-columns: repeat(4, minmax(155px, 230px)) minmax(210px, 1fr);
-  align-items: start;
-  gap: 8px;
-  padding: 0 0 8px;
+  gap: 10px;
 }
-.specialists-tools .MuiInputBase-root {
-  height: 52px;
-  border-radius: 16px;
-  background: var(--app-surface-muted);
-  font-size: 14px;
-}
-.specialists-tools .MuiOutlinedInput-notchedOutline {
-  border: 0;
-}
-.specialists-tools .MuiInputBase-root.Mui-focused {
-  box-shadow: 0 0 0 2px var(--app-primary-border);
-}
-.specialists-tools .MuiInputLabel-root {
+.specialists-page__breadcrumb {
   color: var(--app-muted);
-}
-.specialists-tools__add.MuiButton-root {
-  min-width: 210px;
-  height: 52px;
-  justify-self: end;
-  border-radius: 16px;
-  color: var(--app-primary);
-  background: var(--app-surface-muted);
   font-size: 14px;
-  white-space: nowrap;
-}
-.specialists-tools__add.MuiButton-root:hover {
-  background: var(--app-border);
+  line-height: 21px;
 }
 .specialist-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow-y: auto;
+  align-content: start;
+  min-height: 0;
+  scrollbar-width: none;
   gap: 16px;
 }
-.specialist-card {
+.specialist-card.MuiPaper-root {
   position: relative;
   min-width: 0;
   display: flex;
@@ -64,11 +39,12 @@
   gap: 16px;
   padding: 16px;
   border: 1px solid var(--app-border);
-  border-radius: 24px !important;
-  box-shadow: none !important;
+  border-radius: 24px;
+  box-shadow: none;
+  font-family: inherit;
 }
 .specialist-card[data-inactive='true'] {
-  background: var(--app-surface-muted);
+  background: var(--app-background);
 }
 .specialist-card__header,
 .specialist-card__person,
@@ -90,20 +66,20 @@
   text-align: left;
   cursor: pointer;
 }
-.specialist-card__avatar {
-  width: 32px !important;
-  height: 32px !important;
+.specialist-card__avatar.MuiAvatar-root {
+  width: 32px;
+  height: 32px;
   flex: none;
-  border-radius: 10px !important;
-  color: var(--app-on-primary) !important;
-  background: var(--app-primary) !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
+  border-radius: 10px;
+  color: var(--app-on-primary);
+  background: var(--app-primary);
+  font-size: 12px;
+  font-weight: 600;
 }
 .specialist-card__identity {
   min-width: 0;
   display: grid;
-  gap: 2px;
+  gap: 0;
 }
 .specialist-card__identity strong,
 .specialist-card__identity small {
@@ -131,13 +107,17 @@
   color: var(--app-on-primary);
   background: var(--app-danger);
   font-size: 12px;
+  line-height: 14px;
+}
+.specialist-card__badge[data-active='true'] {
+  background: var(--app-success);
 }
 .specialist-card__menu-trigger.MuiIconButton-root {
   width: 34px;
   height: 34px;
   border-radius: 8px;
   color: var(--app-primary);
-  background: var(--app-surface-muted);
+  background: var(--app-background);
 }
 .specialist-card__menu-trigger.MuiIconButton-root:hover {
   background: var(--app-border);
@@ -170,7 +150,7 @@
   cursor: pointer;
 }
 .specialist-card__menu button:hover {
-  background: var(--app-surface-muted);
+  background: var(--app-background);
 }
 .specialist-card__menu button[data-danger] {
   color: var(--app-danger);
@@ -184,7 +164,7 @@
   flex: none;
   padding: 10px;
   border-radius: 10px;
-  background: var(--app-surface-muted);
+  background: var(--app-background);
   font-size: 14px;
   line-height: 16px;
 }
@@ -206,39 +186,68 @@
 .specialist-card__days::-webkit-scrollbar {
   display: none;
 }
-.specialist-card__days button {
-  min-width: 40px;
+.specialist-card__days > span {
+  flex: none;
   padding: 6px;
-  border: 1px solid var(--app-border);
+  border: 1px solid transparent;
   border-radius: 12px;
   color: var(--app-muted);
-  background: var(--app-surface-muted);
+  background: var(--app-background);
   font: inherit;
-  font-size: 12px;
-  cursor: pointer;
+  font-size: 14px;
+  line-height: 16px;
 }
-.specialist-card__days button[data-working='true'] {
+.specialist-card__days > span[data-working='true'] {
   border-color: var(--app-success);
   color: var(--app-success);
   background: var(--app-surface);
 }
-@media (max-width: 1100px) {
+@media (max-width: 1350px) {
   .specialists-tools {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .specialists-tools__add.MuiButton-root {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
     width: 100%;
     justify-self: stretch;
   }
-  .specialist-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 @media (max-width: 680px) {
+  .specialists-page {
+    height: auto;
+  }
+  .specialists-tools__add.MuiButton-root {
+    grid-column: 1;
+    grid-row: auto;
+  }
   .specialists-tools {
     grid-template-columns: 1fr;
   }
   .specialist-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.specialists-page__pagination {
+  display: flex;
+  justify-content: center;
+  flex: none;
+  margin-top: auto;
+}
+.specialists-page__pagination .MuiPaginationItem-root {
+  border-color: transparent;
+  color: var(--app-text);
+  font-family: inherit;
+}
+.specialists-page__pagination .Mui-selected {
+  border-color: var(--app-primary);
+  background: var(--app-surface);
+}
+
+.specialist-card__menu-trigger circle {
+  r: 2px;
+  fill: currentColor;
+  stroke: none;
 }

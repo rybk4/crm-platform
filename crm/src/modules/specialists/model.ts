@@ -84,7 +84,7 @@ export function scheduleDayLabel(day: WorkSchedule) {
 }
 
 export type SpecialistStatusFilter = 'all' | 'active' | 'inactive'
-export type SpecialistSort = 'name' | 'position' | 'recent'
+export type SpecialistSort = 'name' | 'position' | 'recent' | 'none'
 
 interface SpecialistListFilters {
   search: string
@@ -109,6 +109,8 @@ export function filterSpecialists(
 
     return matchesSearch && matchesStatus && matchesPosition
   })
+
+  if (sort === 'none') return filtered
 
   return [...filtered].sort((left, right) => {
     if (sort === 'name') return left.full_name.localeCompare(right.full_name)

@@ -1,4 +1,8 @@
 export const catalog = {
+  sortNone: 'No sorting',
+  specialistsAll: 'All',
+  specialistOnline: 'Online',
+  specialistsPagination: 'Specialist pages',
   specialistsTitle: 'Specialists',
   specialistsDescription: 'Your organization team, availability, and specialist settings.',
   specialistsEmptyTitle: 'Add organization specialists',

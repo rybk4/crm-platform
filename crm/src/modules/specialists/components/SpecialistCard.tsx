@@ -36,9 +36,9 @@ export function SpecialistCard({ specialist, onOpen, onEdit, onDelete }: Special
         </button>
 
         <div className="specialist-card__actions">
-          {!specialist.is_active ? (
-            <span className="specialist-card__badge">{t('inactive')}</span>
-          ) : null}
+          <span className="specialist-card__badge" data-active={specialist.is_active}>
+            {specialist.is_active ? t('specialistOnline') : t('inactive')}
+          </span>
           <IconButton
             className="specialist-card__menu-trigger"
             ariaLabel={t('actionsMenu')}
@@ -81,14 +81,9 @@ export function SpecialistCard({ specialist, onOpen, onEdit, onDelete }: Special
         </span>
         <div className="specialist-card__days" aria-label={t('schedule')}>
           {previewDays.map((day) => (
-            <button
-              key={day.key}
-              type="button"
-              data-working={day.working}
-              title={day.interval ?? t('dayOff')}
-            >
+            <span key={day.key} data-working={day.working} title={day.interval ?? t('dayOff')}>
               {day.label}
-            </button>
+            </span>
           ))}
         </div>
       </div>

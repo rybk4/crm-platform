@@ -175,6 +175,18 @@ describe('scheduleDayLabel', () => {
 })
 
 describe('filterSpecialists', () => {
+  it('keeps the source order when sorting is disabled', () => {
+    const items = [makeSpecialist({ id: 2 }), makeSpecialist({ id: 1 })]
+    expect(
+      filterSpecialists(items, {
+        search: '',
+        status: 'all',
+        sort: 'none',
+        position: '',
+      }),
+    ).toEqual(items)
+  })
+
   it('ищет по должности и фильтрует по активности', () => {
     const inactive = makeSpecialist({
       id: 2,

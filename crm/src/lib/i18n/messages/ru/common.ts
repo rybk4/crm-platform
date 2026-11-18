@@ -66,6 +66,7 @@ export const common = {
   authEnterPhone: 'Введите номер телефона',
   authPhoneDescription: 'Войдите в своё рабочее пространство',
   authUserNotFound: 'Пользователь с таким номером не найден.',
+  authPhoneHint: 'Используйте номер, к которому привязан ваш аккаунт.',
   authPhoneLabel: 'Номер телефона',
   authPhonePlaceholder: '+7 (700) 123-45-67',
   authGetCode: 'Получить код',

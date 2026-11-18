@@ -3,7 +3,6 @@ import { useMemo, useState } from 'react'
 import { readFileAsDataUrl } from '@/lib/browser/readFileAsDataUrl'
 import { useLocale } from '@/lib/i18n/LocaleContext'
 import { notifications } from '@/lib/toast/notifications'
-import { formatPhoneInput } from '@/lib/validation/phone'
 import {
   formToInput,
   isSettingsFormDirty,
@@ -28,8 +27,7 @@ export function useSettingsForm({ profile, update }: UseSettingsFormOptions) {
   const [errors, setErrors] = useState<SettingsErrors>({})
 
   function patch(field: SettingsTextField, value: string) {
-    const next = field === 'phone' ? formatPhoneInput(value) : value
-    setForm((current) => ({ ...current, [field]: next }))
+    setForm((current) => ({ ...current, [field]: value }))
     setErrors((current) => ({ ...current, [field]: undefined }))
   }
 

@@ -1,0 +1,56 @@
+.specialists-tools {
+  display: grid;
+  grid-template-columns: repeat(3, 230px) minmax(250px, 1fr);
+  align-items: start;
+  gap: 8px;
+  flex: none;
+}
+.specialists-tools .MuiInputBase-root {
+  height: 52px;
+  border-radius: 16px;
+  background: var(--app-background);
+  font-size: 16px;
+  font-family: inherit;
+}
+.specialists-tools .MuiInputBase-input {
+  padding: 0;
+}
+.specialists-tools .MuiInputBase-inputAdornedStart {
+  padding-right: 16px;
+}
+.specialists-tools .MuiInputAdornment-positionStart {
+  margin-right: 8px;
+  color: var(--app-text);
+}
+.specialists-tools .MuiInputAdornment-positionStart svg {
+  width: 24px;
+  height: 24px;
+}
+.specialists-tools .MuiOutlinedInput-notchedOutline {
+  border: 0;
+}
+.specialists-tools .MuiInputBase-root.Mui-focused {
+  box-shadow: 0 0 0 2px var(--app-primary-border);
+}
+.specialists-tools .MuiInputLabel-root {
+  color: var(--app-muted);
+}
+.specialists-tools__add.MuiButton-root {
+  grid-column: 4;
+  grid-row: 1;
+  min-width: 250px;
+  height: 52px;
+  justify-self: end;
+  border-radius: 16px;
+  color: var(--app-primary);
+  background: var(--app-background);
+  font: 500 16px / 24px var(--app-reference-font-family);
+  white-space: nowrap;
+}
+.specialists-tools__add.MuiButton-root:hover {
+  background: var(--app-border);
+}
+
+.specialists-tools .MuiSelect-select {
+  padding: 0 32px 0 16px;
+}

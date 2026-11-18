@@ -1,6 +1,7 @@
 export interface AppThemeDefinition {
   fontFamily: string
   displayFontFamily: string
+  referenceFontFamily: string
   tokens: {
     background: string
     surface: string

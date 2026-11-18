@@ -48,12 +48,14 @@ describe('useSettingsForm', () => {
     expect(result.current.dirty).toBe(true)
   })
 
-  it('телефон при вводе раскладывается в маску', () => {
+  it('сохраняет значение телефонного поля и позволяет полностью его очистить', () => {
     const { result } = setup()
 
     act(() => result.current.patch('phone', '87011112233'))
 
-    expect(result.current.form.phone).toBe('+7 (701) 111-22-33')
+    expect(result.current.form.phone).toBe('87011112233')
+    act(() => result.current.patch('phone', ''))
+    expect(result.current.form.phone).toBe('')
   })
 
   it('не отправляет форму с ошибками и показывает их на полях', async () => {

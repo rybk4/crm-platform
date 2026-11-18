@@ -21,8 +21,18 @@ export function AuthScreen({ auth }: AuthScreenProps) {
         <Surface className="auth-surface">
           <div className="auth-brand">
             <img className="auth-logo" src={partnersMark} width={48} height={48} alt="" />
-            <Heading className="auth-brand__name">{t('appName')}</Heading>
+            <Text className="auth-brand__name">{t('appName')}</Text>
           </div>
+          {auth.stage !== 'initializing' ? (
+            <div className="auth-heading">
+              <Heading className="auth-title">
+                {t(auth.stage === 'phone' ? 'authTitle' : 'authEnterCode')}
+              </Heading>
+              {auth.stage === 'phone' ? (
+                <Text className="auth-description">{t('authPhoneDescription')}</Text>
+              ) : null}
+            </div>
+          ) : null}
           <div key={auth.stage} className="auth-step" data-stage={auth.stage}>
             {auth.stage === 'initializing' ? (
               <div className="auth-loading" role="status" aria-live="polite">

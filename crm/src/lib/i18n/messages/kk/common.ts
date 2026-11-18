@@ -63,6 +63,7 @@ export const common = {
   authEnterPhone: 'Телефон нөмірін енгізіңіз',
   authPhoneDescription: 'Жұмыс кеңістігіңізге кіріңіз',
   authUserNotFound: 'Бұл телефон нөмірімен пайдаланушы табылмады.',
+  authPhoneHint: 'Аккаунтыңызға тіркелген телефон нөмірін енгізіңіз.',
   authPhoneLabel: 'Телефон нөмірі',
   authPhonePlaceholder: '+7 (700) 123-45-67',
   authGetCode: 'Код алу',

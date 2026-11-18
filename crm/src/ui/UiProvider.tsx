@@ -82,6 +82,7 @@ function createMuiTheme(theme: AppThemeDefinition) {
 const muiTheme = createMuiTheme(appTheme)
 
 const themeVariables: ThemeVariables = {
+  '--app-reference-font-family': appTheme.referenceFontFamily,
   '--app-font-family': appTheme.fontFamily,
   '--app-display-font-family': appTheme.displayFontFamily,
   '--app-background': appTheme.tokens.background,

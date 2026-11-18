@@ -1,4 +1,8 @@
 export const catalog = {
+  sortNone: 'Сұрыптаусыз',
+  specialistsAll: 'Барлығы',
+  specialistOnline: 'Онлайн',
+  specialistsPagination: 'Мамандар беттері',
   specialistsTitle: 'Мамандар',
   specialistsDescription: 'Ұйым командасы, қолжетімділік және мамандар баптаулары.',
   specialistsEmptyTitle: 'Ұйым мамандарын қосыңыз',
